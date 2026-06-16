@@ -10,6 +10,8 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -22,6 +24,7 @@
 
           home-manager.nixosModules.home-manager
           {
+            home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             
