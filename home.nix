@@ -13,12 +13,31 @@
     firefox
     hyprlauncher
     wl-clipboard
+    nerd-fonts.jetbrains-mono
+    ibm-plex
   ];
 
   imports = [
     inputs.nixvim.homeModules.nixvim
     ./nixvim.nix
   ];
+
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      sansSerif = [ "IBM Plex Sans" ];
+      serif = [ "IBM Plex Serif" ];
+      monospace = [ "JetBrainsMono Nerd Font"];
+    };
+  };
+
+  gtk = {
+    enable = true;
+    font = {
+      name = "IBM Plex Sans";
+      size = 11; 
+    };
+  };
 
   programs.git = {
     enable = true;
@@ -47,6 +66,12 @@
 
   programs.kitty = {
     enable = true;
+
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 12;
+    };
+
     settings = {
       background_opacity = "0.8";
     };
