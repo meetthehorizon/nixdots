@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   # Replace with your exact username and home directory path
@@ -11,9 +11,13 @@
   # User-specific packages you want installed
   home.packages = with pkgs; [
     firefox
-    kitty
     hyprlauncher
-    neovim
+    wl-clipboard
+  ];
+
+  imports = [
+    inputs.nixvim.homeModules.nixvim
+    ./nixvim.nix
   ];
 
   programs.git = {
@@ -23,6 +27,13 @@
         name = "Kshitij Sharma";
 	email = "kshitij.dev@proton.me";
       };
+    };
+  };
+
+  programs.kitty = {
+    enable = true;
+    settings = {
+      background_opacity = "0.8";
     };
   };
 
@@ -38,12 +49,6 @@
       ll = "ls -la";
       update = "sudo nixos-rebuild switch --flake ~/.dotfiles/#horizon";
     };
-  };
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    vimAlias = true;
   };
 
   wayland.windowManager.hyprland = {
