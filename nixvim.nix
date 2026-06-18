@@ -41,6 +41,48 @@
           desc = "Open File Explorer";
         };
       }
+      {
+        mode = "n";
+        key = "]h";
+        action = "<cmd>Gitsigns next_hunk<CR>";
+        options.desc = "Next Git Hunk";
+      }
+      {
+        mode = "n";
+        key = "[h";
+        action = "<cmd>Gitsigns prev_hunk<CR>";
+        options.desc = "Previous Git Hunk";
+      }
+      {
+        mode = "n";
+        key = "<leader>gp";
+        action = "<cmd>Gitsigns preview_hunk<CR>";
+        options.desc = "Preview Git Hunk";
+      }
+      {
+        mode = "n";
+        key = "<leader>gs";
+        action = "<cmd>Gitsigns stage_hunk<CR>";
+        options.desc = "Stage Hunk";
+      }
+      {
+        mode = "n";
+        key = "<leader>gr";
+        action = "<cmd>Gitsigns reset_hunk<CR>";
+        options.desc = "Reset Hunk";
+      }
+      {
+        mode = "n";
+        key = "<leader>gu";
+        action = "<cmd>Gitsigns undo_stage_hunk<CR>";
+        options.desc = "Undo Stage Hunk";
+      }
+      {
+        mode = "n";
+        key = "<leader>gS";
+        action = "<cmd>Gitsigns stage_buffer<CR>";
+        options.desc = "Stage Entire Buffer";
+      }
     ];
 
     plugins.lualine.enable = true;
@@ -132,6 +174,25 @@
           skip_confirm_for_simple_edits = true;
         };
       };
+
+      gitsigns = {
+        enable = true;
+        settings = {
+          current_line_blame = true;
+          current_line_blame_opts = {
+            delay = 500;
+          };
+          signs = {
+            add = {text = "";};
+            change = {text = "";};
+            delete = {text = "_";};
+            topdelete = {text = "‾";};
+            changedelete = {text = "~";};
+          };
+        };
+      };
+
+      nvim-autopairs.enable = true;
     };
 
     extraPackages = with pkgs; [
