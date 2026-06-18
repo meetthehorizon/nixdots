@@ -256,6 +256,7 @@
       stylua
       typescript-language-server
       prettier
+      ripgrep
     ];
   };
 }
