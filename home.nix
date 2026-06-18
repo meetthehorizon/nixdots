@@ -427,6 +427,13 @@ in {
             description = "Toggle Night Light";
           }
         ]
+        [
+          "mod .. \" + F\""
+          "hl.dsp.window.fullscreen()"
+          {
+            description = "Toggle Fullscreen of Active Window";
+          }
+        ]
       ];
     };
     extraConfig = "";
