@@ -1,13 +1,11 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
     vimAlias = true;
     viAlias = true;
 
-    globals.mapleader = " ";      
+    globals.mapleader = " ";
     globals.maplocalleader = " ";
 
     opts = {
@@ -33,6 +31,29 @@
         };
       };
     };
+
+    # Global Keymaps for Jumping Between Errors
+    keymaps = [
+      {
+        mode = "n";
+        key = "[d";
+        action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
+        options.desc = "Jump to Previous Diagnostic";
+      }
+      {
+        mode = "n";
+        key = "]d";
+        action = "<cmd>lua vim.diagnostic.goto_next()<CR>";
+        options.desc = "Jump to Next Diagnostic";
+      }
+      {
+        mode = "n";
+        key = "<leader>q";
+        action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+        options.desc = "Show Diagnostic Error Float";
+      }
+    ];
+
     plugins.lualine.enable = true;
 
     plugins = {
@@ -42,17 +63,27 @@
       telescope = {
         enable = true;
         keymaps = {
-          "sf" = "find_files";
-          "sg" = "live_grep";
+          "<leader>sf" = "find_files";
+          "<leader>sg" = "live_grep";
         };
       };
 
-      lsp = {
+      conform-nvim = {
         enable = true;
-        servers = {
-          gopls.enable = true;    
-          nixd.enable = true;     
-          lua_ls.enable = true;   
+        settings = {
+          format_on_save = {
+            lsp_format = "fallback";
+            timeout_ms = 500;
+          };
+          formatters_by_ft = {
+            # Swapped to Alejandra!
+            nix = ["alejandra"];
+            go = [
+              "goimports"
+              "gofmt"
+            ];
+            lua = ["stylua"];
+          };
         };
       };
 
@@ -61,9 +92,9 @@
         autoEnableSources = true;
         settings = {
           sources = [
-            { name = "nvim_lsp"; }
-            { name = "path"; }
-            { name = "buffer"; }
+            {name = "nvim_lsp";}
+            {name = "path";}
+            {name = "buffer";}
           ];
           mapping = {
             "<C-y>" = "cmp.mapping.confirm({ select = true })";
@@ -73,5 +104,11 @@
         };
       };
     };
+
+    extraPackages = with pkgs; [
+      alejandra # The new formatter binary
+      gotools
+      stylua
+    ];
   };
 }

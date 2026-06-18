@@ -1,18 +1,38 @@
-{ config, pkgs, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: let
+  makeBinds = bindList:
+    map (b: {
+      _args =
+        [
+          (lib.generators.mkLuaInline (builtins.elemAt b 0))
+          (lib.generators.mkLuaInline (builtins.elemAt b 1))
+        ]
+        ++ (
+          if builtins.length b > 2
+          then [(builtins.elemAt b 2)]
+          else []
+        );
+    })
+    bindList;
+in {
   # Replace with your exact username and home directory path
   home.username = "conart";
   home.homeDirectory = "/home/conart";
 
   # Do not change this value unless you thoroughly read the release notes.
-  home.stateVersion = "26.05"; 
+  home.stateVersion = "26.05";
 
   # User-specific packages you want installed
   home.packages = with pkgs; [
     firefox
     hyprlauncher
     wl-clipboard
+    fastfetch
     nerd-fonts.jetbrains-mono
     ibm-plex
   ];
@@ -25,9 +45,9 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      sansSerif = [ "IBM Plex Sans" ];
-      serif = [ "IBM Plex Serif" ];
-      monospace = [ "JetBrainsMono Nerd Font"];
+      sansSerif = ["IBM Plex Sans"];
+      serif = ["IBM Plex Serif"];
+      monospace = ["JetBrainsMono Nerd Font"];
     };
   };
 
@@ -35,7 +55,7 @@
     enable = true;
     font = {
       name = "IBM Plex Sans";
-      size = 11; 
+      size = 11;
     };
   };
 
@@ -44,7 +64,7 @@
     settings = {
       user = {
         name = "Kshitij Sharma";
-	email = "kshitij.dev@proton.me";
+        email = "kshitij.dev@proton.me";
       };
       alias = {
         st = "status";
@@ -80,14 +100,80 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-  
+
     # These are the modern Zsh features that make it great
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
+    defaultKeymap = "viins";
+
+    history = {
+      size = 10000;
+      save = 10000;
+      expireDuplicatesFirst = true;
+      ignoreDups = true;
+      ignoreSpace = true;
+      share = true;
+    };
+
     shellAliases = {
       ll = "ls -la";
-      update = "sudo nixos-rebuild switch --flake ~/.dotfiles/#horizon";
+      v = "nvim";
+      g = "git";
+      clr = "clear && fastfetch";
+
+      nean = "sudo nix-collect-garbage -d";
+      nate = "sudo nixos-rebuild switch --flake ~/.dotfiles/#horizon";
+      nest = "sudo nixos-rebuild test --flake ~/.dotfiles/#horizon";
+    };
+
+    initContent = ''
+      fastfetch
+    '';
+  };
+
+  programs.fastfetch = {
+    enable = true;
+    settings = {
+      logo = {
+        type = "file";
+        source = ./underdog.txt;
+        color = {
+          "1" = "white";
+        };
+      };
+
+      modules = [
+        {
+          type = "title";
+          color = {
+            user = "cyan";
+            at = "white";
+            host = "white";
+          };
+          keyIcon = "󰣇"; # The NixOS snowflake icon!
+          format = "{user-name-colored}@{host-name-colored}";
+        }
+        {
+          type = "separator";
+          color = {
+            default = "white";
+          };
+        }
+        {
+          type = "os";
+          format = "{pretty-name}";
+        }
+        "wm"
+        "kernel"
+        "uptime"
+        "shell"
+        {
+          type = "terminal";
+          # This color block string is perfectly preserved
+          format = "{pretty-name} {#37}█{#97}█ {#36}█{#96}█ {#35}█{#95}█ {#34}█{#94}█ {#33}█{#93}█ {#32}█{#92}█ {#31}█{#91}█ {#30}█{#90}█";
+        }
+      ];
     };
   };
 
@@ -141,33 +227,82 @@
         format = "[$virtualenv]($style) ";
         style = "bright-black";
         # Empty arrays map perfectly to Nix lists
-        detect_extensions = [ ];
-        detect_files = [ ];
+        detect_extensions = [];
+        detect_files = [];
       };
     };
   };
 
   wayland.windowManager.hyprland = {
     enable = true;
-    settings = {};
-    
-    extraConfig = ''
-local mod = "SUPER"
-local terminal = "kitty"
-local launcher = "hyprlauncher"
+    configType = "lua";
+    settings = {
+      mod._var = "SUPER";
+      terminal._var = "kitty";
+      launcher._var = "hyprlauncher";
 
-hl.config({
-input = {
-  kb_layout = "us",
-  kb_options = "caps:escape"
-},
-})
+      config = {
+        general = {
+          gaps_in = 4;
+          gaps_out = 8;
+          border_size = 2;
+          allow_tearing = false;
+          layout = "dwindle";
+          "col.active_border" = "rgba(94e2d5aa)";
+          "col.inactive_border" = "rgba(2a2a3aaa)";
+        };
+        decoration = {
+          rounding = 4;
+          rounding_power = 1;
+          blur = {
+            enabled = true;
+            size = 3;
+            passes = 2;
+          };
+        };
+        input = {
+          kb_layout = "us";
+          kb_options = "caps:escape";
+          follow_mouse = 1;
+          touchpad = {
+            natural_scroll = true;
+          };
+        };
+      };
 
-hl.bind(mod .. " + Q", hl.dsp.exec_cmd(terminal))
-hl.bind(mod .. " + C", hl.dsp.window.close())
-hl.bind(mod .. " + M", hl.dsp.exit())
-hl.bind(mod .. " + SPACE", hl.dsp.exec_cmd(launcher))
-    '';
+      monitor = {
+        output = "eDP-2";
+        mode = "2800x1800@120";
+        position = "0x0";
+        scale = "1.25";
+      };
+      bind = makeBinds [
+        [
+          "mod .. \" + SPACE\""
+          "hl.dsp.exec_cmd(launcher)"
+          {description = "Open application launcher";}
+        ]
+        [
+          "mod .. \" + Q\""
+          "hl.dsp.exec_cmd(terminal)"
+          {description = "Open terminal";}
+        ]
+        [
+          "mod .. \" + C\""
+          "hl.dsp.window.close()"
+          {description = "Close focused window";}
+        ]
+        [
+          "mod .. \" + M\""
+          "hl.dsp.exit()"
+          {
+            description = "Exit Hyprland completely";
+            locked = true;
+          }
+        ]
+      ];
+    };
+    extraConfig = "";
   };
 
   # Let Home Manager install and manage itself
