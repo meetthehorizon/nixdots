@@ -35,6 +35,7 @@ in {
     fastfetch
     nerd-fonts.jetbrains-mono
     ibm-plex
+    brightnessctl
   ];
 
   imports = [
@@ -299,6 +300,97 @@ in {
           {
             description = "Exit Hyprland completely";
             locked = true;
+          }
+        ]
+        [
+          "\"XF86AudioRaiseVolume\""
+          "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+\")"
+          {
+            description = "Raise Volume";
+            locked = "true";
+            repeating = "true";
+          }
+        ]
+        [
+          "\"XF86AudioLowerVolume\""
+          "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-\")"
+          {
+            description = "Lower Volume";
+            locked = "true";
+            repeating = "true";
+          }
+        ]
+        [
+          "\"XF86AudioMute\""
+          "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ toggle\")"
+          {
+            description = "Toggle Mute State";
+            locked = "true";
+          }
+        ]
+        [
+          "\"XF86AudioMicMute\""
+          "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SOURCE@ toggle\")"
+          {
+            description = "Toggle Mic Mute State";
+            locked = "true";
+          }
+        ]
+        [
+          "\"XF86MonBrightnessUp\""
+          "hl.dsp.exec_cmd(\"brightnessctl -e4 -n40000 set 5%+ -d \\\"amdgpu_bl*\\\"\")"
+          {
+            description = "Raise Brightness";
+            locked = "true";
+            repeating = "true";
+          }
+        ]
+        [
+          "\"XF86MonBrightnessDown\""
+          "hl.dsp.exec_cmd(\"brightnessctl -e4 -n40000 set 5%- -d \\\"amdgpu_bl*\\\"\")"
+          {
+            description = "Lower Brightness";
+            locked = "true";
+            repeating = "true";
+          }
+        ]
+        [
+          "\"XF86AudioNext\""
+          "hl.dsp.exec_cmd(\"playerctl next\")"
+          {
+            description = "Play Next Media";
+            locked = "true";
+          }
+        ]
+        [
+          "\"XF86AudioPrev\""
+          "hl.dsp.exec_cmd(\"playerctl previous\")"
+          {
+            description = "Play Previous Media";
+            locked = "true";
+          }
+        ]
+        [
+          "\"XF86AudioPause\""
+          "hl.dsp.exec_cmd(\"playerctl play-pause\")"
+          {
+            description = "Pause Media";
+            locked = "true";
+          }
+        ]
+        [
+          "\"XF86AudioPlay\""
+          "hl.dsp.exec_cmd(\"playerctl play-pause\")"
+          {
+            description = "Play Media";
+            locked = "true";
+          }
+        ]
+        [
+          "\"XF86Launch1\""
+          "hl.dsp.exec_cmd(\"rog-control-center\")"
+          {
+            description = "Launch ROG Control Center";
           }
         ]
       ];
