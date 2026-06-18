@@ -136,7 +136,7 @@
           gopls.enable = true;
           nixd.enable = true;
           lua_ls.enable = true;
-          ts_ls.enable = true; # The brain for your AGS config!
+          ts_ls.enable = true;
         };
         keymaps = {
           lspBuf = {
@@ -162,6 +162,8 @@
               "gofmt"
             ];
             lua = ["stylua"];
+            javascript = ["prettier"];
+            typescript = ["prettier"];
           };
         };
       };
@@ -217,6 +219,8 @@
       alejandra # The new formatter binary
       gotools
       stylua
+      typescript-language-server
+      prettier
     ];
   };
 }
