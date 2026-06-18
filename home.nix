@@ -479,6 +479,22 @@ in {
               repeating = true;
             }
           ]
+          [
+            ''mod .. " + mouse:272"''
+            ''hl.dsp.window.drag()''
+            {
+              description = "Move Windows using mouse";
+              mouse = true;
+            }
+          ]
+          [
+            ''mod .. " + mouse:273"''
+            ''hl.dsp.window.resize()''
+            {
+              description = "Move Windows using mouse";
+              mouse = true;
+            }
+          ]
         ]
         ++ builtins.genList
         (i: [
