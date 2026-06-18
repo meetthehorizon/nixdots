@@ -75,6 +75,7 @@ in {
         fk = "commit --amend --no-edit";
         rb = "rebase";
         rbc = "rebase --continue";
+        sq = "rebase -i --autosquash --root";
       };
 
       core.editor = "nvim";
