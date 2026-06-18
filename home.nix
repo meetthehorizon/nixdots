@@ -489,6 +489,15 @@ in {
           }
         ])
         9
+        ++ builtins.genList
+        (i: [
+          ''mod .. " + SHIFT + ${toString (i + 1)}"''
+          ''hl.dsp.window.move({ workspace = "${toString (i + 1)}" })''
+          {
+            description = "Move window to workspace ${toString (i + 1)}";
+          }
+        ])
+        9
       );
     };
     extraConfig = "";
