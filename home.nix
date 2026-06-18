@@ -271,8 +271,13 @@ in {
           rounding_power = 1;
           blur = {
             enabled = true;
-            size = 3;
-            passes = 2;
+            size = 10;
+            passes = 3;
+            new_optimizations = true;
+            noise = 0.02;
+            contrast = 1.0;
+            brightness = 0.7;
+            xray = true;
           };
         };
         input = {
