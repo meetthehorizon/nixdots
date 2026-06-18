@@ -14,7 +14,12 @@
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: {
     nixosConfigurations = {
       horizon = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -24,10 +29,10 @@
 
           home-manager.nixosModules.home-manager
           {
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {inherit inputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            
+
             home-manager.users.conart = import ./home.nix;
           }
         ];
