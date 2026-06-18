@@ -195,18 +195,30 @@
         enable = true;
         autoEnableSources = true;
         settings = {
+          snippet.expand = ''
+            function(args)
+              require("luasnip").lsp_expand(args.body)
+            end
+          '';
           sources = [
             {name = "nvim_lsp";}
+            {name = "luasnip";}
             {name = "path";}
             {name = "buffer";}
           ];
           mapping = {
+            "<C-Space>" = "cmp.mapping.complete()";
             "<C-y>" = "cmp.mapping.confirm({ select = true })";
             "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
             "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
           };
         };
       };
+      luasnip.enable = true;
+      cmp-buffer.enable = true;
+      cmp-path.enable = true;
+      cmp_luasnip.enable = true;
+      cmp-nvim-lsp.enable = true;
 
       oil = {
         enable = true;
