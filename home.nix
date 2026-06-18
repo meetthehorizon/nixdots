@@ -301,17 +301,23 @@ in {
           [
             "mod .. \" + SPACE\""
             "hl.dsp.exec_cmd(launcher)"
-            {description = "Open application launcher";}
+            {
+              description = "Open application launcher";
+            }
           ]
           [
             "mod .. \" + Q\""
             "hl.dsp.exec_cmd(terminal)"
-            {description = "Open terminal";}
+            {
+              description = "Open terminal";
+            }
           ]
           [
             "mod .. \" + C\""
             "hl.dsp.window.close()"
-            {description = "Close focused window";}
+            {
+              description = "Close focused window";
+            }
           ]
           [
             "mod .. \" + M\""
