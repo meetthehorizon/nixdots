@@ -32,33 +32,53 @@
       };
     };
 
-    # Global Keymaps for Jumping Between Errors
     keymaps = [
       {
         mode = "n";
-        key = "[d";
-        action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
-        options.desc = "Jump to Previous Diagnostic";
-      }
-      {
-        mode = "n";
-        key = "]d";
-        action = "<cmd>lua vim.diagnostic.goto_next()<CR>";
-        options.desc = "Jump to Next Diagnostic";
-      }
-      {
-        mode = "n";
-        key = "<leader>q";
-        action = "<cmd>lua vim.diagnostic.open_float()<CR>";
-        options.desc = "Show Diagnostic Error Float";
+        key = "-";
+        action = "<cmd>Oil<CR>";
+        options = {
+          desc = "Open File Explorer";
+        };
       }
     ];
 
     plugins.lualine.enable = true;
-
     plugins = {
       web-devicons.enable = true;
       treesitter.enable = true;
+
+      mini = {
+        enable = true;
+        modules = {
+          icons = {
+            directory = {
+              "bin" = {glyph = "";};
+              "cmd" = {glyph = "";};
+              "db" = {glyph = "󰆼";};
+              "migrations" = {glyph = "󰳿";};
+              "env" = {glyph = "";};
+              "scripts" = {glyph = "󰯂";};
+              "tmp" = {glyph = "󰩺";};
+              "src" = {glyph = "";};
+              "api" = {glyph = "󰒋";};
+              "pkg" = {glyph = "󰏖";};
+              "internal" = {glyph = "";};
+              "assets" = {glyph = "󰉔";};
+              "component" = {glyph = "󰐱";};
+              "components" = {glyph = "󰐱";};
+              "public" = {glyph = "";};
+              "docs" = {glyph = "󱔗";};
+              "doc" = {glyph = "󰈙";};
+              "test" = {glyph = "󰙨";};
+              "tests" = {glyph = "󰙨";};
+              ".git" = {glyph = "󰊢";};
+              ".github" = {glyph = "󰊤";};
+              "node_modules" = {glyph = "󰎙";};
+            };
+          };
+        };
+      };
 
       telescope = {
         enable = true;
@@ -101,6 +121,15 @@
             "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
             "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
           };
+        };
+      };
+
+      oil = {
+        enable = true;
+        settings = {
+          default_file_explorer = true;
+          delete_to_trash = true;
+          skip_confirm_for_simple_edits = true;
         };
       };
     };
