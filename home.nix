@@ -235,6 +235,19 @@ in {
     };
   };
 
+  programs.hyprshot.enable = true;
+  services.hyprsunset = {
+    enable = true;
+    settings = {
+      profile = [
+        {
+          time = "00:00";
+          temperature = "3000";
+          gamma = 0.9;
+        }
+      ];
+    };
+  };
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "lua";
@@ -391,6 +404,27 @@ in {
           "hl.dsp.exec_cmd(\"rog-control-center\")"
           {
             description = "Launch ROG Control Center";
+          }
+        ]
+        [
+          "\"SUPER + SHIFT + S\""
+          "hl.dsp.exec_cmd(\"pidof slurp || hyprshot -m window -o ~/Pictures/Screenshots/\")"
+          {
+            description = "Take Screenshot of Window";
+          }
+        ]
+        [
+          "mod .. \" + S\""
+          "hl.dsp.exec_cmd(\"pidof slurp || hyprshot -m region -o ~/Pictures/Screenshots/\")"
+          {
+            description = "Take Screenshot of Region";
+          }
+        ]
+        [
+          "mod .. \" + N\""
+          "hl.dsp.exec_cmd(\"systemctl --user is-active --quiet hyprsunset && systemctl --user stop hyprsunset || systemctl --user start hyprsunset\")"
+          {
+            description = "Toggle Night Light";
           }
         ]
       ];
