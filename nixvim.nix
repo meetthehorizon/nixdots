@@ -130,6 +130,23 @@
         };
       };
 
+      lsp = {
+        enable = true;
+        servers = {
+          gopls.enable = true;
+          nixd.enable = true;
+          lua_ls.enable = true;
+          ts_ls.enable = true; # The brain for your AGS config!
+        };
+        keymaps = {
+          lspBuf = {
+            gd = "definition";
+            gr = "references";
+            K = "hover";
+          };
+        };
+      };
+
       conform-nvim = {
         enable = true;
         settings = {
