@@ -83,6 +83,42 @@
         action = "<cmd>Gitsigns stage_buffer<CR>";
         options.desc = "Stage Entire Buffer";
       }
+      {
+        mode = "n";
+        key = "gd";
+        action = "<cmd>lua vim.lsp.buf.definition()<CR>";
+        options.desc = "Go to Definition";
+      }
+      {
+        mode = "n";
+        key = "gr";
+        action = "<cmd>lua vim.lsp.buf.references()<CR>";
+        options.desc = "Go to References";
+      }
+      {
+        mode = "n";
+        key = "K";
+        action = "<cmd>lua vim.lsp.buf.hover()<CR>";
+        options.desc = "Hover Documentation";
+      }
+      {
+        mode = "n";
+        key = "<leader>sf";
+        action = "<cmd>Telescope find_files<CR>";
+        options.desc = "Find Files";
+      }
+      {
+        mode = "n";
+        key = "<leader>sg";
+        action = "<cmd>Telescope live_grep<CR>";
+        options.desc = "Live Grep";
+      }
+      {
+        mode = "n";
+        key = "<leader>sb";
+        action = "<cmd>Telescope buffers<CR>";
+        options.desc = "Search Buffers";
+      }
     ];
 
     plugins.lualine.enable = true;
@@ -122,13 +158,7 @@
         };
       };
 
-      telescope = {
-        enable = true;
-        keymaps = {
-          "<leader>sf" = "find_files";
-          "<leader>sg" = "live_grep";
-        };
-      };
+      telescope.enable = true;
 
       lsp = {
         enable = true;
@@ -137,13 +167,6 @@
           nixd.enable = true;
           lua_ls.enable = true;
           ts_ls.enable = true;
-        };
-        keymaps = {
-          lspBuf = {
-            gd = "definition";
-            gr = "references";
-            K = "hover";
-          };
         };
       };
 
