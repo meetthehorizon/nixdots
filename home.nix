@@ -19,6 +19,8 @@
         );
     })
     bindList;
+  dotfilesDir = "${config.home.homeDirectory}/dotfiles";
+  assets = import ./assets.nix {inherit pkgs;};
 in {
   # Replace with your exact username and home directory path
   home.username = "conart";
@@ -42,6 +44,16 @@ in {
     inputs.nixvim.homeModules.nixvim
     ./nixvim.nix
   ];
+
+  home.file = {
+    "Pictures/Icons".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/assets/Icons";
+    "Pictures/Wallpapers/Private".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/assets/Wallpapers";
+
+    ".face".source = assets.userIcon;
+    ".config/fastfetch/logo.png".source = assets.nixosIcon;
+    "Pictures/Wallpapers/home".source = assets.homeScreen;
+    "Pictures/Wallpapers/lock".source = assets.lockScreen;
+  };
 
   fonts.fontconfig = {
     enable = true;
