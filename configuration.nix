@@ -16,6 +16,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 7;
 
+  # Home Package Configuration
+  nixpkgs.config.allowUnfree = true;
+  home-manager.useGlobalPkgs = true;
+
   # Networking
   networking.hostName = "horizon";
   networking.networkmanager.enable = true;
