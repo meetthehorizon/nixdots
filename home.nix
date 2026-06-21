@@ -38,6 +38,7 @@ in {
     nerd-fonts.jetbrains-mono
     ibm-plex
     brightnessctl
+    awww
   ];
 
   imports = [
@@ -288,6 +289,27 @@ in {
           gamma = 0.9;
         }
       ];
+    };
+  };
+
+  systemd.user.services.awww = {
+    Unit = {
+      Description = "Awww Wallpaper Daemon";
+      # Tie it to the lifecycle of your graphical Wayland session
+      PartOf = ["graphical-session.target"];
+      After = ["graphical-session.target"];
+    };
+
+    Service = {
+      # The absolute path to the binary ensures it always executes correctly
+      ExecStart = "${pkgs.awww}/bin/awww-daemon";
+      ExecStop = "${pkgs.awww}/bin/awww kill";
+      Restart = "on-failure";
+      RestartSec = "2"; # Wait 2 seconds before trying to restart
+    };
+
+    Install = {
+      WantedBy = ["graphical-session.target"];
     };
   };
 
