@@ -39,6 +39,7 @@ in {
     ibm-plex
     brightnessctl
     awww
+    spotify
   ];
 
   imports = [
@@ -465,6 +466,9 @@ in {
           layout = "dwindle";
           "col.active_border" = "rgba(94e2d5aa)";
           "col.inactive_border" = "rgba(2a2a3aaa)";
+        };
+        xwayland = {
+          force_zero_scaling = true;
         };
         decoration = {
           rounding = 4;
