@@ -35,6 +35,7 @@
   ];
 
   # Users
+  security.pam.services.hyprlock = {};
   users.users.conart = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager"];

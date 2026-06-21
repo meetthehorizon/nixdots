@@ -290,6 +290,142 @@ in {
       ];
     };
   };
+
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      background = [
+        {
+          monitor = "";
+          # Assuming you updated your assets.nix to output to this path!
+          path = "${config.home.homeDirectory}/Pictures/Wallpapers/lock";
+          blur_passes = 3;
+          contrast = 0.8916;
+          brightness = 0.8172;
+          vibrancy = 0.1696;
+          vibrancy_darkness = 0.0;
+        }
+      ];
+
+      image = [
+        {
+          monitor = "";
+          path = "${config.home.homeDirectory}/.face";
+          border_size = 0;
+          border_color = "rgba(148, 226, 213, 1.0)";
+          size = 180;
+          rounding = -1;
+          rotate = 0.0;
+          reload_time = -1;
+          reload_cmd = "";
+          position = "0, 40";
+          halign = "center";
+          valign = "center";
+        }
+      ];
+
+      input-field = [
+        {
+          monitor = "";
+          size = "300, 60";
+          dots_size = 0.2;
+          dots_spacing = 0.2;
+          dots_center = true;
+          outer_color = "rgb(148, 226, 213)";
+          inner_color = "rgba(30, 30, 46, 0.9)";
+          font_color = "rgb(205, 214, 244)";
+          fade_on_empty = false;
+          font_family = "IBM Plex Sans";
+          placeholder_text = "<span foreground=\"##ffffff80\">you shall not pass!</span>";
+          hide_input = false;
+          position = "0, -210";
+          halign = "center";
+          valign = "center";
+        }
+      ];
+
+      label = [
+        # Day-Month-Date
+        {
+          monitor = "";
+          text = "cmd[update:1000] echo -e \"$(date +\"%A, %B %d\")\"";
+          color = "rgb(205, 214, 244)";
+          font_size = 25;
+          font_family = "IBM Plex Sans";
+          position = "0, 350";
+          halign = "center";
+          valign = "center";
+        }
+        # Time (BOLD + brighter)
+        {
+          monitor = "";
+          text = "cmd[update:1000] echo \"<b>$(date +%I:%M)</b>\"";
+          color = "rgb(205, 214, 244)";
+          font_size = 120;
+          font_family = "IBM Plex Sans";
+          position = "0, 250";
+          halign = "center";
+          valign = "center";
+        }
+        # USER
+        {
+          monitor = "";
+          text = "  $USER";
+          color = "rgb(205, 214, 244)";
+          font_size = 18;
+          font_family = "IBM Plex Sans";
+          position = "0, -130";
+          halign = "center";
+          valign = "center";
+        }
+      ];
+
+      shape = [
+        # USER-BOX
+        {
+          monitor = "";
+          size = "300, 60";
+          color = "rgba(30, 30, 46, 0.9)";
+          rounding = -1;
+          border_size = 0;
+          border_color = "rgb(249, 226, 175)";
+          rotate = 0.0;
+          xray = false;
+          position = "0, -130";
+          halign = "center";
+          valign = "center";
+        }
+        # OUTER BOX 1
+        {
+          monitor = "";
+          size = "500, 700";
+          color = "rgba(30, 30, 46, 0.6)";
+          rounding = 1;
+          border_size = 0;
+          border_color = "rgb(148, 226, 213)";
+          rotate = 0.0;
+          xray = false;
+          position = "0, 70";
+          halign = "center";
+          valign = "center";
+        }
+        # OUTER BOX 2 (Line)
+        {
+          monitor = "";
+          size = "498, 0";
+          color = "rgba(30, 30, 46, 0.6)";
+          rounding = 0;
+          border_size = 2;
+          border_color = "rgb(148, 226, 213)";
+          rotate = 0.0;
+          xray = false;
+          position = "0, -280";
+          halign = "center";
+          valign = "center";
+        }
+      ];
+    };
+  };
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "lua";
@@ -541,6 +677,13 @@ in {
             {
               description = "Move Windows using mouse";
               mouse = true;
+            }
+          ]
+          [
+            ''mod .. " + SHIFT + L"''
+            ''hl.dsp.exec_cmd("hyprlock")''
+            {
+              description = "Lock Screen";
             }
           ]
         ]
