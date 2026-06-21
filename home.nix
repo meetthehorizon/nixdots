@@ -283,7 +283,7 @@ in {
     settings = {
       profile = [
         {
-          time = "00:00";
+          time = "22:00";
           temperature = "3000";
           gamma = 0.9;
         }
