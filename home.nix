@@ -150,42 +150,72 @@ in {
     enable = true;
     settings = {
       logo = {
-        type = "file";
-        source = ./underdog.txt;
+        source = "${config.home.homeDirectory}/.config/fastfetch/logo.png";
+        type = "auto";
+        width = 15;
+        padding = {
+          top = 2;
+          left = 2;
+          right = 2;
+        };
+      };
+
+      # --- NEW: Global Display Settings ---
+      display = {
+        separator = "  "; # Replaces the default ":" with clean whitespace
         color = {
-          "1" = "white";
+          keys = "cyan"; # Unifies all key colors to match the title
+        };
+        key = {
+          width = 14; # Forces perfect vertical alignment for all values
         };
       };
 
       modules = [
+        "break" # Adds a blank line at the top for breathing room
+
         {
           type = "title";
           color = {
             user = "cyan";
             at = "white";
-            host = "white";
-          };
-          keyIcon = "󰣇"; # The NixOS snowflake icon!
-          format = "{user-name-colored}@{host-name-colored}";
-        }
-        {
-          type = "separator";
-          color = {
-            default = "white";
+            host = "cyan";
           };
         }
+
+        "break"
+
         {
           type = "os";
+          key = "  OS";
+          keyColor = "blue";
           format = "{pretty-name}";
         }
-        "wm"
-        "kernel"
-        "uptime"
-        "shell"
         {
-          type = "terminal";
-          # This color block string is perfectly preserved
-          format = "{pretty-name} {#37}█{#97}█ {#36}█{#96}█ {#35}█{#95}█ {#34}█{#94}█ {#33}█{#93}█ {#32}█{#92}█ {#31}█{#91}█ {#30}█{#90}█";
+          type = "kernel";
+          key = " 󰌽 Kernel";
+          keyColor = "magenta";
+        }
+        {
+          type = "wm";
+          key = "  WM";
+          keyColor = "red";
+        }
+        {
+          type = "shell";
+          key = "  Shell";
+          keyColor = "green";
+        }
+        {
+          type = "uptime";
+          key = " 󰔚 Uptime";
+          keyColor = "yellow";
+        }
+
+        {
+          type = "colors";
+          key = " 󰸱 Color";
+          symbol = "circle";
         }
       ];
     };
