@@ -164,6 +164,10 @@ in {
 
     initContent = ''
       fastfetch
+      if [ -f /home/conart/.config/gh/github-pat ]; then
+        export GITHUB_TOKEN=$(cat /home/conart/.config/gh/github-pat)
+        export GH_TOKEN=$GITHUB_TOKEN
+      fi
     '';
   };
 

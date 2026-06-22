@@ -46,6 +46,21 @@ else
     echo "==> Found existing SSH key at $USER_SSH_KEY"
 fi
 
+# 4.5. Check for GitHub PAT
+USER_PAT_FILE="$BOOTSTRAP_SECRETS_DIR/github-pat"
+if [ ! -f "$USER_PAT_FILE" ]; then
+    if [ -n "${GITHUB_PAT:-}" ]; then
+        echo "$GITHUB_PAT" > "$USER_PAT_FILE"
+    else
+        echo "========================================================================="
+        echo "ERROR: GitHub PAT not found at $USER_PAT_FILE"
+        echo "To continue, please create this file and paste your GitHub PAT inside it."
+        echo "Ensure the token has 'repo', 'admin:public_key', and 'workflow' scopes."
+        echo "========================================================================="
+        exit 1
+    fi
+fi
+
 # 5. Prepare secrets directory and secrets.nix
 mkdir -p "$SECRETS_DIR"
 SECRETS_NIX="$SECRETS_DIR/secrets.nix"
@@ -60,20 +75,30 @@ let
 in
 {
   "github-ssh-key.age".publicKeys = keys;
+  "github-pat.age".publicKeys = keys;
 }
 EOF
 
-# 6. Encrypt SSH private key using age directly
-echo "==> Encrypting SSH private key..."
+# 6. Encrypt SSH private key and GitHub PAT using age directly
+echo "==> Encrypting secrets..."
 AGE_ARGS=("-r" "$USER_AGE_PUB")
 if [ -n "$SYSTEM_HOST_PUB" ]; then
     AGE_ARGS+=("-r" "$SYSTEM_HOST_PUB")
 fi
+
+echo "Encrypting SSH key..."
 nix shell nixpkgs#age -c age "${AGE_ARGS[@]}" -o "$SECRETS_DIR/github-ssh-key.age" "$USER_SSH_KEY"
+
+echo "Encrypting GitHub PAT..."
+nix shell nixpkgs#age -c age "${AGE_ARGS[@]}" -o "$SECRETS_DIR/github-pat.age" "$USER_PAT_FILE"
 
 # 7. Clean up manually created files in ~/.ssh to avoid pollution
 echo "==> Cleaning up any manually created SSH files from ~/.ssh to let NixOS manage them..."
 rm -f "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_ed25519.pub"
 
-echo "==> SSH key successfully encrypted to $SECRETS_DIR/github-ssh-key.age"
+# 8. Clean up any manually created gh config/pat in ~/.config/gh to avoid conflicts
+echo "==> Cleaning up any manually created GitHub CLI credentials to let NixOS/agenix manage them..."
+rm -f "$HOME/.config/gh/github-pat"
+
+echo "==> Secrets successfully encrypted and stored in $SECRETS_DIR"
 echo "==> You can now commit the 'secrets' directory to Git."
