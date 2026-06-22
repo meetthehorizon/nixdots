@@ -75,6 +75,14 @@
     mode = "0600";
   };
 
+  age.secrets.github-pat = {
+    file = ./secrets/github-pat.age;
+    path = "/home/conart/.config/gh/github-pat";
+    owner = "conart";
+    group = "users";
+    mode = "0600";
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
