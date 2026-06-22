@@ -8,7 +8,7 @@ SECRETS_DIR="$DOTFILES_DIR/secrets"
 AGE_KEY_DIR="$HOME/.config/sops/age"
 AGE_KEY_FILE="$AGE_KEY_DIR/keys.txt"
 
-echo "==> Setting up reproducible secrets..."
+echo " Setting up reproducible secrets..."
 
 # 1. Ensure age key directory exists
 mkdir -p "$AGE_KEY_DIR"
@@ -38,7 +38,7 @@ if [ ! -f "$AGE_KEY_FILE" ]; then
         RAW_SECRET_KEY=$(echo "$AGE_KEY_INPUT" | grep -o "AGE-SECRET-KEY-1.*" | tr -d '\r\n ' || echo "")
         
         if [ -z "$RAW_SECRET_KEY" ]; then
-            echo "ERROR: Invalid age private key format. Must contain AGE-SECRET-KEY-1..."
+            echo "󰅚 ERROR: Invalid age private key format. Must contain AGE-SECRET-KEY-1..."
             exit 1
         fi
         
@@ -56,12 +56,12 @@ EOF
         chmod 600 "$AGE_KEY_FILE"
         echo "Age key successfully restored in standard format."
     else
-        echo "==> Generating age master recovery key at $AGE_KEY_FILE..."
+        echo " Generating age master recovery key at $AGE_KEY_FILE..."
         nix shell nixpkgs#age -c age-keygen -o "$AGE_KEY_FILE"
-        echo "IMPORTANT: Please backup this key safely! It is your recovery key."
+        echo "󰀼 IMPORTANT: Please backup this key safely! It is your recovery key."
     fi
 else
-    echo "==> Found existing age key at $AGE_KEY_FILE"
+    echo " Found existing age key at $AGE_KEY_FILE"
 fi
 
 # Extract public key from the age key file
@@ -74,7 +74,7 @@ if [ -f "/etc/ssh/ssh_host_ed25519_key.pub" ]; then
     SYSTEM_HOST_PUB=$(cat /etc/ssh/ssh_host_ed25519_key.pub)
     echo "Found system host SSH public key."
 else
-    echo "Warning: System host SSH key not found in /etc/ssh/. Encryption will only use age master key."
+    echo " Warning: System host SSH key not found in /etc/ssh/. Encryption will only use age master key."
 fi
 
 # 4. Generate user SSH key if it doesn't exist
@@ -92,11 +92,11 @@ if [ ! -f "$USER_SSH_KEY" ]; then
         echo "$USER_SSH_PUB" > "$USER_SSH_KEY.pub"
         echo "SSH key successfully restored."
     else
-        echo "==> Generating new SSH key pair for GitHub..."
+        echo " Generating new SSH key pair for GitHub..."
         ssh-keygen -t ed25519 -C "kshitij.dev@proton.me" -f "$USER_SSH_KEY" -N ""
     fi
 else
-    echo "==> Found existing SSH key at $USER_SSH_KEY"
+    echo " Found existing SSH key at $USER_SSH_KEY"
 fi
 
 # 4.5. Check for GitHub PAT
@@ -111,7 +111,7 @@ if [ ! -f "$USER_PAT_FILE" ]; then
         echo "PAT saved."
     else
         echo "========================================================================="
-        echo "ERROR: GitHub PAT not found at $USER_PAT_FILE"
+        echo "󰅚 ERROR: GitHub PAT not found at $USER_PAT_FILE"
         echo "To continue, please create this file and paste your GitHub PAT inside it."
         echo "Ensure the token has 'repo', 'admin:public_key', and 'workflow' scopes."
         echo "========================================================================="
@@ -123,7 +123,7 @@ fi
 mkdir -p "$SECRETS_DIR"
 SECRETS_NIX="$SECRETS_DIR/secrets.nix"
 
-echo "==> Creating $SECRETS_NIX..."
+echo " Creating $SECRETS_NIX..."
 cat << EOF > "$SECRETS_NIX"
 # Auto-generated secrets configuration. Do not edit manually.
 let
@@ -138,7 +138,7 @@ in
 EOF
 
 # 6. Encrypt SSH private key and GitHub PAT using age directly
-echo "==> Encrypting secrets..."
+echo " Encrypting secrets..."
 AGE_ARGS=("-r" "$USER_AGE_PUB")
 if [ -n "$SYSTEM_HOST_PUB" ]; then
     AGE_ARGS+=("-r" "$SYSTEM_HOST_PUB")
@@ -151,12 +151,18 @@ echo "Encrypting GitHub PAT..."
 nix shell nixpkgs#age -c age "${AGE_ARGS[@]}" -o "$SECRETS_DIR/github-pat.age" "$USER_PAT_FILE"
 
 # 7. Clean up manually created files in ~/.ssh to avoid pollution
-echo "==> Cleaning up any manually created SSH files from ~/.ssh to let NixOS manage them..."
+echo " Cleaning up any manually created SSH files from ~/.ssh to let NixOS manage them..."
 rm -f "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_ed25519.pub"
 
 # 8. Clean up any manually created gh config/pat in ~/.config/gh to avoid conflicts
-echo "==> Cleaning up any manually created GitHub CLI credentials to let NixOS/agenix manage them..."
+echo " Cleaning up any manually created GitHub CLI credentials to let NixOS/agenix manage them..."
 rm -f "$HOME/.config/gh/github-pat"
 
-echo "==> Secrets successfully encrypted and stored in $SECRETS_DIR"
-echo "==> You can now commit the 'secrets' directory to Git."
+echo " Secrets successfully encrypted and stored in $SECRETS_DIR"
+echo " You can now commit the 'secrets' directory to Git."
+
+# 9. Prompt to restart the shell
+if [ "$INTERACTIVE" = true ] && confirm "Do you want to restart your shell now?"; then
+    echo " Restarting shell..."
+    exec "$SHELL"
+fi
