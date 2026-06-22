@@ -9,6 +9,8 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./system/asus.nix
+    ./system/nvidia.nix
   ];
 
   # Boot Manager
@@ -42,7 +44,7 @@
   security.pam.services.hyprlock = {};
   users.users.conart = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager"];
+    extraGroups = ["wheel" "networkmanager" "video"];
     shell = pkgs.zsh;
     packages = [];
   };
