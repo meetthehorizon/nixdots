@@ -31,6 +31,19 @@ in {
     };
   };
 
+  services.mako = {
+    enable = true;
+    settings = {
+      font = "IBM Plex Sans 10";
+      background-color = "#1e1e2ebd";
+      text-color = "#cdd6f4";
+      border-color = "#94e2d5";
+      border-size = 2;
+      border-radius = 4;
+      default-timeout = 5000;
+    };
+  };
+
   systemd.user.services.awww = {
     Unit = {
       Description = "Awww Wallpaper Daemon";
