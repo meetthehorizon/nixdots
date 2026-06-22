@@ -80,12 +80,15 @@ in {
 
   programs.ssh = {
     enable = true;
-    addKeysToAgent = "yes";
-    matchBlocks = {
+    enableDefaultConfig = false;
+    settings = {
+      "*" = {
+        AddKeysToAgent = "yes";
+      };
       "github.com" = {
-        hostname = "github.com";
-        identityFile = "~/.ssh/id_ed25519";
-        user = "git";
+        HostName = "github.com";
+        IdentityFile = "~/.ssh/id_ed25519";
+        User = "git";
       };
     };
   };
