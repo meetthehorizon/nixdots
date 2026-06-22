@@ -16,6 +16,7 @@
     spotify
 
     gh
+    seahorse
     inputs.agenix.packages.${stdenv.hostPlatform.system}.default
 
     inputs.antigravity-nix.packages.${stdenv.hostPlatform.system}.google-antigravity-no-fhs
