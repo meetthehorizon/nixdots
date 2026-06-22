@@ -5,18 +5,16 @@
   lib,
   ...
 }: let
-  makeBinds = bindList:
-    map (b: {
+  makeLuaCode = bindList:
+    map (args: {
       _args =
-        [
-          (lib.generators.mkLuaInline (builtins.elemAt b 0))
-          (lib.generators.mkLuaInline (builtins.elemAt b 1))
-        ]
-        ++ (
-          if builtins.length b > 2
-          then [(builtins.elemAt b 2)]
-          else []
-        );
+        map (
+          arg:
+            if builtins.isAttrs arg
+            then arg
+            else lib.generators.mkLuaInline arg
+        )
+        args;
     })
     bindList;
   dotfilesDir = "${config.home.homeDirectory}/dotfiles";
@@ -500,40 +498,48 @@ in {
         position = "0x0";
         scale = "1.25";
       };
-      bind = makeBinds (
+      monitor = {
+        output = "eDP-1";
+
+        mode = "2800x1800@120";
+        position = "0x0";
+        scale = "1.25";
+      };
+
+      bind = makeLuaCode (
         [
           [
-            "mod .. \" + SPACE\""
-            "hl.dsp.exec_cmd(launcher)"
+            ''mod .. " + SPACE"''
+            ''hl.dsp.exec_cmd(launcher)''
             {
               description = "Open application launcher";
             }
           ]
           [
-            "mod .. \" + Q\""
-            "hl.dsp.exec_cmd(terminal)"
+            ''mod .. " + Q"''
+            ''hl.dsp.exec_cmd(terminal)''
             {
               description = "Open terminal";
             }
           ]
           [
-            "mod .. \" + C\""
-            "hl.dsp.window.close()"
+            ''mod .. " + C"''
+            ''hl.dsp.window.close()''
             {
               description = "Close focused window";
             }
           ]
           [
-            "mod .. \" + M\""
-            "hl.dsp.exit()"
+            ''mod .. " + M"''
+            ''hl.dsp.exit()''
             {
               description = "Exit Hyprland completely";
               locked = true;
             }
           ]
           [
-            "\"XF86AudioRaiseVolume\""
-            "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+\")"
+            ''"XF86AudioRaiseVolume"''
+            ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")''
             {
               description = "Raise Volume";
               locked = "true";
@@ -541,8 +547,8 @@ in {
             }
           ]
           [
-            "\"XF86AudioLowerVolume\""
-            "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-\")"
+            ''"XF86AudioLowerVolume"''
+            ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")''
             {
               description = "Lower Volume";
               locked = "true";
@@ -550,24 +556,24 @@ in {
             }
           ]
           [
-            "\"XF86AudioMute\""
-            "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ toggle\")"
+            ''"XF86AudioMute"''
+            ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ toggle")''
             {
               description = "Toggle Mute State";
               locked = "true";
             }
           ]
           [
-            "\"XF86AudioMicMute\""
-            "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SOURCE@ toggle\")"
+            ''"XF86AudioMicMute"''
+            ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SOURCE@ toggle")''
             {
               description = "Toggle Mic Mute State";
               locked = "true";
             }
           ]
           [
-            "\"XF86MonBrightnessUp\""
-            "hl.dsp.exec_cmd(\"brightnessctl -e4 -n40000 set 5%+ -d \\\"amdgpu_bl*\\\"\")"
+            ''"XF86MonBrightnessUp"''
+            ''hl.dsp.exec_cmd("brightnessctl -e4 -n40000 set 5%+ -d \"amdgpu_bl*\"")''
             {
               description = "Raise Brightness";
               locked = "true";
@@ -575,8 +581,8 @@ in {
             }
           ]
           [
-            "\"XF86MonBrightnessDown\""
-            "hl.dsp.exec_cmd(\"brightnessctl -e4 -n40000 set 5%- -d \\\"amdgpu_bl*\\\"\")"
+            ''"XF86MonBrightnessDown"''
+            ''hl.dsp.exec_cmd("brightnessctl -e4 -n40000 set 5%- -d \"amdgpu_bl*\"")''
             {
               description = "Lower Brightness";
               locked = "true";
@@ -584,106 +590,106 @@ in {
             }
           ]
           [
-            "\"XF86AudioNext\""
-            "hl.dsp.exec_cmd(\"playerctl next\")"
+            ''"XF86AudioNext"''
+            ''hl.dsp.exec_cmd("playerctl next")''
             {
               description = "Play Next Media";
               locked = "true";
             }
           ]
           [
-            "\"XF86AudioPrev\""
-            "hl.dsp.exec_cmd(\"playerctl previous\")"
+            ''"XF86AudioPrev"''
+            ''hl.dsp.exec_cmd("playerctl previous")''
             {
               description = "Play Previous Media";
               locked = "true";
             }
           ]
           [
-            "\"XF86AudioPause\""
-            "hl.dsp.exec_cmd(\"playerctl play-pause\")"
+            ''"XF86AudioPause"''
+            ''hl.dsp.exec_cmd("playerctl play-pause")''
             {
               description = "Pause Media";
               locked = "true";
             }
           ]
           [
-            "\"XF86AudioPlay\""
-            "hl.dsp.exec_cmd(\"playerctl play-pause\")"
+            ''"XF86AudioPlay"''
+            ''hl.dsp.exec_cmd("playerctl play-pause")''
             {
               description = "Play Media";
               locked = "true";
             }
           ]
           [
-            "\"XF86Launch1\""
-            "hl.dsp.exec_cmd(\"rog-control-center\")"
+            ''"XF86Launch1"''
+            ''hl.dsp.exec_cmd("rog-control-center")''
             {
               description = "Launch ROG Control Center";
             }
           ]
           [
-            "\"SUPER + SHIFT + S\""
-            "hl.dsp.exec_cmd(\"pidof slurp || hyprshot -m window -o ~/Pictures/Screenshots/\")"
+            ''"SUPER + SHIFT + S"''
+            ''hl.dsp.exec_cmd("pidof slurp || hyprshot -m window -o ~/Pictures/Screenshots/")''
             {
               description = "Take Screenshot of Window";
             }
           ]
           [
-            "mod .. \" + S\""
-            "hl.dsp.exec_cmd(\"pidof slurp || hyprshot -m region -o ~/Pictures/Screenshots/\")"
+            ''mod .. " + S"''
+            ''hl.dsp.exec_cmd("pidof slurp || hyprshot -m region -o ~/Pictures/Screenshots/")''
             {
               description = "Take Screenshot of Region";
             }
           ]
           [
-            "mod .. \" + N\""
-            "hl.dsp.exec_cmd(\"systemctl --user is-active --quiet hyprsunset && systemctl --user stop hyprsunset || systemctl --user start hyprsunset\")"
+            ''mod .. " + N"''
+            ''hl.dsp.exec_cmd("systemctl --user is-active --quiet hyprsunset && systemctl --user stop hyprsunset || systemctl --user start hyprsunset")''
             {
               description = "Toggle Night Light";
             }
           ]
           [
-            "mod .. \" + F\""
-            "hl.dsp.window.fullscreen()"
+            ''mod .. " + F"''
+            ''hl.dsp.window.fullscreen()''
             {
               description = "Toggle Fullscreen of Active Window";
             }
           ]
           [
-            "mod .. \" + V\""
-            "hl.dsp.window.float()"
+            ''mod .. " + V"''
+            ''hl.dsp.window.float()''
             {
               description = "Toggle Fullscreen of Active Window";
             }
           ]
           [
-            "mod .. \" + h\""
-            "hl.dsp.focus({direction=\"l\"})"
+            ''mod .. " + h"''
+            ''hl.dsp.focus({direction="l"})''
             {
               description = "Make Left Window Active";
               repeating = true;
             }
           ]
           [
-            "mod .. \" + l\""
-            "hl.dsp.focus({direction=\"r\"})"
+            ''mod .. " + l"''
+            ''hl.dsp.focus({direction="r"})''
             {
               description = "Make Left Window Active";
               repeating = true;
             }
           ]
           [
-            "mod .. \" + k\""
-            "hl.dsp.focus({direction=\"u\"})"
+            ''mod .. " + k"''
+            ''hl.dsp.focus({direction="u"})''
             {
               description = "Make Left Window Active";
               repeating = true;
             }
           ]
           [
-            "mod .. \" + j\""
-            "hl.dsp.focus({direction=\"d\"})"
+            ''mod .. " + j"''
+            ''hl.dsp.focus({direction="d"})''
             {
               description = "Make Left Window Active";
               repeating = true;
