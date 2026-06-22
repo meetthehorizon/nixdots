@@ -38,6 +38,12 @@ in {
     brightnessctl
     awww
     spotify
+
+    gh
+    inputs.agenix.packages.${stdenv.hostPlatform.system}.default
+
+    inputs.antigravity-nix.packages.${stdenv.hostPlatform.system}.google-antigravity-no-fhs
+    inputs.antigravity-nix.packages.${stdenv.hostPlatform.system}.google-antigravity-cli
   ];
 
   imports = [
@@ -69,6 +75,18 @@ in {
     font = {
       name = "IBM Plex Sans";
       size = 11;
+    };
+  };
+
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+    matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        identityFile = "~/.ssh/id_ed25519";
+        user = "git";
+      };
     };
   };
 
@@ -492,19 +510,24 @@ in {
         };
       };
 
-      monitor = {
-        output = "eDP-2";
-        mode = "2800x1800@120";
-        position = "0x0";
-        scale = "1.25";
-      };
-      monitor = {
-        output = "eDP-1";
-
-        mode = "2800x1800@120";
-        position = "0x0";
-        scale = "1.25";
-      };
+      monitor = makeLuaCode [
+        [
+          {
+            output = "eDP-2";
+            mode = "2800x1800@120";
+            position = "0x0";
+            scale = "1.25";
+          }
+        ]
+        [
+          {
+            output = "eDP-1";
+            mode = "2800x1800@120";
+            position = "0x0";
+            scale = "1.25";
+          }
+        ]
+      ];
 
       bind = makeLuaCode (
         [
