@@ -31,10 +31,30 @@ confirm() {
 
 if [ ! -f "$AGE_KEY_FILE" ]; then
     if [ "$INTERACTIVE" = true ] && confirm "Do you have an existing age master key to restore?"; then
-        echo "Please paste your age private key (starts with AGE-SECRET-KEY-1...):"
-        read -r AGE_KEY
-        echo "$AGE_KEY" > "$AGE_KEY_FILE"
-        echo "Age key successfully restored."
+        echo "Please paste your age private key (e.g. AGE-SECRET-KEY-1...):"
+        read -r AGE_KEY_INPUT
+        
+        # Extract the secret key line
+        RAW_SECRET_KEY=$(echo "$AGE_KEY_INPUT" | grep -o "AGE-SECRET-KEY-1.*" | tr -d '\r\n ' || echo "")
+        
+        if [ -z "$RAW_SECRET_KEY" ]; then
+            echo "ERROR: Invalid age private key format. Must contain AGE-SECRET-KEY-1..."
+            exit 1
+        fi
+        
+        # Write temporary key to run age-keygen -y
+        echo "$RAW_SECRET_KEY" > "$AGE_KEY_FILE"
+        
+        # Generate the public key
+        PUB_KEY=$(nix shell nixpkgs#age -c age-keygen -y "$AGE_KEY_FILE")
+        
+        # Re-write in the standard age-keygen format
+        cat << EOF > "$AGE_KEY_FILE"
+# public key: $PUB_KEY
+$RAW_SECRET_KEY
+EOF
+        chmod 600 "$AGE_KEY_FILE"
+        echo "Age key successfully restored in standard format."
     else
         echo "==> Generating age master recovery key at $AGE_KEY_FILE..."
         nix shell nixpkgs#age -c age-keygen -o "$AGE_KEY_FILE"
