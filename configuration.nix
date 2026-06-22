@@ -61,6 +61,20 @@
   };
   services.openssh.enable = true;
 
+  # Secrets Management
+  age.identityPaths = [
+    "/etc/ssh/ssh_host_ed25519_key"
+    "/home/conart/.config/sops/age/keys.txt"
+  ];
+
+  age.secrets.github-ssh-key = {
+    file = ./secrets/github-ssh-key.age;
+    path = "/home/conart/.ssh/id_ed25519";
+    owner = "conart";
+    group = "users";
+    mode = "0600";
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
