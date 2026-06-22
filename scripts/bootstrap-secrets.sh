@@ -16,14 +16,14 @@ mkdir -p "$AGE_KEY_DIR"
 # 2. Generate age master key if it doesn't exist
 if [ ! -f "$AGE_KEY_FILE" ]; then
     echo "==> Generating age master recovery key at $AGE_KEY_FILE..."
-    nix run nixpkgs#age-keygen -- -o "$AGE_KEY_FILE"
+    nix shell nixpkgs#age -c age-keygen -o "$AGE_KEY_FILE"
     echo "IMPORTANT: Please backup this key safely! It is your recovery key."
 else
     echo "==> Found existing age key at $AGE_KEY_FILE"
 fi
 
 # Extract public key from the age key file
-USER_AGE_PUB=$(nix run nixpkgs#age-keygen -- -y "$AGE_KEY_FILE")
+USER_AGE_PUB=$(nix shell nixpkgs#age -c age-keygen -y "$AGE_KEY_FILE")
 echo "User age public key: $USER_AGE_PUB"
 
 # 3. Get system host SSH public key
@@ -36,8 +36,9 @@ else
 fi
 
 # 4. Generate user SSH key if it doesn't exist
-mkdir -p "$HOME/.ssh"
-USER_SSH_KEY="$HOME/.ssh/id_ed25519"
+BOOTSTRAP_SECRETS_DIR="$DOTFILES_DIR/.secrets"
+mkdir -p "$BOOTSTRAP_SECRETS_DIR"
+USER_SSH_KEY="$BOOTSTRAP_SECRETS_DIR/id_ed25519"
 if [ ! -f "$USER_SSH_KEY" ]; then
     echo "==> Generating new SSH key pair for GitHub..."
     ssh-keygen -t ed25519 -C "kshitij.dev@proton.me" -f "$USER_SSH_KEY" -N ""
@@ -62,10 +63,17 @@ in
 }
 EOF
 
-# 6. Encrypt SSH private key using agenix CLI
+# 6. Encrypt SSH private key using age directly
 echo "==> Encrypting SSH private key..."
-# We run agenix via nix run to ensure it works even before system rebuild
-nix run github:ryantm/agenix -- --encrypt -i "$AGE_KEY_FILE" "$USER_SSH_KEY" > "$SECRETS_DIR/github-ssh-key.age"
+AGE_ARGS=("-r" "$USER_AGE_PUB")
+if [ -n "$SYSTEM_HOST_PUB" ]; then
+    AGE_ARGS+=("-r" "$SYSTEM_HOST_PUB")
+fi
+nix shell nixpkgs#age -c age "${AGE_ARGS[@]}" -o "$SECRETS_DIR/github-ssh-key.age" "$USER_SSH_KEY"
+
+# 7. Clean up manually created files in ~/.ssh to avoid pollution
+echo "==> Cleaning up any manually created SSH files from ~/.ssh to let NixOS manage them..."
+rm -f "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_ed25519.pub"
 
 echo "==> SSH key successfully encrypted to $SECRETS_DIR/github-ssh-key.age"
 echo "==> You can now commit the 'secrets' directory to Git."
