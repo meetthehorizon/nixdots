@@ -14,10 +14,32 @@ echo "==> Setting up reproducible secrets..."
 mkdir -p "$AGE_KEY_DIR"
 
 # 2. Generate age master key if it doesn't exist
+INTERACTIVE=false
+if [ -t 0 ]; then
+    INTERACTIVE=true
+fi
+
+confirm() {
+    local prompt="$1"
+    local reply
+    read -p "$prompt [y/N]: " -r reply
+    if [[ "$reply" =~ ^[Yy]$ ]]; then
+        return 0
+    fi
+    return 1
+}
+
 if [ ! -f "$AGE_KEY_FILE" ]; then
-    echo "==> Generating age master recovery key at $AGE_KEY_FILE..."
-    nix shell nixpkgs#age -c age-keygen -o "$AGE_KEY_FILE"
-    echo "IMPORTANT: Please backup this key safely! It is your recovery key."
+    if [ "$INTERACTIVE" = true ] && confirm "Do you have an existing age master key to restore?"; then
+        echo "Please paste your age private key (starts with AGE-SECRET-KEY-1...):"
+        read -r AGE_KEY
+        echo "$AGE_KEY" > "$AGE_KEY_FILE"
+        echo "Age key successfully restored."
+    else
+        echo "==> Generating age master recovery key at $AGE_KEY_FILE..."
+        nix shell nixpkgs#age -c age-keygen -o "$AGE_KEY_FILE"
+        echo "IMPORTANT: Please backup this key safely! It is your recovery key."
+    fi
 else
     echo "==> Found existing age key at $AGE_KEY_FILE"
 fi
@@ -40,8 +62,19 @@ BOOTSTRAP_SECRETS_DIR="$DOTFILES_DIR/.secrets"
 mkdir -p "$BOOTSTRAP_SECRETS_DIR"
 USER_SSH_KEY="$BOOTSTRAP_SECRETS_DIR/id_ed25519"
 if [ ! -f "$USER_SSH_KEY" ]; then
-    echo "==> Generating new SSH key pair for GitHub..."
-    ssh-keygen -t ed25519 -C "kshitij.dev@proton.me" -f "$USER_SSH_KEY" -N ""
+    if [ "$INTERACTIVE" = true ] && confirm "Do you have an existing SSH private key to restore?"; then
+        echo "Please paste your SSH private key (press Enter, then Ctrl+D when finished):"
+        cat > "$USER_SSH_KEY"
+        chmod 600 "$USER_SSH_KEY"
+        
+        echo "Please paste your SSH public key (starts with ssh-ed25519):"
+        read -r USER_SSH_PUB
+        echo "$USER_SSH_PUB" > "$USER_SSH_KEY.pub"
+        echo "SSH key successfully restored."
+    else
+        echo "==> Generating new SSH key pair for GitHub..."
+        ssh-keygen -t ed25519 -C "kshitij.dev@proton.me" -f "$USER_SSH_KEY" -N ""
+    fi
 else
     echo "==> Found existing SSH key at $USER_SSH_KEY"
 fi
@@ -51,6 +84,11 @@ USER_PAT_FILE="$BOOTSTRAP_SECRETS_DIR/github-pat"
 if [ ! -f "$USER_PAT_FILE" ]; then
     if [ -n "${GITHUB_PAT:-}" ]; then
         echo "$GITHUB_PAT" > "$USER_PAT_FILE"
+    elif [ "$INTERACTIVE" = true ] && confirm "Do you have a GitHub Personal Access Token (PAT) to configure?"; then
+        echo "Please paste your GitHub Classic PAT (should start with ghp_):"
+        read -r GITHUB_PAT_INPUT
+        echo "$GITHUB_PAT_INPUT" > "$USER_PAT_FILE"
+        echo "PAT saved."
     else
         echo "========================================================================="
         echo "ERROR: GitHub PAT not found at $USER_PAT_FILE"
