@@ -12,6 +12,15 @@
     };
 
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs = {
@@ -26,6 +35,8 @@
         modules = [
           ./configuration.nix
           ./hardware-configuration.nix
+
+          inputs.agenix.nixosModules.default
 
           home-manager.nixosModules.home-manager
           {
