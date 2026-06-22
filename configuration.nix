@@ -17,6 +17,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 7;
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   # Home Package Configuration
   nixpkgs.config.allowUnfree = true;
@@ -40,6 +41,7 @@
     vim
   ];
 
+
   # Users
   security.pam.services.hyprlock = {};
   users.users.conart = {
@@ -57,6 +59,7 @@
   };
 
   # Services
+  services.displayManager.ly.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.pipewire = {
     enable = true;
