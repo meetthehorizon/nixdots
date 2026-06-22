@@ -6,4 +6,5 @@ let
 in
 {
   "github-ssh-key.age".publicKeys = keys;
+  "github-pat.age".publicKeys = keys;
 }
