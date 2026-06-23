@@ -244,23 +244,30 @@ in {
             natural_scroll = true;
           };
         };
+        render = {
+          cm_enabled = true;
+        };
       };
 
       monitor = makeLuaCode [
         [
           {
             output = "eDP-2";
-            mode = "2800x1800@120";
+            mode = "2880x1800@120";
             position = "0x0";
             scale = "1.25";
+            bitdepth = 10;
+            cm = "hdr";
           }
         ]
         [
           {
             output = "eDP-1";
-            mode = "2800x1800@120";
+            mode = "2880x1800@120";
             position = "0x0";
             scale = "1.25";
+            bitdepth = 10;
+            cm = "hdr";
           }
         ]
       ];
