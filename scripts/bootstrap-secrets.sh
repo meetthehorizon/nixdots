@@ -20,6 +20,26 @@ AGE_KEY_FILE="$AGE_KEY_DIR/keys.txt"
 
 echo -e "${CYAN}${BOLD}${NC} Setting up reproducible secrets..."
 
+# 0. Check GPU MUX mode if running on an ASUS ROG/Zephyrus laptop
+if [ -f "/sys/devices/platform/asus-nb-wmi/gpu_mux_mode" ]; then
+    GPU_MUX_MODE=$(cat /sys/devices/platform/asus-nb-wmi/gpu_mux_mode 2>/dev/null || echo "")
+    if [ -n "$GPU_MUX_MODE" ] && [ "$GPU_MUX_MODE" != "1" ]; then
+        echo -e "${YELLOW}${BOLD} WARNING: GPU MUX mode is not set to Hybrid!${NC}"
+        echo -e "Current GPU MUX mode: ${RED}$GPU_MUX_MODE${NC} (discrete/dedicated-only mode)"
+        echo -e "For this Asus Zephyrus G14 configuration, it is highly recommended to run in ${GREEN}Hybrid mode (1)${NC}."
+        echo -e "This allows Hyprland/Wayland to run on the AMD iGPU, while the NVIDIA dGPU is kept idle"
+        echo -e "and only powered on dynamically for offloading (e.g. games/renderers) via 'nvidia-offload'."
+        echo -e "Otherwise, Hyprland will run entirely on the dedicated NVIDIA GPU, draining battery rapidly."
+        echo -e "To switch to Hybrid mode, run:"
+        echo -e "  ${BLUE}asusctl armoury set gpu_mux_mode 1${NC}"
+        echo -e "Note: Changing the MUX mode requires a system reboot to take effect."
+        echo ""
+    elif [ "$GPU_MUX_MODE" = "1" ]; then
+        echo -e "${GREEN}${BOLD}󰄬${NC} GPU MUX mode is correct (Hybrid mode)."
+    fi
+fi
+
+
 # 1. Ensure age key directory exists
 mkdir -p "$AGE_KEY_DIR"
 
