@@ -298,7 +298,7 @@ in {
           ]
           [
             ''"XF86AudioRaiseVolume"''
-            ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")''
+            ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.0")''
             {
               description = "Raise Volume";
               locked = "true";
@@ -307,7 +307,7 @@ in {
           ]
           [
             ''"XF86AudioLowerVolume"''
-            ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")''
+            ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- --limit 1.0")''
             {
               description = "Lower Volume";
               locked = "true";
@@ -316,7 +316,7 @@ in {
           ]
           [
             ''"XF86AudioMute"''
-            ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ toggle")''
+            ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")''
             {
               description = "Toggle Mute State";
               locked = "true";
@@ -324,7 +324,7 @@ in {
           ]
           [
             ''"XF86AudioMicMute"''
-            ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SOURCE@ toggle")''
+            ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle")''
             {
               description = "Toggle Mic Mute State";
               locked = "true";

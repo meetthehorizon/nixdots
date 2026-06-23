@@ -14,6 +14,7 @@
     brightnessctl
     awww
     spotify
+    playerctl
 
     gh
     seahorse
