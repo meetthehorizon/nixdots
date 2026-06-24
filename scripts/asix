@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+import shutil
+from pathlib import Path
+import typer
+from rich.console import Console
+from rich.panel import Panel
+
+CONTEXT_SETTINGS = {"help_option_names": ["-h", "--help"]}
+
+app = typer.Typer(help="󱄅 ASIX - Asus NixOS CLI", context_settings=CONTEXT_SETTINGS, no_args_is_help=True)
+theme_app = typer.Typer(help="󰸉 Theme Management", context_settings=CONTEXT_SETTINGS, no_args_is_help=True)
+system_app = typer.Typer(help="󰒓 System Operations", context_settings=CONTEXT_SETTINGS, no_args_is_help=True)
+
+app.add_typer(theme_app, name="theme")
+app.add_typer(system_app, name="system")
+
+console = Console()
+
+STATE_DIR = Path.home() / ".local" / "state" / "theme"
+
+def ensure_dir(path: Path):
+    path.mkdir(parents=True, exist_ok=True)
+
+@theme_app.command("wall")
+def theme_wall(image_path: str = typer.Argument(..., help="Path to the image file")):
+    """
+    󰸉 Set the wallpaper and lockscreen image
+    """
+    img = Path(image_path).expanduser().resolve()
+    if not img.exists():
+        console.print(f"[red]󰅚 Error: File '{img}' not found.[/red]")
+        raise typer.Exit(1)
+        
+    ensure_dir(STATE_DIR)
+    
+    console.print(f"[cyan] Copying image to state...[/cyan]")
+    shutil.copy(img, STATE_DIR / "wall.png")
+    shutil.copy(img, STATE_DIR / "lock.png")
+    
+    console.print(f"[cyan] Reloading Hyprpaper...[/cyan]")
+    try:
+        subprocess.run(["systemctl", "--user", "restart", "hyprpaper"], check=True, capture_output=True)
+        console.print(Panel.fit(f"[green]󰄬 Theme successfully updated to:[/green]\n[bold]{img}[/bold]", border_style="green"))
+    except subprocess.CalledProcessError as e:
+        console.print(f"[red]󰅚 Error restarting hyprpaper: {e}[/red]")
+        raise typer.Exit(1)
+
+@theme_app.command("init")
+def theme_init():
+    """
+    󰒞 Initialize the theme if the state is empty or corrupt.
+    """
+    console.print("[yellow]󰒞 Initializing theme defaults via Home Manager...[/yellow]")
+    console.print("[cyan] Running system switch to trigger activation scripts...[/cyan]")
+    system_switch()
+
+@system_app.command("switch")
+def system_switch():
+    """
+    󰒓 Rebuild and make the new NixOS system configuration persistent (creates a boot generation)
+    """
+    dotfiles = Path.home() / ".dotfiles"
+    console.print(f"[cyan] Rebuilding and switching NixOS from {dotfiles}...[/cyan]")
+    try:
+        subprocess.run(["sudo", "nixos-rebuild", "switch", "--flake", str(dotfiles)], check=True)
+        console.print("[green]󰄬 System switch complete![/green]")
+    except subprocess.CalledProcessError:
+        console.print("[red]󰅚 System switch failed![/red]")
+        raise typer.Exit(1)
+
+@system_app.command("test")
+def system_test():
+    """
+    󰒓 Rebuild and test the new NixOS configuration (does NOT create a boot generation)
+    """
+    dotfiles = Path.home() / ".dotfiles"
+    console.print(f"[yellow] Testing NixOS configuration from {dotfiles}...[/yellow]")
+    try:
+        subprocess.run(["sudo", "nixos-rebuild", "test", "--flake", str(dotfiles)], check=True)
+        console.print("[green]󰄬 System test complete! Changes applied but not saved to boot menu.[/green]")
+    except subprocess.CalledProcessError:
+        console.print("[red]󰅚 System test failed![/red]")
+        raise typer.Exit(1)
+
+if __name__ == "__main__":
+    app()

@@ -17,7 +17,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 7;
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = ["amdgpu"];
 
   # Home Package Configuration
   nixpkgs.config.allowUnfree = true;
@@ -32,7 +32,13 @@
 
   # Locale
   time.timeZone = "Asia/Kolkata";
+  time.hardwareClockInLocalTime = false;
+  services.ntp.enable = true;
   i18n.defaultLocale = "en_US.UTF-8";
+
+  environment.sessionVariables = {
+    TZDIR = "/etc/zoneinfo";
+  };
 
   # System Packages
   programs.zsh.enable = true;
@@ -40,7 +46,6 @@
   environment.systemPackages = with pkgs; [
     vim
   ];
-
 
   # Users
   security.pam.services.hyprlock = {};
