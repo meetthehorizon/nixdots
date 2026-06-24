@@ -49,6 +49,7 @@
 
   # Users
   security.pam.services.hyprlock = {};
+  security.pam.services.ly.enableGnomeKeyring = true;
   users.users.conart = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "video"];
