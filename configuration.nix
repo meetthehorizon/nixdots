@@ -42,6 +42,7 @@
 
   # System Packages
   programs.zsh.enable = true;
+  programs.fish.enable = true;
   programs.hyprland.enable = true;
   environment.systemPackages = with pkgs; [
     vim
@@ -53,7 +54,7 @@
   users.users.conart = {
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "video"];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
     packages = [];
   };
 
