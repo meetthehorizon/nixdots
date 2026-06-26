@@ -41,6 +41,34 @@
     '';
   };
 
+  programs.fish = {
+    enable = true;
+    shellAliases = {
+      ll = "ls -la";
+      v = "nvim";
+      g = "git";
+      clr = "clear && fastfetch";
+
+      nean = "sudo nix-collect-garbage -d";
+      nate = "sudo nixos-rebuild switch --flake ~/.dotfiles/#horizon";
+      nest = "sudo nixos-rebuild test --flake ~/.dotfiles/#horizon";
+    };
+
+    interactiveShellInit = ''
+      # Disable greeting
+      set -g fish_greeting
+
+      # Enable vi key bindings
+      fish_vi_key_bindings
+
+      fastfetch
+      if test -f /home/conart/.config/gh/github-pat
+        set -gx GITHUB_TOKEN (cat /home/conart/.config/gh/github-pat)
+        set -gx GH_TOKEN $GITHUB_TOKEN
+      end
+    '';
+  };
+
   programs.fastfetch = {
     enable = true;
     settings = {
@@ -119,6 +147,7 @@
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
+    enableFishIntegration = true;
 
     settings = {
       format = "$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$python$character";
@@ -171,4 +200,17 @@
       };
     };
   };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+    enableFishIntegration = true;
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+    enableFishIntegration = true;
+  };
 }
+
