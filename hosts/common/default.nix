@@ -6,9 +6,22 @@
   ...
 }: {
   # Boot Manager Defaults
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 7;
+
+  # Enable Limine and Secure Boot configuration
+  boot.loader.limine = {
+    enable = true;
+    secureBoot.enable = true;
+    enrollConfig = true;
+    panicOnChecksumMismatch = true;
+    enableEditor = false; # Best practice for Secure Boot integrity
+    extraEntries = ''
+      /Windows
+      protocol: efi
+      path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+    '';
+  };
 
   # Home Package Configuration
   nixpkgs.config.allowUnfree = true;
@@ -36,6 +49,7 @@
   programs.hyprland.enable = true;
   environment.systemPackages = with pkgs; [
     vim
+    sbctl
   ];
 
   # Users
