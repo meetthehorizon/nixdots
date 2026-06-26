@@ -33,8 +33,25 @@
       horizon = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./configuration.nix
-          ./hardware-configuration.nix
+          ./hosts/horizon/default.nix
+
+          inputs.agenix.nixosModules.default
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = {inherit inputs;};
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.conart = import ./home.nix;
+          }
+        ];
+      };
+
+      generic = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/generic/default.nix
 
           inputs.agenix.nixosModules.default
 
