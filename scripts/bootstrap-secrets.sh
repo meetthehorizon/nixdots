@@ -129,23 +129,64 @@ else
     echo -e "${CYAN}${NC} Found existing SSH key at ${BLUE}$USER_SSH_KEY${NC}"
 fi
 
-# 4.5. Check for GitHub PAT
+# 4.5. Check for GitHub PAT / credentials (healthcheck)
 USER_PAT_FILE="$BOOTSTRAP_SECRETS_DIR/github-pat"
-if [ ! -f "$USER_PAT_FILE" ]; then
-    if [ -n "${GITHUB_PAT:-}" ]; then
-        echo "$GITHUB_PAT" > "$USER_PAT_FILE"
-    elif [ "$INTERACTIVE" = true ] && confirm "Do you have a GitHub Personal Access Token (PAT) to configure?"; then
+GITHUB_PAT_FOUND=""
+
+# Discover PAT from various possible locations
+if [ -f "$USER_PAT_FILE" ]; then
+    GITHUB_PAT_FOUND=$(cat "$USER_PAT_FILE")
+elif [ -n "${GITHUB_PAT:-}" ]; then
+    GITHUB_PAT_FOUND="$GITHUB_PAT"
+elif [ -n "${GH_TOKEN:-}" ]; then
+    GITHUB_PAT_FOUND="$GH_TOKEN"
+elif command -v gh &>/dev/null && gh auth token &>/dev/null; then
+    GITHUB_PAT_FOUND=$(gh auth token)
+fi
+
+# Fallback: check if we can run gh via nix shell to find the token
+if [ -z "$GITHUB_PAT_FOUND" ]; then
+    if nix shell nixpkgs#gh -c gh auth token &>/dev/null; then
+        GITHUB_PAT_FOUND=$(nix shell nixpkgs#gh -c gh auth token)
+    fi
+fi
+
+if [ -z "$GITHUB_PAT_FOUND" ]; then
+    if [ "$INTERACTIVE" = true ] && confirm "Do you have a GitHub Personal Access Token (PAT) to configure?"; then
         echo -e "${CYAN}Please paste your GitHub Classic PAT (should start with ghp_):${NC}"
         read -r GITHUB_PAT_INPUT
-        echo "$GITHUB_PAT_INPUT" > "$USER_PAT_FILE"
-        echo -e "${GREEN}${BOLD}󰄬${NC} PAT saved."
+        GITHUB_PAT_FOUND="$GITHUB_PAT_INPUT"
     else
         echo -e "${RED}=========================================================================${NC}"
-        echo -e "${RED}${BOLD}󰅚 ERROR:${NC} GitHub PAT not found at ${BLUE}$USER_PAT_FILE${NC}"
-        echo -e "To continue, please create this file and paste your GitHub PAT inside it."
-        echo -e "Ensure the token has 'repo', 'admin:public_key', and 'workflow' scopes."
+        echo -e "${RED}${BOLD}󰅚 ERROR:${NC} GitHub PAT/credentials not found."
+        echo -e "To continue, please ensure GITHUB_PAT/GH_TOKEN is set, gh is logged in,"
+        echo -e "or paste a token when prompted."
         echo -e "${RED}=========================================================================${NC}"
         exit 1
+    fi
+fi
+
+# Persist the PAT file
+echo "$GITHUB_PAT_FOUND" > "$USER_PAT_FILE"
+chmod 600 "$USER_PAT_FILE"
+echo -e "${GREEN}${BOLD}󰄬${NC} GitHub PAT set."
+
+# 4.6. Verify and register SSH key with GitHub
+if [ -f "$USER_SSH_KEY.pub" ]; then
+    SSH_PUB_KEY=$(cat "$USER_SSH_KEY.pub")
+    SSH_KEY_BODY=$(echo "$SSH_PUB_KEY" | awk '{print $2}')
+    
+    echo -e "${CYAN}${NC} Checking if SSH key is registered with GitHub..."
+    # Run gh ssh-key list in nix shell with the token
+    if GH_TOKEN="$GITHUB_PAT_FOUND" nix shell nixpkgs#gh -c gh ssh-key list | grep -q "$SSH_KEY_BODY"; then
+        echo -e "${GREEN}${BOLD}󰄬${NC} SSH key is already registered with GitHub."
+    else
+        echo -e "${CYAN}${NC} SSH key not found on GitHub. Adding it..."
+        if GH_TOKEN="$GITHUB_PAT_FOUND" nix shell nixpkgs#gh -c gh ssh-key add "$USER_SSH_KEY.pub" --title "NixOS - $(hostname) - $(date +%F)"; then
+            echo -e "${GREEN}${BOLD}󰄬${NC} SSH key successfully registered with GitHub."
+        else
+            echo -e "${YELLOW}${BOLD} Warning:${NC} Failed to automatically register SSH key with GitHub. You may need to add it manually."
+        fi
     fi
 fi
 
@@ -180,13 +221,49 @@ nix shell nixpkgs#age -c age "${AGE_ARGS[@]}" -o "$SECRETS_DIR/github-ssh-key.ag
 echo -e "${CYAN}Encrypting GitHub PAT...${NC}"
 nix shell nixpkgs#age -c age "${AGE_ARGS[@]}" -o "$SECRETS_DIR/github-pat.age" "$USER_PAT_FILE"
 
-# 7. Clean up manually created files in ~/.ssh to avoid pollution
-echo -e "${CYAN}${NC} Cleaning up any manually created SSH files from ~/.ssh to let NixOS manage them..."
-rm -f "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_ed25519.pub"
+# 7. Clean up manually created files in ~/.ssh to avoid pollution (only if they are regular files, not symlinks)
+echo -e "${CYAN}${NC} Cleaning up any manually created SSH files from ~/.ssh (NixOS will manage them)..."
+if [ -f "$HOME/.ssh/id_ed25519" ] && [ ! -L "$HOME/.ssh/id_ed25519" ]; then
+    rm -f "$HOME/.ssh/id_ed25519"
+fi
+if [ -f "$HOME/.ssh/id_ed25519.pub" ] && [ ! -L "$HOME/.ssh/id_ed25519.pub" ]; then
+    rm -f "$HOME/.ssh/id_ed25519.pub"
+fi
 
-# 8. Clean up any manually created gh config/pat in ~/.config/gh to avoid conflicts
+# 7.5. Set up local SSH config for bootstrapping if it doesn't already exist or isn't a symlink
+SSH_CONFIG_FILE="$HOME/.ssh/config"
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
+
+if [ ! -L "$SSH_CONFIG_FILE" ] && [ ! -f "$SSH_CONFIG_FILE" ]; then
+    echo -e "${CYAN}${NC} Creating temporary ~/.ssh/config for bootstrapping..."
+    cat << EOF > "$SSH_CONFIG_FILE"
+Host github.com
+  HostName github.com
+  IdentityFile ~/.ssh/id_ed25519
+  User git
+EOF
+    chmod 600 "$SSH_CONFIG_FILE"
+    echo -e "${GREEN}${BOLD}󰄬${NC} Temporary ~/.ssh/config created."
+elif [ -f "$SSH_CONFIG_FILE" ] && [ ! -L "$SSH_CONFIG_FILE" ] && ! grep -q "Host github.com" "$SSH_CONFIG_FILE"; then
+    echo -e "${CYAN}${NC} Appending github.com configuration to ~/.ssh/config..."
+    cat << EOF >> "$SSH_CONFIG_FILE"
+
+Host github.com
+  HostName github.com
+  IdentityFile ~/.ssh/id_ed25519
+  User git
+EOF
+    echo -e "${GREEN}${BOLD}󰄬${NC} ~/.ssh/config updated."
+else
+    echo -e "${GREEN}${BOLD}󰄬${NC} ~/.ssh/config already configured/managed by Home Manager."
+fi
+
+# 8. Clean up any manually created gh config/pat in ~/.config/gh to avoid conflicts (only if not a symlink)
 echo -e "${CYAN}${NC} Cleaning up any manually created GitHub CLI credentials to let NixOS/agenix manage them..."
-rm -f "$HOME/.config/gh/github-pat"
+if [ -f "$HOME/.config/gh/github-pat" ] && [ ! -L "$HOME/.config/gh/github-pat" ]; then
+    rm -f "$HOME/.config/gh/github-pat"
+fi
 
 echo -e "${GREEN}${BOLD}󰄬${NC} Secrets successfully encrypted and stored in ${BLUE}$SECRETS_DIR${NC}"
 echo -e "${CYAN}${NC} You can now commit the 'secrets' directory to Git."
