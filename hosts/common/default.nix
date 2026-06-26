@@ -26,6 +26,7 @@
   # Home Package Configuration
   nixpkgs.config.allowUnfree = true;
   home-manager.useGlobalPkgs = true;
+  home-manager.backupFileExtension = "backup";
 
   # Networking
   networking.networkmanager.enable = true;
