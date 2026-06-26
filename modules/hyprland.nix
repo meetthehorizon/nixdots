@@ -31,6 +31,9 @@ in {
     };
   };
 
+  systemd.user.services.hyprsunset.Install.WantedBy = lib.mkForce [ ];
+
+
   services.mako = {
     enable = true;
     settings = {
@@ -55,6 +58,7 @@ in {
     Service = {
       # The absolute path to the binary ensures it always executes correctly
       ExecStart = "${pkgs.awww}/bin/awww-daemon";
+      ExecStartPost = "${pkgs.awww}/bin/awww img ${config.home.homeDirectory}/Pictures/Wallpapers/home";
       ExecStop = "${pkgs.awww}/bin/awww kill";
       Restart = "on-failure";
       RestartSec = "2"; # Wait 2 seconds before trying to restart
@@ -486,25 +490,40 @@ in {
           ]
         ]
         ++ builtins.genList
-        (i: [
-          ''mod .. " + ${toString (i + 1)}"''
-          ''hl.dsp.focus({ workspace = "${toString (i + 1)}" })''
+        (i: let
+          ws = i + 1;
+          key = if ws == 10 then "0" else toString ws;
+        in [
+          ''mod .. " + ${key}"''
+          ''hl.dsp.focus({ workspace = "${toString ws}" })''
           {
-            description = "Focus workspace ${toString (i + 1)}";
+            description = "Focus workspace ${toString ws}";
           }
         ])
-        9
+        10
         ++ builtins.genList
-        (i: [
-          ''mod .. " + SHIFT + ${toString (i + 1)}"''
-          ''hl.dsp.window.move({ workspace = "${toString (i + 1)}" })''
+        (i: let
+          ws = i + 1;
+          key = if ws == 10 then "0" else toString ws;
+        in [
+          ''mod .. " + SHIFT + ${key}"''
+          ''hl.dsp.window.move({ workspace = "${toString ws}" })''
           {
-            description = "Move window to workspace ${toString (i + 1)}";
+            description = "Move window to workspace ${toString ws}";
           }
         ])
-        9
+        10
       );
     };
-    extraConfig = "";
+    extraConfig = ''
+      hl.on("hyprland.start", function()
+        hl.exec_cmd("antigravity", { workspace = "1 silent" })
+        hl.exec_cmd("firefox", { workspace = "2 silent" })
+        hl.exec_cmd("kitty", { workspace = "3 silent" })
+        hl.exec_cmd("spotify", { workspace = "4 silent" })
+        hl.exec_cmd("obsidian", { workspace = "10 silent" })
+        hl.dispatch(hl.dsp.focus({ workspace = "3" }))
+      end)
+    '';
   };
 }
