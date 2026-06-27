@@ -398,7 +398,7 @@ in
     if system_host_pub:
         age_args.extend(["-r", system_host_pub])
         
-    age_args_str = " ".join(f"'-r' '{arg}'" for arg in age_args)
+    age_args_str = " ".join(f"'{arg}'" for arg in age_args)
     try:
         run_cmd(f"nix shell nixpkgs#age -c age {age_args_str} -o {SECRETS_DIR}/github-ssh-key.age {user_ssh_key}")
         run_cmd(f"nix shell nixpkgs#age -c age {age_args_str} -o {SECRETS_DIR}/github-pat.age {user_pat_file}")
