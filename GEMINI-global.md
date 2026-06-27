@@ -38,6 +38,11 @@ This file serves as a global memory of programming standards, preferences, and g
 - Always commit changes in bite-sized, incremental steps to keep changes readable, structured, and manageable without becoming overwhelmed.
 - Use descriptive, semantic commit messages (e.g., `feat: ...`, `fix: ...`, `docs: ...`, `refactor: ...`).
 
+### 4. Software Design Principles
+- **Single Responsibility Principle (SRP):** Strictly and extensively follow SRP. Every class, module, function, or service must have one, and only one, responsibility/reason to change.
+- **Don't Repeat Yourself (DRY):** Ensure DRY is followed. Avoid repeating common operations by extracting them into utilities or helper modules (e.g., `utils/` or helper functions).
+- **Modular Directory Structure:** Organize directory and codebase structure cleanly and modularly, keeping logical components decoupled and grouped appropriately.
+
 ## Documentation Standards
 
 - For repositories authored by the user:
