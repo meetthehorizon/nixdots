@@ -58,11 +58,11 @@ Plaintext credentials are kept in the gitignored `.secrets/` directory during se
 If you want to set up this system with **brand-new** credentials:
 
 1. Clone this repository.
-2. Run the bootstrap and TUI control panel script:
+2. Run the bootstrap and TUI control panel command:
    ```bash
-   ./scripts/bootstrap-secrets.py
+   nixdots
    ```
-   * Choose option `1` from the interactive menu (or run with `--bootstrap` to bypass the TUI). This script will:
+   * Choose option `1` from the interactive menu (or run with `nixdots --bootstrap` to bypass the TUI). This command will:
      - Generate a master recovery age key at `~/.config/sops/age/keys.txt` (or restore an existing one).
      - Generate a new SSH key pair inside `.secrets/` (or restore an existing one).
      - Configure your GitHub Personal Access Token (PAT) and save it to `.secrets/github-pat`.
