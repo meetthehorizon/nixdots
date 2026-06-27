@@ -3,3 +3,5 @@ assets/*
 .secrets/
 __pycache__/
 *.pyc
+.direnv/
+result
