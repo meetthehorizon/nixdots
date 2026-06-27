@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Use latest kernel — ASUS ROG drivers are mainlined in 6.10+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

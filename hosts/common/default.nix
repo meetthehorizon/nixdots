@@ -32,7 +32,7 @@
   networking.networkmanager.enable = true;
 
   # Experimental Features
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Locale
   time.timeZone = "Asia/Kolkata";
@@ -57,7 +57,7 @@
   security.pam.services.ly.enableGnomeKeyring = true;
   users.users.conart = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" ];
+    extraGroups = ["wheel" "networkmanager" "video"];
     shell = pkgs.fish;
     packages = [];
   };
