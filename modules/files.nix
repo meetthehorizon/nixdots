@@ -12,7 +12,5 @@ in {
     ".face".source = assets.userIcon;
     ".config/fastfetch/logo.png".source = assets.nixosIcon;
     ".gemini/GEMINI.md".source = ../GEMINI-global.md;
-
-    ".local/bin/nixdots".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/scripts/nixdots";
   };
 }
