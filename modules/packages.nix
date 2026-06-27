@@ -40,6 +40,8 @@
     gh
     seahorse
     inputs.agenix.packages.${stdenv.hostPlatform.system}.default
+    python3
+    python3Packages.rich
 
     # Archive utilities
     unzip
