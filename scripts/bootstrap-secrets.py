@@ -163,9 +163,9 @@ def check_secure_boot_status():
             # Parse lines
             for line in raw_status.splitlines():
                 if "Setup Mode:" in line:
-                    setup_mode = "✓" in line or "Enabled" in line
+                    setup_mode = "Enabled" in line
                 if "Secure Boot:" in line:
-                    secure_boot = "✓" in line or "Enabled" in line
+                    secure_boot = "Enabled" in line
         except Exception:
             pass
             
@@ -446,11 +446,13 @@ Host github.com
     console.print("[bold green]✓ Secrets successfully prepared for NixOS rebuild![/bold green]")
     console.print("You can now commit the 'secrets/' directory to Git.\n")
     
-    restart_shell = Confirm.ask("Do you want to restart your shell now?")
+    restart_shell = Confirm.ask("Do you want to restart your shell now?", default=False)
     if restart_shell:
         shell = os.environ.get("SHELL", "/bin/bash")
         console.print(f"[cyan]Restarting shell ({shell})...[/cyan]")
         os.execl(shell, shell)
+    else:
+        Prompt.ask("\nPress Enter to return to main menu")
 
 def main():
     # If run non-interactively via argv or if stdin is not a tty
