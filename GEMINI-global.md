@@ -1,5 +1,9 @@
 # Global Gemini Coding Conventions & Preferences
 
+> [!IMPORTANT]
+> The source of truth for this global memory file is managed within the NixOS configuration repository at [GEMINI-global.md](file:///home/conart/nixdots/GEMINI-global.md).
+> Any changes or additions to these conventions should be made to the repository file, which will automatically update `~/.gemini/GEMINI.md` when the system is rebuilt. Do not edit the generated file in `~/.gemini/` directly.
+
 This file serves as a global memory of programming standards, preferences, and guidelines for AI agents working on any of my projects.
 
 ## Programming Language Preferences & Conventions
