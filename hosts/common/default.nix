@@ -45,7 +45,6 @@
   };
 
   # System Packages
-  programs.zsh.enable = true;
   programs.fish.enable = true;
   programs.hyprland.enable = true;
   environment.systemPackages = with pkgs; [

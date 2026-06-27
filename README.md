@@ -7,7 +7,7 @@ NixOS system configuration flake for the host `horizon` using Home Manager, Nixv
 - **OS**: NixOS (using `nixpkgs` stable/unstable release 26.05)
 - **WM**: Hyprland (configured via Home Manager)
 - **Editor**: Nixvim (Neovim configuration packaged inside Nix)
-- **Terminal**: Kitty & Zsh
+- **Terminal**: Kitty & Fish
 - **Secrets Management**: `agenix` (using age for decrypting SSH keys and GitHub PATs dynamically at boot/rebuild time)
 
 ---
