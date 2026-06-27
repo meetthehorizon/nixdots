@@ -250,6 +250,14 @@
       which-key.enable = true;
     };
 
+    extraConfigLua = ''
+      require("luasnip.loaders.from_lua").load({
+        paths = {
+          "${./snippets}"
+        }
+      })
+    '';
+
     extraPackages = with pkgs; [
       alejandra # The new formatter binary
       gotools

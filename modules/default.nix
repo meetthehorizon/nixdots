@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  lib,
-  ...
-}: {
+{inputs, ...}: {
   imports = [
     inputs.nixvim.homeModules.nixvim
     ./packages.nix
@@ -14,8 +8,8 @@
     ./shell.nix
     ./kitty.nix
     ./hyprland.nix
-    ./nixvim.nix
     ./syncthing.nix
     ./dev.nix
+    ./neovim
   ];
 }
