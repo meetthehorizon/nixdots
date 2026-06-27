@@ -6,10 +6,7 @@
   ...
 }: {
   # Boot Manager Defaults
-  boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Enable Limine and Secure Boot configuration
   boot.loader.limine = {
     enable = true;
     secureBoot.enable = true;
@@ -37,7 +34,7 @@
   # Locale
   time.timeZone = "Asia/Kolkata";
   time.hardwareClockInLocalTime = false;
-  services.ntp.enable = true;
+  services.chrony.enable = true;
   i18n.defaultLocale = "en_US.UTF-8";
 
   environment.sessionVariables = {
