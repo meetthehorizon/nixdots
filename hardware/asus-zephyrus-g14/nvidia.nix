@@ -1,9 +1,13 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   # Enable OpenGL / graphics support
   hardware.graphics.enable = true;
 
   # NVIDIA proprietary driver (nvidia-open kernel modules for RTX 4060)
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
     # Use nvidia-open kernel modules (officially supported for Ada Lovelace / RTX 40xx)
@@ -32,5 +36,5 @@
   };
 
   # Blacklist nouveau to prevent conflicts
-  boot.blacklistedKernelModules = [ "nouveau" ];
+  boot.blacklistedKernelModules = ["nouveau"];
 }

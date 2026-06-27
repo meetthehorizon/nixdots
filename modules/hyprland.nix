@@ -32,8 +32,7 @@ in {
     };
   };
 
-  systemd.user.services.hyprsunset.Install.WantedBy = lib.mkForce [ ];
-
+  systemd.user.services.hyprsunset.Install.WantedBy = lib.mkForce [];
 
   services.mako = {
     enable = true;
@@ -492,7 +491,10 @@ in {
         ++ builtins.genList
         (i: let
           ws = i + 1;
-          key = if ws == 10 then "0" else toString ws;
+          key =
+            if ws == 10
+            then "0"
+            else toString ws;
         in [
           ''mod .. " + ${key}"''
           ''hl.dsp.focus({ workspace = "${toString ws}" })''
@@ -504,7 +506,10 @@ in {
         ++ builtins.genList
         (i: let
           ws = i + 1;
-          key = if ws == 10 then "0" else toString ws;
+          key =
+            if ws == 10
+            then "0"
+            else toString ws;
         in [
           ''mod .. " + SHIFT + ${key}"''
           ''hl.dsp.window.move({ workspace = "${toString ws}" })''
