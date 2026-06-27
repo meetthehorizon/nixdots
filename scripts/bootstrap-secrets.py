@@ -451,8 +451,6 @@ Host github.com
         shell = os.environ.get("SHELL", "/bin/bash")
         console.print(f"[cyan]Restarting shell ({shell})...[/cyan]")
         os.execl(shell, shell)
-    else:
-        Prompt.ask("\nPress Enter to return to main menu")
 
 def main():
     # If run non-interactively via argv or if stdin is not a tty
@@ -478,6 +476,7 @@ def main():
         
         if choice == "1":
             bootstrap_secrets_wizard()
+            Prompt.ask("\nPress Enter to return to main menu")
         elif choice == "2":
             print_hardware_status(interactive=True)
         elif choice == "3":
