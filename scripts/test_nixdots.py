@@ -4,14 +4,14 @@ import importlib.util
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 
-# Dynamically import the module with hyphens
-scripts_dir = Path(__file__).resolve().parent
-bootstrap_path = scripts_dir / "bootstrap-secrets.py"
+from importlib.machinery import SourceFileLoader
 
-spec = importlib.util.spec_from_file_location("bootstrap_secrets", str(bootstrap_path))
-bootstrap_secrets = importlib.util.module_from_spec(spec)
+# Dynamically import the nixdots module
+scripts_dir = Path(__file__).resolve().parent
+bootstrap_path = scripts_dir / "nixdots"
+
+bootstrap_secrets = SourceFileLoader("bootstrap_secrets", str(bootstrap_path)).load_module()
 sys.modules["bootstrap_secrets"] = bootstrap_secrets
-spec.loader.exec_module(bootstrap_secrets)
 
 def test_detect_hardware_non_asus():
     """Test hardware detection on a non-ASUS single GPU machine."""
