@@ -16,5 +16,6 @@
     ./hyprland.nix
     ./nixvim.nix
     ./syncthing.nix
+    ./dev.nix
   ];
 }
