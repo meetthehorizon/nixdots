@@ -163,6 +163,7 @@
       lsp = {
         enable = true;
         servers = {
+          clangd.enable = true;
           gopls.enable = true;
           nixd.enable = true;
           lua_ls.enable = true;
@@ -184,6 +185,7 @@
               "goimports"
               "gofmt"
             ];
+            cpp = ["clang-format"];
             lua = ["stylua"];
             javascript = ["prettier"];
             typescript = ["prettier"];
@@ -259,7 +261,7 @@
     '';
 
     extraPackages = with pkgs; [
-      alejandra # The new formatter binary
+      alejandra 
       gotools
       stylua
       typescript-language-server
