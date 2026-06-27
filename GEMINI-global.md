@@ -1,8 +1,7 @@
 # Global Gemini Coding Conventions & Preferences
 
 > [!IMPORTANT]
-> The source of truth for this global memory file is managed within the NixOS configuration repository at [GEMINI-global.md](file:///home/conart/nixdots/GEMINI-global.md).
-> Any changes or additions to these conventions should be made to the repository file, which will automatically update `~/.gemini/GEMINI.md` when the system is rebuilt. Do not edit the generated file in `~/.gemini/` directly.
+> - **GEMINI.md vs. GEMINI-global.md**: `GEMINI.md` is local to the repository and must NOT be edited for global memory/conventions. To update the global memory, you must edit `GEMINI-global.md` in the NixOS config repository at [GEMINI-global.md](file:///home/conart/nixdots/GEMINI-global.md). The NixOS rebuild process automatically updates the global `~/.gemini/GEMINI.md` based on it.
 
 This file serves as a global memory of programming standards, preferences, and guidelines for AI agents working on any of my projects.
 
@@ -24,3 +23,24 @@ This file serves as a global memory of programming standards, preferences, and g
 ## General Collaboration Style
 - Keep explanations concise and highlight file/code symbols as clickable links.
 - When configuring systemd user services, place target constraints inside `Install.WantedBy` rather than using NixOS-specific top-level properties.
+
+## Development & Execution Rules
+
+### 1. Test-Driven Development (TDD)
+- For all projects other than this NixOS/dotfiles repository, strictly follow Test-Driven Development (TDD). 
+- Write tests based on the requested feature or change, run them to see them fail (red), inform the user about the failure, and then write the code implementation to make them pass (green).
+
+### 2. Execution & Permissions
+- Proactively propose and run diagnostic commands (probing system/machine state) and local git commands (modifying local repositories) without asking the user beforehand in chat.
+- Always ask for explicit confirmation/permission before executing push commands (such as `git push` or `gh` commands that push remote changes).
+
+### 3. Git Commits & Workflow
+- Always commit changes in bite-sized, incremental steps to keep changes readable, structured, and manageable without becoming overwhelmed.
+- Use descriptive, semantic commit messages (e.g., `feat: ...`, `fix: ...`, `docs: ...`, `refactor: ...`).
+
+## Documentation Standards
+
+- For repositories authored by the user:
+  - Every commit must include an update to the documentation. Keep documentation precise.
+  - Every directory must contain documentation providing a high-level overview of its contents, helping both humans and AIs onboard quickly.
+  - The root `README.md` must provide quick links and a graph traversal option (e.g., a map, tree, or visual graph) to all repository documentation.
