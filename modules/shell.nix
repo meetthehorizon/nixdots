@@ -17,6 +17,9 @@
       # Disable greeting
       set -g fish_greeting
 
+      # Add local bin to path
+      fish_add_path $HOME/.local/bin
+
       # Enable vi key bindings
       fish_vi_key_bindings
 
