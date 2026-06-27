@@ -2,6 +2,41 @@
 
 NixOS system configuration flake for the host `horizon` using Home Manager, Nixvim, Hyprland, and agenix.
 
+## Repository Map & Documentation
+
+Below is a visual map of the repository's configuration components. You can use the quick links below to navigate to the detailed documentation for each directory.
+
+```mermaid
+graph TD
+    Root["README.md (Root)"] --> Assets["assets/ README.md"]
+    Root --> Config["config.nix/ README.md"]
+    Root --> Hardware["hardware/ README.md"]
+    Root --> Hosts["hosts/ README.md"]
+    Root --> Modules["modules/ README.md"]
+    Root --> Scripts["scripts/ README.md"]
+    Root --> Secrets["secrets/ README.md"]
+
+    Hardware --> G14["hardware/asus-zephyrus-g14/ README.md"]
+    Hosts --> Common["hosts/common/ README.md"]
+    Hosts --> Generic["hosts/generic/ README.md"]
+    Hosts --> Horizon["hosts/horizon/ README.md"]
+```
+
+### Documentation Quick Links
+- 📂 [assets/](file:///home/conart/nixdots/assets/README.md) — System assets, wallpapers, screenshots, and icons.
+- 📂 [config.nix/](file:///home/conart/nixdots/config.nix/README.md) — Unified styling, colors, and fonts configuration.
+- 📂 [hardware/](file:///home/conart/nixdots/hardware/README.md) — Modular hardware profiles.
+  - 📂 [hardware/asus-zephyrus-g14/](file:///home/conart/nixdots/hardware/asus-zephyrus-g14/README.md) — Asus Zephyrus G14 GPU and system tuning.
+- 📂 [hosts/](file:///home/conart/nixdots/hosts/README.md) — System host definitions.
+  - 📂 [hosts/common/](file:///home/conart/nixdots/hosts/common/README.md) — Core configurations shared across all machines.
+  - 📂 [hosts/generic/](file:///home/conart/nixdots/hosts/generic/README.md) — Fallback target configuration.
+  - 📂 [hosts/horizon/](file:///home/conart/nixdots/hosts/horizon/README.md) — Main setup for host `horizon`.
+- 📂 [modules/](file:///home/conart/nixdots/modules/README.md) — Home Manager and user environment modules (Hyprland, Nixvim, Shell, Kitty, etc.).
+- 📂 [scripts/](file:///home/conart/nixdots/scripts/README.md) — Maintenance and helper utility scripts.
+- 📂 [secrets/](file:///home/conart/nixdots/secrets/README.md) — Secure age-encrypted system credentials.
+
+---
+
 ## Architecture & Features
 
 - **OS**: NixOS (using `nixpkgs` stable/unstable release 26.05)
