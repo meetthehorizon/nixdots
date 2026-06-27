@@ -15,5 +15,6 @@
     ./kitty.nix
     ./hyprland.nix
     ./nixvim.nix
+    ./syncthing.nix
   ];
 }
