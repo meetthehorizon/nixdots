@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  assets = import ../assets.nix {inherit pkgs;};
   makeLuaCode = bindList:
     map (args: {
       _args =
@@ -58,7 +59,7 @@ in {
     Service = {
       # The absolute path to the binary ensures it always executes correctly
       ExecStart = "${pkgs.awww}/bin/awww-daemon";
-      ExecStartPost = "${pkgs.awww}/bin/awww img ${config.home.homeDirectory}/Pictures/Wallpapers/home";
+      ExecStartPost = "${pkgs.awww}/bin/awww img ${assets.homeScreen}";
       ExecStop = "${pkgs.awww}/bin/awww kill";
       Restart = "on-failure";
       RestartSec = "2"; # Wait 2 seconds before trying to restart
@@ -75,8 +76,7 @@ in {
       background = [
         {
           monitor = "";
-          # Assuming you updated your assets.nix to output to this path!
-          path = "${config.home.homeDirectory}/Pictures/Wallpapers/lock";
+          path = toString assets.lockScreen;
           blur_passes = 3;
           contrast = 0.8916;
           brightness = 0.8172;

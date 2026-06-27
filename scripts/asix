@@ -40,12 +40,12 @@ def theme_wall(image_path: str = typer.Argument(..., help="Path to the image fil
     shutil.copy(img, STATE_DIR / "wall.png")
     shutil.copy(img, STATE_DIR / "lock.png")
     
-    console.print(f"[cyan] Reloading Hyprpaper...[/cyan]")
+    console.print(f"[cyan] Updating wallpaper via awww...[/cyan]")
     try:
-        subprocess.run(["systemctl", "--user", "restart", "hyprpaper"], check=True, capture_output=True)
+        subprocess.run(["awww", "img", str(img)], check=True, capture_output=True)
         console.print(Panel.fit(f"[green]󰄬 Theme successfully updated to:[/green]\n[bold]{img}[/bold]", border_style="green"))
     except subprocess.CalledProcessError as e:
-        console.print(f"[red]󰅚 Error restarting hyprpaper: {e}[/red]")
+        console.print(f"[red]󰅚 Error updating wallpaper: {e}[/red]")
         raise typer.Exit(1)
 
 @theme_app.command("init")
