@@ -58,6 +58,9 @@
     bat
     tealdeer
 
+    # TUI
+    pkgs.bluetui
+
     inputs.antigravity-nix.packages.${stdenv.hostPlatform.system}.google-antigravity-no-fhs
     inputs.antigravity-nix.packages.${stdenv.hostPlatform.system}.google-antigravity-cli
   ];
