@@ -1,5 +1,11 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.rich ])"
+#!/bin/sh
+'''':
+if command -v python3 >/dev/null 2>&1 && python3 -c "import rich" >/dev/null 2>&1; then
+    exec python3 "$0" "$@"
+else
+    exec nix-shell -p "python3.withPackages (ps: [ ps.rich ])" --run "python3 $0 $@"
+fi
+'''
 
 import os
 import sys
