@@ -22,6 +22,11 @@ in {
     };
     gpg = {
       enable = mkEnableOption "GPG Private Token for Github Commits";
+      fingerprint = mkOption {
+        type = types.str;
+        default = "";
+        description = "Fingerprint or Key ID for GPG Key";
+      };
       file = mkOption {
         type = types.path;
         description = "Path to the age-encrypted GPG Private Token";
@@ -31,6 +36,12 @@ in {
 
   config = mkMerge [
     {
+      assertions = [
+        {
+          assertion = !cfg.gpg.enable || cfg.gpg.fingerprint != "";
+          message = "secret.gpg.fingerprint must be set when GPG is enabled";
+        }
+      ];
       home.packages = with pkgs; [
         seahorse
         inputs.agenix.packages.${stdenv.hostPlatform.system}.default

@@ -1,10 +1,12 @@
-{pkgs, ...}: {
+{pkgs, config, lib, ...}: {
   programs.git = {
     enable = true;
     settings = {
       user = {
         name = "Kshitij Sharma";
         email = "kshitij.dev@proton.me";
+      } // lib.optionalAttrs config.secret.gpg.enable {
+        signingkey = config.secret.gpg.fingerprint;
       };
       alias = {
         st = "status";
@@ -18,15 +20,18 @@
         sq = "rebase -i --autosquash --root";
       };
 
-      signing = {
-        key = "3A95CB5B608EA1CA";
-        signByDefault = true;
-      };
-
       core.editor = "nvim";
       init.defaultBranch = "master";
       pull.rebase = true;
       "url \"git@github.com:\"".insteadOf = "https://github.com/";
+    } // lib.optionalAttrs config.secret.gpg.enable {
+      commit = {
+        gpgsign = true;
+      };
+      gpg = {
+        program = "${pkgs.gnupg}/bin/gpg";
+        format = "openpgp";
+      };
     };
   };
 
