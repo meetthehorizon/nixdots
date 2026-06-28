@@ -1,0 +1,39 @@
+{
+  "name": "Catppuccin Mocha",
+  "colors": {
+    "background": "#1e1e2e",
+    "background_rgba": "rgba(30, 30, 46, 0.9)",
+    "foreground": "#cdd6f4",
+    "foreground_rgb": "rgb(205, 214, 244)",
+    "accent": "#94e2d5",
+    "accent_rgba": "rgba(94e2d5aa)",
+    "accent_rgb": "rgb(148, 226, 213)",
+    "inactive_border_rgba": "rgba(2a2a3aaa)",
+    "yellow_rgb": "rgb(249, 226, 175)",
+    "red": "#f38ba8",
+    "green": "#a6e3a1",
+    "yellow": "#f9e2af",
+    "blue": "#89b4fa",
+    "magenta": "#cba6f7",
+    "cyan": "#89dceb",
+    "gray": "#9399b2",
+    "light_blue": "#b4befe"
+  },
+  "fonts": {
+    "sans": "IBM Plex Sans",
+    "serif": "IBM Plex Serif",
+    "mono": "JetBrainsMono Nerd Font",
+    "sizes": {
+      "gtk": 11,
+      "kitty": 12,
+      "mako": 10
+    }
+  },
+  "opacity": {
+    "kitty": "0.8"
+  },
+  "neovim": {
+    "colorscheme": "catppuccin",
+    "transparent": true
+  }
+}
