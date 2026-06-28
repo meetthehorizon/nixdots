@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   programs.fish = {
     enable = true;
     shellAliases = {
@@ -38,10 +42,14 @@
       fish_vi_key_bindings
 
       fastfetch
-      if test -f /home/conart/.config/gh/github-pat
-        set -gx GITHUB_TOKEN (cat /home/conart/.config/gh/github-pat)
-        set -gx GH_TOKEN $GITHUB_TOKEN
-      end
+      ${lib.optionalString (config.secret.githubPat.enable or false) (let
+        fishPath = builtins.replaceStrings ["\${XDG_RUNTIME_DIR}"] ["$XDG_RUNTIME_DIR"] config.age.secrets.github-pat.path;
+      in ''
+        if test -f "${fishPath}"
+          set -gx GITHUB_TOKEN (cat "${fishPath}")
+          set -gx GH_TOKEN $GITHUB_TOKEN
+        end
+      '')}
     '';
   };
 }

@@ -3,6 +3,5 @@
     bluetui
     brightnessctl
     playerctl
-    seahorse
   ];
 }

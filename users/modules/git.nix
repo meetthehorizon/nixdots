@@ -18,6 +18,11 @@
         sq = "rebase -i --autosquash --root";
       };
 
+      signing = {
+        key = "3A95CB5B608EA1CA";
+        signByDefault = true;
+      };
+
       core.editor = "nvim";
       init.defaultBranch = "master";
       pull.rebase = true;
