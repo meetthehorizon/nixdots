@@ -9,8 +9,9 @@
       clr = "clear && fastfetch";
 
       nean = "sudo nix-collect-garbage -d";
-      nate = "sudo nixos-rebuild switch --flake ~/nixdots/#horizon";
-      nest = "sudo nixos-rebuild test --flake ~/nixdots/#horizon";
+      nate = "sudo nixos-rebuild switch --flake ~/nixdots#horizon";
+      nest = "sudo nixos-rebuild test --flake ~/nixdots#horizon";
+      hate = "home-manager switch --flake ~/nixdots#conart@horizon";
     };
 
     interactiveShellInit = ''

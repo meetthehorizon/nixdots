@@ -29,7 +29,7 @@ in {
   imports = [
     inputs.nixvim.homeModules.nixvim
     ./modules/settings.nix
-    ./modules/dev.nix
+    ./modules/direnv.nix
     ./modules/eza.nix
     ./modules/fastfetch.nix
     ./modules/files.nix
@@ -48,11 +48,15 @@ in {
     ./modules/nixvim/colorschemes.nix
     ./modules/nixvim/keymaps.nix
     ./modules/nixvim/plugins.nix
-    ./modules/packages.nix
     ./modules/starship.nix
     ./modules/syncthing.nix
     ./modules/theme.nix
     ./modules/zoxide.nix
+    ./modules/shell-util.nix
+    ./modules/commercial.nix
+    ./modules/system.nix
+    ./modules/ide/code.nix
+    ./modules/ide/antigravity.nix
   ];
 
   # Let Home Manager install and manage itself
