@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  assets = import ../assets.nix {inherit pkgs;};
+  assets = import ./assets.nix {inherit pkgs;};
   makeLuaCode = bindList:
     map (args: {
       _args =
@@ -18,6 +18,10 @@
     })
     bindList;
 in {
+  home.packages = with pkgs; [
+    hyprlauncher
+    wl-clipboard
+  ];
   programs.hyprshot.enable = true;
   services.hyprsunset = {
     enable = true;
