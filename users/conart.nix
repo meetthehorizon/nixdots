@@ -28,6 +28,7 @@ in {
 
   imports = [
     inputs.nixvim.homeModules.nixvim
+    ./modules/settings.nix
     ./modules/dev.nix
     ./modules/eza.nix
     ./modules/fastfetch.nix
@@ -38,7 +39,7 @@ in {
     ./modules/git.nix
     ./modules/hyprland.nix
     ./modules/kitty.nix
-    ./modules/nixvim.nix
+    ./modules/nixvim
     ./modules/packages.nix
     ./modules/starship.nix
     ./modules/syncthing.nix
