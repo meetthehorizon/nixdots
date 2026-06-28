@@ -37,7 +37,7 @@ in {
     ./modules/fish.nix
     ./modules/fzf.nix
     ./modules/git.nix
-    ./modules/hyprland.nix
+    ./modules/hyprland
     ./modules/kitty.nix
     ./modules/nixvim
     ./modules/packages.nix
