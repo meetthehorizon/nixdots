@@ -261,7 +261,7 @@
     '';
 
     extraPackages = with pkgs; [
-      alejandra 
+      alejandra
       gotools
       stylua
       typescript-language-server

@@ -1,19 +1,4 @@
 {...}: {
-  programs.ssh = {
-    enable = true;
-    enableDefaultConfig = false;
-    settings = {
-      "*" = {
-        AddKeysToAgent = "yes";
-      };
-      "github.com" = {
-        HostName = "github.com";
-        IdentityFile = "~/.ssh/id_ed25519";
-        User = "git";
-      };
-    };
-  };
-
   programs.git = {
     enable = true;
     settings = {

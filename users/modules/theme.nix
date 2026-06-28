@@ -1,4 +1,8 @@
-{...}: {
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    ibm-plex
+  ];
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
