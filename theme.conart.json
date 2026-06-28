@@ -1,0 +1,39 @@
+{
+  "name": "Tokyo Night",
+  "colors": {
+    "background": "#1a1b26",
+    "background_rgba": "rgba(26, 27, 38, 0.9)",
+    "foreground": "#a9b1d6",
+    "foreground_rgb": "rgb(169, 177, 214)",
+    "accent": "#e0af68",
+    "accent_rgba": "rgba(122, 162, 247, 0.66)",
+    "accent_rgb": "rgb(122, 162, 247)",
+    "inactive_border_rgba": "rgba(34, 36, 54, 0.66)",
+    "yellow_rgb": "rgb(224, 175, 104)",
+    "red": "#f7768e",
+    "green": "#9ece6a",
+    "yellow": "#e0af68",
+    "blue": "#7aa2f7",
+    "magenta": "#bb9af7",
+    "cyan": "#7dcfff",
+    "gray": "#565f89",
+    "light_blue": "#a9b1d6"
+  },
+  "fonts": {
+    "sans": "IBM Plex Sans",
+    "serif": "IBM Plex Serif",
+    "mono": "JetBrainsMono Nerd Font",
+    "sizes": {
+      "gtk": 11,
+      "kitty": 12,
+      "mako": 10
+    }
+  },
+  "opacity": {
+    "kitty": "0.85"
+  },
+  "neovim": {
+    "colorscheme": "tokyonight",
+    "transparent": true
+  }
+}

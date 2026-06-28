@@ -1,14 +1,16 @@
-{...}: {
+{config, ...}: {
   programs.kitty = {
     enable = true;
 
     font = {
-      name = "JetBrainsMono Nerd Font";
-      size = 12;
+      name = config.theme.fonts.mono;
+      size = config.theme.fonts.sizes.kitty;
     };
 
     settings = {
-      background_opacity = "0.8";
+      background = config.theme.colors.background;
+      foreground = config.theme.colors.foreground;
+      background_opacity = config.theme.opacity.kitty;
     };
   };
 }

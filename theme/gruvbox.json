@@ -1,0 +1,39 @@
+{
+  "name": "Gruvbox Dark",
+  "colors": {
+    "background": "#282828",
+    "background_rgba": "rgba(40, 40, 40, 0.9)",
+    "foreground": "#ebdbb2",
+    "foreground_rgb": "rgb(235, 219, 178)",
+    "accent": "#fe8019",
+    "accent_rgba": "rgba(254, 128, 25, 0.66)",
+    "accent_rgb": "rgb(254, 128, 25)",
+    "inactive_border_rgba": "rgba(60, 56, 54, 0.66)",
+    "yellow_rgb": "rgb(250, 189, 47)",
+    "red": "#cc241d",
+    "green": "#98971a",
+    "yellow": "#d79921",
+    "blue": "#458588",
+    "magenta": "#b16286",
+    "cyan": "#689d6a",
+    "gray": "#928374",
+    "light_blue": "#a89984"
+  },
+  "fonts": {
+    "sans": "IBM Plex Sans",
+    "serif": "IBM Plex Serif",
+    "mono": "JetBrainsMono Nerd Font",
+    "sizes": {
+      "gtk": 11,
+      "kitty": 12,
+      "mako": 10
+    }
+  },
+  "opacity": {
+    "kitty": "0.9"
+  },
+  "neovim": {
+    "colorscheme": "gruvbox",
+    "transparent": true
+  }
+}
