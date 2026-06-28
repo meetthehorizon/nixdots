@@ -1,23 +1,23 @@
 {
-  "name": "Tokyo Night",
+  "name": "Catppuccin Mocha",
   "colors": {
-    "background": "#1a1b26",
-    "background_rgba": "rgba(26, 27, 38, 0.9)",
-    "foreground": "#a9b1d6",
-    "foreground_rgb": "rgb(169, 177, 214)",
-    "accent": "#e0af68",
-    "accent_rgba": "rgba(122, 162, 247, 0.66)",
-    "accent_rgb": "rgb(122, 162, 247)",
-    "inactive_border_rgba": "rgba(34, 36, 54, 0.66)",
-    "yellow_rgb": "rgb(224, 175, 104)",
-    "red": "#f7768e",
-    "green": "#9ece6a",
-    "yellow": "#e0af68",
-    "blue": "#7aa2f7",
-    "magenta": "#bb9af7",
-    "cyan": "#7dcfff",
-    "gray": "#565f89",
-    "light_blue": "#a9b1d6"
+    "background": "#1e1e2e",
+    "background_rgba": "rgba(30, 30, 46, 0.9)",
+    "foreground": "#cdd6f4",
+    "foreground_rgb": "rgb(205, 214, 244)",
+    "accent": "#94e2d5",
+    "accent_rgba": "rgba(94e2d5aa)",
+    "accent_rgb": "rgb(148, 226, 213)",
+    "inactive_border_rgba": "rgba(2a2a3aaa)",
+    "yellow_rgb": "rgb(249, 226, 175)",
+    "red": "#f38ba8",
+    "green": "#a6e3a1",
+    "yellow": "#f9e2af",
+    "blue": "#89b4fa",
+    "magenta": "#cba6f7",
+    "cyan": "#89dceb",
+    "gray": "#9399b2",
+    "light_blue": "#b4befe"
   },
   "fonts": {
     "sans": "IBM Plex Sans",
@@ -30,10 +30,10 @@
     }
   },
   "opacity": {
-    "kitty": "0.85"
+    "kitty": "0.8"
   },
   "neovim": {
-    "colorscheme": "tokyonight",
+    "colorscheme": "catppuccin",
     "transparent": true
   }
 }

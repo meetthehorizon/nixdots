@@ -51,6 +51,10 @@ func main() {
 			os.Exit(1)
 		}
 		handleSet(os.Args[2], os.Args[3])
+	case "fonts", "font":
+		handleFonts()
+	case "options", "keys":
+		handleOptions()
 	case "help", "-h", "--help":
 		printUsage()
 	default:
@@ -72,13 +76,14 @@ func printUsage() {
 	fmt.Printf("  %sswitch / select <name>%s      Switch to a predefined theme preset\n", Green, Reset)
 	fmt.Printf("  %scurrent / status%s            Display details of the active theme\n", Green, Reset)
 	fmt.Printf("  %sset <key> <value>%s           Update a specific setting in the active theme\n", Green, Reset)
+	fmt.Printf("  %sfonts / font%s                List all supported font families mapped in Nix\n", Green, Reset)
+	fmt.Printf("  %soptions / keys%s              List all available theme config keys\n", Green, Reset)
 	fmt.Println()
 	fmt.Printf("%sExamples:%s\n", Bold, Reset)
 	fmt.Println("  theme list")
 	fmt.Println("  theme switch tokyonight")
-	fmt.Println("  theme current")
 	fmt.Println("  theme set colors.accent \"#ff0055\"")
-	fmt.Println("  theme set neovim.transparent false")
+	fmt.Println("  theme fonts")
 }
 
 // Helper to retrieve paths for user configuration
@@ -285,6 +290,65 @@ func handleSet(keyPath string, value string) {
 
 	fmt.Printf("%sUpdated %s to %q successfully in active theme.%s\n", Green, keyPath, value, Reset)
 	runHomeManagerSwitch(username, nixdotsDir)
+}
+
+func handleFonts() {
+	fmt.Println()
+	fmt.Printf("%s%sSupported Fonts in Nix (Lazy Installation):%s\n", Bold, Cyan, Reset)
+	fmt.Println("You can set any of these fonts in your theme JSON file.")
+	fmt.Println()
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
+	fmt.Fprintf(w, "%sFONT FAMILY\tNIX PACKAGE%s\n", Bold, Reset)
+	fmt.Fprintln(w, "IBM Plex Sans\tpkgs.ibm-plex")
+	fmt.Fprintln(w, "IBM Plex Serif\tpkgs.ibm-plex")
+	fmt.Fprintln(w, "JetBrainsMono Nerd Font\tpkgs.nerd-fonts.jetbrains-mono")
+	fmt.Fprintln(w, "FiraCode Nerd Font\tpkgs.nerd-fonts.fira-code")
+	fmt.Fprintln(w, "Hack Nerd Font\tpkgs.nerd-fonts.hack")
+	fmt.Fprintln(w, "Iosevka Nerd Font\tpkgs.nerd-fonts.iosevka")
+	fmt.Fprintln(w, "Mononoki Nerd Font\tpkgs.nerd-fonts.mononoki")
+	fmt.Fprintln(w, "Inter\tpkgs.inter")
+	fmt.Fprintln(w, "Roboto\tpkgs.roboto")
+	fmt.Fprintln(w, "Comic Mono\tpkgs.comic-mono")
+	w.Flush()
+	fmt.Println()
+}
+
+func handleOptions() {
+	fmt.Println()
+	fmt.Printf("%s%sAvailable Theme Configuration Keys:%s\n", Bold, Cyan, Reset)
+	fmt.Println("Use these paths with `theme set <key> <value>`:")
+	fmt.Println()
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
+	fmt.Fprintf(w, "%sKEY PATH\tTYPE\tDESCRIPTION%s\n", Bold, Reset)
+	fmt.Fprintln(w, "name\tstring\tTheme display name")
+	fmt.Fprintln(w, "colors.background\tstring (hex)\tMain backgrounds")
+	fmt.Fprintln(w, "colors.background_rgba\tstring (rgba)\tTransparent widgets")
+	fmt.Fprintln(w, "colors.foreground\tstring (hex)\tPrimary text color")
+	fmt.Fprintln(w, "colors.foreground_rgb\tstring (rgb)\tHyprlock labels")
+	fmt.Fprintln(w, "colors.accent\tstring (hex)\tActive border highlight")
+	fmt.Fprintln(w, "colors.accent_rgba\tstring (rgba)\tActive border with opacity")
+	fmt.Fprintln(w, "colors.accent_rgb\tstring (rgb)\tHyprlock borders")
+	fmt.Fprintln(w, "colors.inactive_border_rgba\tstring (rgba)\tInactive window border")
+	fmt.Fprintln(w, "colors.yellow_rgb\tstring (rgb)\tAuxiliary highlight color")
+	fmt.Fprintln(w, "colors.red\tstring (hex)\tShell/prompt red")
+	fmt.Fprintln(w, "colors.green\tstring (hex)\tShell/prompt green")
+	fmt.Fprintln(w, "colors.yellow\tstring (hex)\tShell/prompt yellow")
+	fmt.Fprintln(w, "colors.blue\tstring (hex)\tShell/prompt blue")
+	fmt.Fprintln(w, "colors.magenta\tstring (hex)\tShell/prompt magenta")
+	fmt.Fprintln(w, "colors.cyan\tstring (hex)\tShell/prompt cyan")
+	fmt.Fprintln(w, "colors.gray\tstring (hex)\tShell/prompt gray")
+	fmt.Fprintln(w, "colors.light_blue\tstring (hex)\tShell/prompt directory")
+	fmt.Fprintln(w, "fonts.sans\tstring\tSans-Serif font name")
+	fmt.Fprintln(w, "fonts.serif\tstring\tSerif font name")
+	fmt.Fprintln(w, "fonts.mono\tstring\tMonospace/Terminal font name")
+	fmt.Fprintln(w, "fonts.sizes.gtk\tint\tGTK UI font size")
+	fmt.Fprintln(w, "fonts.sizes.kitty\tint\tKitty terminal font size")
+	fmt.Fprintln(w, "fonts.sizes.mako\tint\tNotification font size")
+	fmt.Fprintln(w, "opacity.kitty\tstring\tKitty opacity (e.g. 0.8)")
+	fmt.Fprintln(w, "neovim.colorscheme\tstring\tNeovim theme")
+	fmt.Fprintln(w, "neovim.transparent\tbool\tEnable transparent editor")
+	w.Flush()
+	fmt.Println()
 }
 
 func runHomeManagerSwitch(username, nixdotsDir string) {
