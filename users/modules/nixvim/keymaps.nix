@@ -1,5 +1,6 @@
 {...}: {
   programs.nixvim.keymaps = [
+    # File explorer (Oil)
     {
       mode = "n";
       key = "-";
@@ -8,6 +9,8 @@
         desc = "Open File Explorer";
       };
     }
+
+    # Git Signs Hunk Management
     {
       mode = "n";
       key = "]h";
@@ -50,6 +53,8 @@
       action = "<cmd>Gitsigns stage_buffer<CR>";
       options.desc = "Stage Entire Buffer";
     }
+
+    # LSP Navigation and Actions
     {
       mode = "n";
       key = "gd";
@@ -68,6 +73,52 @@
       action = "<cmd>lua vim.lsp.buf.hover()<CR>";
       options.desc = "Hover Documentation";
     }
+    {
+      mode = "n";
+      key = "<leader>ca";
+      action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+      options.desc = "LSP Code Action";
+    }
+    {
+      mode = "n";
+      key = "<leader>rn";
+      action = "<cmd>lua vim.lsp.buf.rename()<CR>";
+      options.desc = "LSP Rename Symbol";
+    }
+    {
+      mode = "n";
+      key = "<leader>lf";
+      action = "<cmd>lua vim.lsp.buf.format({ async = true })<CR>";
+      options.desc = "LSP Format Document";
+    }
+
+    # Diagnostics
+    {
+      mode = "n";
+      key = "<leader>d";
+      action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+      options.desc = "Open Diagnostic Float";
+    }
+    {
+      mode = "n";
+      key = "[d";
+      action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
+      options.desc = "Previous Diagnostic";
+    }
+    {
+      mode = "n";
+      key = "]d";
+      action = "<cmd>lua vim.diagnostic.goto_next()<CR>";
+      options.desc = "Next Diagnostic";
+    }
+    {
+      mode = "n";
+      key = "<leader>dl";
+      action = "<cmd>lua vim.diagnostic.setloclist()<CR>";
+      options.desc = "Add Diagnostics to Location List";
+    }
+
+    # Telescope Search
     {
       mode = "n";
       key = "<leader>sf";
