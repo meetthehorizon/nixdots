@@ -47,7 +47,7 @@
       "conart@horizon" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {inherit inputs;};
-        modules = [./users/home.nix];
+        modules = [./users/conart.nix];
       };
     };
   };
