@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   programs.git = {
     enable = true;
     settings = {
@@ -22,6 +22,14 @@
       init.defaultBranch = "master";
       pull.rebase = true;
       "url \"git@github.com:\"".insteadOf = "https://github.com/";
+    };
+  };
+
+  programs.gh = {
+    enable = true;
+    settings = {
+      git_protocol = "ssh";
+      prompt = "enabled";
     };
   };
 }
