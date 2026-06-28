@@ -61,6 +61,7 @@ in {
     };
     gpg = {
       enable = true;
+      fingerprint = "3A95CB5B608EA1CA";
       file = ./.secrets/conart/gpg.age;
     };
   };
