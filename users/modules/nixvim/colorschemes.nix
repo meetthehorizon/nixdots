@@ -39,7 +39,7 @@
     extraConfigLua = ''
       require("luasnip.loaders.from_lua").load({
         paths = {
-          "${../../snippets}"
+          "${../snippets}"
         }
       })
 

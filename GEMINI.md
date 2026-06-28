@@ -5,6 +5,7 @@ This file serves as a persistent memory and guidelines file for AI agents workin
 ## Execution Rules
 
 - **Do NOT run `sudo` commands as a task**: Never execute commands using `sudo` directly. If a command requires root/administrative privileges, prompt the user with the command and ask them to run it manually.
+- **No `default.nix` files in module directories**: Never create or use `default.nix` inside subdirectories within modules (e.g., `users/modules/`). Import files individually or flatten them instead.
 
 ## Workspace Memory & System Configuration
 
