@@ -37,9 +37,17 @@ in {
     ./modules/fish.nix
     ./modules/fzf.nix
     ./modules/git.nix
-    ./modules/hyprland
+    ./modules/hyprland/binds.nix
+    ./modules/hyprland/config.nix
+    ./modules/hyprland/lock.nix
+    ./modules/hyprland/mako.nix
+    ./modules/hyprland/sunset.nix
+    ./modules/hyprland/wallpaper.nix
     ./modules/kitty.nix
-    ./modules/nixvim
+    ./modules/nixvim/options.nix
+    ./modules/nixvim/colorschemes.nix
+    ./modules/nixvim/keymaps.nix
+    ./modules/nixvim/plugins.nix
     ./modules/packages.nix
     ./modules/starship.nix
     ./modules/syncthing.nix
