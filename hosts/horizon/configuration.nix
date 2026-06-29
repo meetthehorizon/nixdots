@@ -43,9 +43,12 @@
   # Security
   security.pam.services = {
     hyprlock = {};
+    login.enableGnomeKeyring = true;
+    ly.enableGnomeKeyring = true;
   };
 
   # Services
+  services.gnome.gnome-keyring.enable = true;
   services.displayManager.ly.enable = true;
   services.pipewire = {
     enable = true;

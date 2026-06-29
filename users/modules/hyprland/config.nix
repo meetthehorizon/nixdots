@@ -27,6 +27,7 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "lua";
+    systemd.enable = true;
     settings = {
       mod._var = "SUPER";
       terminal._var = "kitty";
@@ -98,6 +99,7 @@ in {
 
     extraConfig = ''
       hl.on("hyprland.start", function()
+        hl.exec_cmd("dbus-update-activation-environment --systemd --all")
         hl.exec_cmd("antigravity", { workspace = "1 silent" })
         hl.exec_cmd("firefox", { workspace = "2 silent" })
         hl.exec_cmd("kitty", { workspace = "3 silent" })

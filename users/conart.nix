@@ -25,7 +25,6 @@ in {
     ./modules/direnv.nix
     ./modules/eza.nix
     ./modules/fastfetch.nix
-    ./modules/files.nix
     ./modules/firefox.nix
     ./modules/fish.nix
     ./modules/fzf.nix
