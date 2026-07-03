@@ -2,15 +2,11 @@
   description = "System configuration flake";
 
   inputs = {
-    # Stable or unstable nixpkgs core
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-
-    # Home manager framework
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     antigravity-nix = {
       url = "github:jacopone/antigravity-nix";
@@ -20,6 +16,10 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
+    };
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -33,6 +33,7 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      overlays = [inputs.nix-vscode-extensions.overlays.default];
     };
   in {
     nixosConfigurations = {
