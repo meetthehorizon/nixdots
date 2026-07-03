@@ -1,9 +1,4 @@
 assets/*
 !assets/README.md
-.secrets/*
-!.secrets/**/
-!.secrets/**/*.enc
-__pycache__/
-*.pyc
 .direnv/
 result

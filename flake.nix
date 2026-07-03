@@ -8,10 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
-    antigravity-nix = {
-      url = "github:jacopone/antigravity-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +20,6 @@
   };
 
   outputs = {
-    self,
     nixpkgs,
     home-manager,
     ...
@@ -48,7 +43,12 @@
       "conart@horizon" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {inherit inputs;};
-        modules = [./users/conart.nix];
+        modules = [
+          inputs.nixvim.homeModules.nixvim
+          inputs.agenix.homeManagerModules.default
+
+          ./users/conart/home.nix
+        ];
       };
     };
   };

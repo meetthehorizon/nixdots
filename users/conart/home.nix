@@ -1,0 +1,33 @@
+{config, ...}: let
+  dotfilesDir = "${config.home.homeDirectory}/nixdots";
+in {
+  home = {
+    username = "conart";
+    homeDirectory = "/home/conart";
+    file = {
+      "Pictures".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/assets/Pictures";
+    };
+  };
+
+  imports = [
+    ../../modules
+  ];
+
+  secret = {
+    githubPat = {
+      enable = true;
+      file = ../../.secrets/conart.github-pat.age;
+    };
+    gpg = {
+      enable = true;
+      fingerprint = "3A95CB5B608EA1CA";
+      file = ../../.secrets/conart.gpg.age;
+    };
+  };
+
+  # Let Home Manager install and manage itself
+  programs.home-manager.enable = true;
+
+  # Do not change this value unless you thoroughly read the release notes.
+  home.stateVersion = "26.05";
+}

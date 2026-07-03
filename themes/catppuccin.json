@@ -1,0 +1,46 @@
+{
+  "colors": {
+    "red": "#f38ba8",
+    "green": "#a6e3a1",
+    "yellow": "#f9e2af",
+    "blue": "#89b4fa",
+    "magenta": "#cba6f7",
+    "cyan": "#89dceb",
+    "gray": "#585b70",
+    "black": "#1e1e2e",
+    "white": "#cdd6f4",
+    "redRGB": "rgb(243, 139, 168)",
+    "greenRGB": "rgb(166, 227, 161)",
+    "yellowRGB": "rgb(249, 226, 175)",
+    "blueRGB": "rgb(137, 180, 250)",
+    "magentaRGB": "rgb(203, 166, 247)",
+    "cyanRGB": "rgb(137, 220, 235)",
+    "grayRGB": "rgb(88, 91, 112)",
+    "blackRGB": "rgb(30, 30, 46)",
+    "whiteRGB": "rgb(205, 214, 244)",
+    "background": "#1e1e2e",
+    "foreground": "#cdd6f4",
+    "accent": "#cba6f7",
+    "accentRGB": "rgb(203, 166, 247)",
+    "accentRGBA": "rgba(203, 166, 247, 1.0)",
+    "backgroundRGBA": "rgba(30, 30, 46, 1.0)",
+    "foregroundRGB": "rgb(205, 214, 244)"
+  },
+  "fonts": {
+    "sans": "Inter",
+    "serif": "IBM Plex Serif",
+    "mono": "JetBrainsMono Nerd Font",
+    "sizes": {
+      "gtk": 11,
+      "kitty": 12,
+      "mako": 11
+    }
+  },
+  "opacity": {
+    "kitty": "0.85"
+  },
+  "neovim": {
+    "colorscheme": "catppuccin",
+    "transparent": true
+  }
+}
