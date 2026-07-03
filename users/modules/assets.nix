@@ -13,7 +13,7 @@
     sha256 = "4b291e1495c2ce479ac70d3a9e9d1090908adbc7b4937d0f758f190d57109e1e";
   };
   lockScreen = pkgs.fetchurl {
-    url = "https://upload.wikimedia.org/wikipedia/commons/3/35/Minato_City%2C_Tokyo%2C_Japan.jpg";
-    sha256 = "4b186ff5628c0d14f5c66b3c11ebef13ba8fa3468fe9d91f781ae7862db85bf9";
+    url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nix-wallpaper-dracula.png";
+    sha256 = "4b291e1495c2ce479ac70d3a9e9d1090908adbc7b4937d0f758f190d57109e1e";
   };
 }
