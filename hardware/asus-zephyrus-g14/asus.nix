@@ -15,6 +15,7 @@
   # rog-control-center GUI (Wayland-native, works with Hyprland)
   environment.systemPackages = with pkgs; [
     asusctl # CLI + GUI: includes asusctl and rog-control-center
+    brightnessctl
     pkgs.mesa-demos # glxinfo, glxgears for GPU diagnostics
   ];
 }
