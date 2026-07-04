@@ -3,6 +3,7 @@
     ./cmp.nix
     ./conform.nix
     ./gitsigns.nix
+    ./lint.nix
     ./lsp.nix
     ./lualine.nix
     ./luasnip.nix

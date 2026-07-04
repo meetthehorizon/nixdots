@@ -250,6 +250,10 @@ in {
         type = lib.types.str;
         default = "username@hostname";
       };
+      nixdotsPath = lib.mkOption {
+        type = lib.types.str;
+        default = "/home/${config.home.username}/nixdots";
+      };
     };
   };
 

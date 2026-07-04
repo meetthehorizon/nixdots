@@ -17,6 +17,9 @@
           lua = ["stylua"];
           javascript = ["prettier"];
           typescript = ["prettier"];
+          json = ["prettier"];
+          yaml = ["prettier"];
+          toml = ["taplo"];
         };
       };
     };
@@ -26,8 +29,8 @@
       clang-tools
       gotools
       stylua
-      typescript-language-server
       prettier
+      taplo
     ];
   };
 }
