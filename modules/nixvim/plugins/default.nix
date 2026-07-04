@@ -1,6 +1,6 @@
 {
   imports = [
-    ./cmp.nix
+    ./blink.nix
     ./conform.nix
     ./gitsigns.nix
     ./lint.nix
@@ -12,7 +12,6 @@
     ./oil.nix
     ./telescope.nix
     ./treesitter.nix
-    ./web-devicons.nix
     ./which-key.nix
   ];
 }
