@@ -2,3 +2,5 @@ assets/*
 !assets/README.md
 .direnv/
 result
+theme.json
+settings.json
