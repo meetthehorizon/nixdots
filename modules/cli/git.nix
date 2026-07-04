@@ -13,7 +13,7 @@
         user = with config.settings;
           {
             name = "${firstName} ${lastName}";
-            email = "${email}]";
+            email = "${email}";
           }
           // lib.optionalAttrs gpgConfig.enable {
             signingkey = gpgConfig.fingerprint;

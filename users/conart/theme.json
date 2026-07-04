@@ -32,7 +32,7 @@
     "mono": "JetBrainsMono Nerd Font",
     "sizes": {
       "gtk": 11,
-      "kitty": 12,
+      "kitty": 14,
       "mako": 11
     }
   },

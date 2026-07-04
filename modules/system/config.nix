@@ -4,8 +4,11 @@
   pkgs,
   ...
 }: let
-  userThemeFile = ../../users/conart/theme.${config.home.username}.json;
+  userThemeFile = ../../users/conart/theme.json;
+  userSettingsFile = ../../users/conart/settings.json;
   defaultThemeFile = ../../themes/tokyonight.json;
+
+  assetsDir = ../../assets;
 
   themeFile =
     if builtins.pathExists userThemeFile
@@ -13,9 +16,6 @@
     else defaultThemeFile;
 
   themeData = builtins.fromJSON (builtins.readFile themeFile);
-  assetsDir = ../../assets;
-
-  userSettingsFile = /users/settings.${config.home.username}.json;
 
   settingsData =
     if builtins.pathExists userSettingsFile
