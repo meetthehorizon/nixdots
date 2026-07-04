@@ -1,4 +1,4 @@
-_: {
+{
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -9,6 +9,13 @@ _: {
     globals.maplocalleader = " ";
 
     opts = {
+      list = true;
+      listchars = {
+        lead = "·";
+        tab = "> ";
+        eol = "󰘌";
+        trail = "~";
+      };
       number = true;
       relativenumber = true;
       tabstop = 2;
