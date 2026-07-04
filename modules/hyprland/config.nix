@@ -30,6 +30,7 @@ in {
       mod._var = "SUPER";
       terminal._var = "kitty";
       launcher._var = "hyprlauncher";
+      browser._var = "firefox";
 
       config = {
         general = {
@@ -98,9 +99,9 @@ in {
     extraConfig = ''
       hl.on("hyprland.start", function()
         hl.exec_cmd("dbus-update-activation-environment --systemd --all")
-        hl.exec_cmd("kitty -e nvim", { workspace = "1 silent" })
-        hl.exec_cmd("firefox", { workspace = "2 silent" })
-        hl.exec_cmd("kitty", { workspace = "3 silent" })
+        hl.exec_cmd(terminal .. " -e nvim", { workspace = "1 silent" })
+        hl.exec_cmd(browser, { workspace = "2 silent" })
+        hl.exec_cmd(terminal, { workspace = "3 silent" })
         hl.exec_cmd("spotify", { workspace = "4 silent" })
         hl.exec_cmd("obsidian", { workspace = "10 silent" })
         hl.dispatch(hl.dsp.focus({ workspace = "3" }))
