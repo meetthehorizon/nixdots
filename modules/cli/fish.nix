@@ -22,8 +22,19 @@
       (lib.mkIf config.programs.git.enable {
         g = "git";
         ga = "git add";
-        gc = "git commit -m";
+        gc = "git commit";
         gp = "git push";
+        gs = "git status";
+        gb = "git branch";
+        gpl = "git pull";
+        gfk = "git commit --amend --no-edit";
+        gco = "git checkout";
+        glo = "git log --oneline";
+        grs = "git restore --staged";
+        grh = "git reset --hard";
+        grb = "git rebase";
+        grbs = "git rebase -i --autosquash --root";
+        grbc = "git rebase --continue";
       })
       {
         nrs = "sudo nixos-rebuild switch --flake .";

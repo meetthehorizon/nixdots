@@ -6,34 +6,25 @@
 }: {
   programs.git = {
     enable = true;
-    settings =
+    settings = let
+      gpgConfig = config.secret.gpg;
+    in
       {
         user = with config.settings;
           {
             name = "${firstName} ${lastName}";
             email = "${email}]";
           }
-          // lib.optionalAttrs config.secret.gpg.enable {
-            signingkey = config.secret.gpg.fingerprint;
+          // lib.optionalAttrs gpgConfig.enable {
+            signingkey = gpgConfig.fingerprint;
           };
-        alias = {
-          st = "status";
-          lg = "log -n 10 --oneline";
-          ci = "commit";
-          co = "checkout";
-          br = "branch";
-          fk = "commit --amend --no-edit";
-          rb = "rebase";
-          rbc = "rebase --continue";
-          sq = "rebase -i --autosquash --root";
-        };
 
         core.editor = "nvim";
         init.defaultBranch = "master";
         pull.rebase = true;
         "url \"git@github.com:\"".insteadOf = "https://github.com/";
       }
-      // lib.optionalAttrs config.secret.gpg.enable {
+      // lib.optionalAttrs gpgConfig.enable {
         commit = {
           gpgsign = true;
         };
