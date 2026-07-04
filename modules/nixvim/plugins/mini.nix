@@ -39,7 +39,7 @@
             "src".glyph = "";
             "test".glyph = "󰙨";
             "tests".glyph = "󰙨";
-            "theme".glyph = "󰔎";
+            "themes".glyph = "󰔎";
             "tmp".glyph = "󰩺";
             "users".glyph = "";
           };
