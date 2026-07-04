@@ -136,14 +136,14 @@ in {
       ]
       [
         ''"SUPER + SHIFT + S"''
-        ''hl.dsp.exec_cmd("pidof slurp || hyprshot -m window -o ~/Pictures/Screenshots/")''
+        ''hl.dsp.exec_cmd("pidof slurp || hyprshot -m window")''
         {
           description = "Take Screenshot of Window";
         }
       ]
       [
         ''mod .. " + S"''
-        ''hl.dsp.exec_cmd("pidof slurp || hyprshot -m region -o ~/Pictures/Screenshots/")''
+        ''hl.dsp.exec_cmd("pidof slurp || hyprshot -m region")''
         {
           description = "Take Screenshot of Region";
         }

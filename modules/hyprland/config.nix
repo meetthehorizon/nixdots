@@ -22,8 +22,6 @@ in {
     wl-clipboard
   ];
 
-  programs.hyprshot.enable = true;
-
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "lua";
