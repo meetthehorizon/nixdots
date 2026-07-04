@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  userThemeFile = /users/theme.${config.home.username}.json;
+  userThemeFile = ../../users/conart/theme.${config.home.username}.json;
   defaultThemeFile = ../../themes/tokyonight.json;
 
   themeFile =
