@@ -17,15 +17,28 @@ in {
       {
         mode = "n";
         key = "[d";
-        action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
+        action = "<cmd>lua vim.diagnostic.jump({ count = -1, float = true; })<CR>";
         options.desc = "Previous Diagnostic";
       }
       {
         mode = "n";
         key = "]d";
-        action = "<cmd>lua vim.diagnostic.goto_next()<CR>";
+        action = "<cmd>lua vim.diagnostic.jump({ count = 1, float = true; })<CR>";
         options.desc = "Next Diagnostic";
       }
+      {
+        mode = "n";
+        key = "[D";
+        action = "<cmd>lua vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true; })<CR>";
+        options.desc = "Previous Error";
+      }
+      {
+        mode = "n";
+        key = "]D";
+        action = "<cmd>lua vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true; })<CR>";
+        options.desc = "Next Error";
+      }
+
       {
         mode = "n";
         key = "<leader>dl";
