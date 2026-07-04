@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -20,7 +17,7 @@
       image = [
         {
           monitor = "";
-          path = "${config.home.homeDirectory}/.face";
+          path = "${config.theme.assets.userIcon}";
           border_size = 0;
           border_color = config.theme.colors.accentRGBA;
           size = 180;
