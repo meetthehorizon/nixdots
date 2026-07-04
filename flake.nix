@@ -42,7 +42,10 @@
     homeConfigurations = {
       "conart@horizon" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = {inherit inputs;};
+        extraSpecialArgs = {
+          inherit inputs;
+          hostName = "horizon";
+        };
         modules = [
           inputs.nixvim.homeModules.nixvim
           inputs.agenix.homeManagerModules.default
