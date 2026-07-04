@@ -16,10 +16,10 @@
   assetsDir = ../../assets;
 
   userSettingsFile = /users/settings.${config.home.username}.json;
-  
-  settingsData = 
-    if builtins.pathExists userSettingsFile 
-    then builtins.fromJSON (builtins.readFile userSettingsFile) 
+
+  settingsData =
+    if builtins.pathExists userSettingsFile
+    then builtins.fromJSON (builtins.readFile userSettingsFile)
     else {};
 
   fontPackageMap = {
@@ -201,29 +201,33 @@ in {
         userIcon = lib.mkOption {
           type = lib.types.either lib.types.path lib.types.package;
           default = pkgs.fetchurl {
-            url = "https://upload.wikimedia.org/wikipedia/commons/8/8c/Undine_-_The_River_Mask.jpg";
-            sha256 = "99f05f9e7a14417ac8a5bcdce71a5f5c30386bc34a6e442d2865f9ed1539f42d";
+            url = "https://upload.wikimedia.org/wikipedia/commons/0/02/Sea_Otter_%28Enhydra_lutris%29_%2825169790524%29_crop.jpg";
+            name = "userIcon.jpg";
+            sha256 = "8fe16c456477d51c05fd907d852802b2cef2c659bfd6fd1911059178cdb4a11b";
           };
         };
         homeIcon = lib.mkOption {
           type = lib.types.either lib.types.path lib.types.package;
           default = pkgs.fetchurl {
             url = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/nixos.png";
+            name = "homeIcon.png";
             sha256 = "20cf953237a3c2fd0227930c8b10165cf1cbf5a34cc31f8ae0d7f2d68a573876";
           };
         };
         homeScreen = lib.mkOption {
           type = lib.types.either lib.types.path lib.types.package;
           default = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nix-wallpaper-dracula.png";
-            sha256 = "4b291e1495c2ce479ac70d3a9e9d1090908adbc7b4937d0f758f190d57109e1e";
+            url = "https://upload.wikimedia.org/wikipedia/commons/6/6d/Tokyo_Tower%2C_Minato_City.jpg";
+            name = "lockScreen.png";
+            sha256 = "3729ee5220090c54a9c12f79f99ea0bf7f46bdb88da2d61b4a712c52aaef2877";
           };
         };
         lockScreen = lib.mkOption {
           type = lib.types.either lib.types.path lib.types.package;
           default = pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nix-wallpaper-dracula.png";
-            sha256 = "4b291e1495c2ce479ac70d3a9e9d1090908adbc7b4937d0f758f190d57109e1e";
+            url = "https://upload.wikimedia.org/wikipedia/commons/6/6d/Tokyo_Tower%2C_Minato_City.jpg";
+            name = "lockScreen.png";
+            sha256 = "3729ee5220090c54a9c12f79f99ea0bf7f46bdb88da2d61b4a712c52aaef2877";
           };
         };
       };
@@ -250,8 +254,8 @@ in {
   };
 
   config = lib.mkMerge [
-    (lib.mkIf (themeData ? colors) { theme.colors = themeData.colors; })
-    (lib.mkIf (themeData ? fonts) { theme.fonts = themeData.fonts; })
+    (lib.mkIf (themeData ? colors) {theme.colors = themeData.colors;})
+    (lib.mkIf (themeData ? fonts) {theme.fonts = themeData.fonts;})
 
     (lib.mkIf (themeData ? assets && themeData.assets ? userIcon) {
       theme.assets.userIcon = assetsDir + "/${themeData.assets.userIcon}";
@@ -266,10 +270,10 @@ in {
       theme.assets.lockScreen = assetsDir + "/${themeData.assets.lockScreen}";
     })
 
-    (lib.mkIf (settingsData ? firstName) { settings.firstName = settingsData.firstName; })
-    (lib.mkIf (settingsData ? middleName) { settings.middleName = settingsData.middleName; })
-    (lib.mkIf (settingsData ? lastName) { settings.lastName = settingsData.lastName; })
-    (lib.mkIf (settingsData ? email) { settings.email = settingsData.email; })
+    (lib.mkIf (settingsData ? firstName) {settings.firstName = settingsData.firstName;})
+    (lib.mkIf (settingsData ? middleName) {settings.middleName = settingsData.middleName;})
+    (lib.mkIf (settingsData ? lastName) {settings.lastName = settingsData.lastName;})
+    (lib.mkIf (settingsData ? email) {settings.email = settingsData.email;})
 
     {
       home.packages = activeFontPkgs;
@@ -277,9 +281,9 @@ in {
       fonts.fontconfig = {
         enable = true;
         defaultFonts = {
-          sansSerif = [ config.theme.fonts.sans ];
-          serif = [ config.theme.fonts.serif ];
-          monospace = [ config.theme.fonts.mono ];
+          sansSerif = [config.theme.fonts.sans];
+          serif = [config.theme.fonts.serif];
+          monospace = [config.theme.fonts.mono];
         };
       };
 
