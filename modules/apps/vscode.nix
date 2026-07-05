@@ -1,11 +1,32 @@
-{pkgs, ...}: let
-  commonExtensions = with pkgs.vscode-marketplace; [
-    # --- All Themes ---
-    enkia.tokyo-night
-    catppuccin.catppuccin-vsc
-    catppuccin.catppuccin-vsc-icons
+{
+  config,
+  pkgs,
+  ...
+}: let
+  vscodeThemeMap = {
+    "tokyonight" = "Tokyo Night";
+    "catppuccin" = "Catppuccin Mocha";
+    "gruvbox" = "Gruvbox Dark Hard";
+  };
 
-    # --- Core Utilities ---
+  vscodeIconMap = {
+    "tokyonight" = "material-icon-theme";
+    "catppuccin" = "catppuccin-mocha";
+    "gruvbox" = "gruvbox-material-icons";
+  };
+
+  activeColorTheme = vscodeThemeMap.${config.theme.colorscheme};
+  activeIconTheme = vscodeIconMap.${config.theme.colorscheme};
+
+  commonExtensions = with pkgs.vscode-marketplace; [
+    enkia.tokyo-night
+    jdinhlife.gruvbox
+    catppuccin.catppuccin-vsc
+
+    catppuccin.catppuccin-vsc-icons
+    navernoedenis.gruvbox-material-icons
+    pkief.material-icon-theme
+
     github.copilot-chat
     mkhl.direnv
     tonybaloney.vscode-pets
@@ -15,9 +36,9 @@
     "editor.formatOnSave" = true;
     "direnv.restart.automatic" = true;
 
-    "editor.fontFamily" = "'FiraCode Nerd Font', 'monospace'";
-    "workbench.colorTheme" = "Tokyo Night";
-    "workbench.iconTheme" = "catppuccin-frappe";
+    "editor.fontFamily" = "'${config.theme.fonts.mono}', 'monospace'";
+    "workbench.colorTheme" = activeColorTheme;
+    "workbench.iconTheme" = activeIconTheme;
 
     "files.autoSave" = "afterDelay";
     "files.autoSaveDelay" = 1000;

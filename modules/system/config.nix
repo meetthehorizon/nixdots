@@ -234,11 +234,11 @@ in {
         };
       };
 
+      colorscheme = lib.mkOption {
+        type = lib.types.str;
+      };
+
       neovim = {
-        colorscheme = lib.mkOption {
-          type = lib.types.str;
-          default = "0.8";
-        };
         transparent = lib.mkOption {
           type = lib.types.bool;
           default = true;
@@ -308,6 +308,7 @@ in {
   config = lib.mkMerge [
     (lib.mkIf (themeData ? colors) {theme.colors = themeData.colors;})
     (lib.mkIf (themeData ? fonts) {theme.fonts = themeData.fonts;})
+    (lib.mkIf (themeData ? colorscheme) {theme.colorscheme = themeData.colorscheme;})
 
     (lib.mkIf (themeData ? assets && themeData.assets ? userIcon) {
       theme.assets.userIcon = assetsDir + "/${themeData.assets.userIcon}";

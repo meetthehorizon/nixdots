@@ -38,11 +38,11 @@
   },
   "gtkTheme": "Catppuccin Mocha",
   "iconTheme": "Papirus Dark",
+  "colorscheme": "catppuccin",
   "opacity": {
     "kitty": "0.85"
   },
   "neovim": {
-    "colorscheme": "catppuccin",
     "transparent": true
   }
 }

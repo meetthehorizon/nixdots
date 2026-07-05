@@ -38,11 +38,11 @@
   },
   "gtkTheme": "Adwaita Dark",
   "iconTheme": "Papirus Dark",
+  "colorscheme": "gruvbox",
   "opacity": {
     "kitty": "0.95"
   },
   "neovim": {
-    "colorscheme": "gruvbox",
     "transparent": false
   }
 }

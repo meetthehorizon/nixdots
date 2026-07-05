@@ -38,11 +38,11 @@
   },
   "gtkTheme": "Tokyonight Dark",
   "iconTheme": "Papirus Dark",
+  "colorscheme": "tokyonight",
   "opacity": {
     "kitty": "0.9"
   },
   "neovim": {
-    "colorscheme": "tokyonight",
     "transparent": true
   }
 }

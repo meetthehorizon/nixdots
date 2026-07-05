@@ -2,21 +2,21 @@
   programs.nixvim = {
     colorschemes = {
       tokyonight = {
-        enable = config.theme.neovim.colorscheme == "tokyonight";
+        enable = config.theme.colorscheme == "tokyonight";
         settings = {
           style = "night";
           transparent = config.theme.neovim.transparent;
         };
       };
       catppuccin = {
-        enable = config.theme.neovim.colorscheme == "catppuccin";
+        enable = config.theme.colorscheme == "catppuccin";
         settings = {
           flavour = "mocha";
           transparent_background = config.theme.neovim.transparent;
         };
       };
       gruvbox = {
-        enable = config.theme.neovim.colorscheme == "gruvbox";
+        enable = config.theme.colorscheme == "gruvbox";
         settings = {
           transparent_mode = config.theme.neovim.transparent;
         };
