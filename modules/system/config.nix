@@ -35,13 +35,51 @@
     "Comic Mono" = pkgs.comic-mono;
   };
 
+  gtkThemeMap = {
+    "Tokyonight Dark" = {
+      package = pkgs.tokyonight-gtk-theme;
+      name = "Tokyonight-Dark";
+    };
+    "Catppuccin Mocha" = {
+      package = pkgs.catppuccin-gtk.override {
+        accents = ["blue"];
+        size = "standard";
+        variant = "mocha";
+      };
+      name = "catppuccin-mocha-blue-standard";
+    };
+    "Adwaita Dark" = {
+      package = pkgs.gnome-themes-extra;
+      name = "Adwaita-dark";
+    };
+  };
+
+  iconThemeMap = {
+    "Adwaita" = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+    };
+    "Papirus Dark" = {
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus-Dark";
+    };
+    "Tela Circle Dark" = {
+      package = pkgs.tela-circle-icon-theme;
+      name = "Tela-circle-dark";
+    };
+  };
+
   resolveFont = name: fontPackageMap.${name} or null;
+  resolveGtkTheme = name: gtkThemeMap.${name} or gtkThemeMap."Flat Remix Darkest";
+  resolveIconTheme = name: iconThemeMap.${name} or iconThemeMap."Adwaita";
 
   activeFontPkgs = builtins.filter (p: p != null) [
     (resolveFont config.theme.fonts.sans)
     (resolveFont config.theme.fonts.serif)
     (resolveFont config.theme.fonts.mono)
   ];
+  activeGtkTheme = resolveGtkTheme config.theme.gtkThemeName;
+  activeIconTheme = resolveIconTheme config.theme.iconThemeName;
 in {
   options = {
     theme = {
@@ -179,6 +217,16 @@ in {
         };
       };
 
+      gtkThemeName = lib.mkOption {
+        type = lib.types.str;
+        default = "Flat Remix Darkest";
+      };
+
+      iconThemeName = lib.mkOption {
+        type = lib.types.str;
+        default = "Adwaita";
+      };
+
       opacity = {
         kitty = lib.mkOption {
           type = lib.types.str;
@@ -279,6 +327,9 @@ in {
     (lib.mkIf (settingsData ? lastName) {settings.lastName = settingsData.lastName;})
     (lib.mkIf (settingsData ? email) {settings.email = settingsData.email;})
 
+    (lib.mkIf (themeData ? gtkTheme) {theme.gtkThemeName = themeData.gtkTheme;})
+    (lib.mkIf (themeData ? iconTheme) {theme.iconThemeName = themeData.iconTheme;})
+
     {
       home.packages = activeFontPkgs;
 
@@ -291,12 +342,21 @@ in {
         };
       };
 
+      home.pointerCursor = {
+        gtk.enable = true;
+        package = pkgs.bibata-cursors;
+        name = "Bibata-Modern-Classic";
+        size = 16;
+      };
+
       gtk = {
         enable = true;
         font = {
           name = config.theme.fonts.sans;
           size = config.theme.fonts.sizes.gtk;
         };
+        theme = activeGtkTheme;
+        iconTheme = activeIconTheme;
       };
     }
   ];

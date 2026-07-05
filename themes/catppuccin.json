@@ -36,6 +36,8 @@
       "mako": 11
     }
   },
+  "gtkTheme": "Catppuccin Mocha",
+  "iconTheme": "Papirus Dark",
   "opacity": {
     "kitty": "0.85"
   },
