@@ -37,20 +37,42 @@
   };
 
   # Security
-  security.pam.services = {
-    hyprlock = {};
-    login.enableGnomeKeyring = true;
-    ly.enableGnomeKeyring = true;
+  security = {
+    rtkit.enable = true;
+    pam.services = {
+      hyprlock = {};
+      login.enableGnomeKeyring = true;
+      ly.enableGnomeKeyring = true;
+    };
+  };
+
+  # XDG portal
+  xdg.portal = {
+    enable = true;
+    config = {
+      common = {
+        default = ["gtk"];
+      };
+      hyprland = {
+        default = ["gtk" "hyprland"];
+      };
+    };
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
   # Services
-  services.gnome.gnome-keyring.enable = true;
-  services.displayManager.ly.enable = true;
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
+  services = {
+    upower.enable = true;
+    gnome.gnome-keyring.enable = true;
+    displayManager.ly.enable = true;
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+    };
+    openssh.enable = true;
   };
-  services.openssh.enable = true;
 
   # SUID Wrapper
   programs.mtr.enable = true;

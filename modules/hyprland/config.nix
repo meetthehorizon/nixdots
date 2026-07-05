@@ -26,6 +26,9 @@ in {
     enable = true;
     configType = "lua";
     systemd.enable = true;
+    package = null;
+    portalPackage = null;
+    systemd.variables = ["--all"];
     settings = {
       mod._var = "SUPER";
       terminal._var = "kitty";

@@ -7,6 +7,9 @@ in {
     file = {
       "Pictures".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/assets/Pictures";
     };
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
   };
 
   imports = [
