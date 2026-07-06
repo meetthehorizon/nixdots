@@ -58,6 +58,8 @@
       stylua
       prettier
       taplo
+      ruff
+      basedpyright
     ];
   };
 }

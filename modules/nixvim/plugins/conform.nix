@@ -32,6 +32,7 @@
       stylua
       prettier
       taplo
+      ruff
     ];
   };
 }

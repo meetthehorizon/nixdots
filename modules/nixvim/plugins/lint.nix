@@ -12,6 +12,7 @@
     extraPackages = with pkgs; [
       statix
       golangci-lint
+      ruff
     ];
   };
 }
