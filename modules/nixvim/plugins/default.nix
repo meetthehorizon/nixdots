@@ -2,6 +2,7 @@
   imports = [
     ./blink.nix
     ./conform.nix
+    ./dap.nix
     ./gitsigns.nix
     ./lint.nix
     ./lsp.nix
@@ -12,6 +13,7 @@
     ./oil.nix
     ./telescope.nix
     ./treesitter.nix
+    ./venv-selector.nix
     ./which-key.nix
   ];
 }

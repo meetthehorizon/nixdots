@@ -20,6 +20,7 @@
           json = ["prettier"];
           yaml = ["prettier"];
           toml = ["taplo"];
+          python = ["ruff_fix" "ruff_format" "ruff_organize_imports"];
         };
       };
     };

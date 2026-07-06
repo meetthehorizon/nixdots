@@ -31,6 +31,23 @@
               };
             };
           };
+          basedpyright = {
+            enable = true;
+            settings.basedpyright = {
+              disableOrganizeImports = true;
+              analysis = {
+                typeCheckingMode = "standard";
+                useLibraryCodeForTypes = true;
+                diagnosticMode = "openFilesOnly";
+              };
+            };
+          };
+          ruff = {
+            enable = true;
+            onAttach.function = ''
+              client.server_capabilities.hoverProvider = false
+            '';
+          };
         };
       };
     };

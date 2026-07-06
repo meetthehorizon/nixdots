@@ -108,15 +108,33 @@ in {
       }
       {
         mode = "n";
+        key = "gD";
+        action = "<cmd>lua vim.lsp.buf.declaration()<CR>";
+        options.desc = "Go to Declaration";
+      }
+      {
+        mode = "n";
         key = "gr";
         action = "<cmd>lua vim.lsp.buf.references()<CR>";
         options.desc = "Go to References";
       }
       {
         mode = "n";
+        key = "gi";
+        action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
+        options.desc = "Go to Implementation";
+      }
+      {
+        mode = "n";
         key = "K";
         action = "<cmd>lua vim.lsp.buf.hover()<CR>";
         options.desc = "Hover Documentation";
+      }
+      {
+        mode = "n";
+        key = "<C-k>";
+        action = "<cmd>lua vim.lsp.buf.signature_help()<CR>";
+        options.desc = "Signature Help";
       }
       {
         mode = "n";
@@ -133,8 +151,26 @@ in {
       {
         mode = "n";
         key = "<leader>lf";
-        action = "<cmd>lua vim.lsp.buf.format({ async = true })<CR>";
-        options.desc = "LSP Format Document";
+        action = "<cmd>lua require('conform').format({ async = true, lsp_fallback = true })<CR>";
+        options.desc = "Format Document (Conform)";
+      }
+      {
+        mode = "n";
+        key = "gl";
+        action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+        options.desc = "Show Line Diagnostics";
+      }
+      {
+        mode = "n";
+        key = "]d";
+        action = "<cmd>lua vim.diagnostic.goto_next()<CR>";
+        options.desc = "Next Diagnostic";
+      }
+      {
+        mode = "n";
+        key = "[d";
+        action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
+        options.desc = "Previous Diagnostic";
       }
     ]
     ++ lib.optionals config.programs.nixvim.plugins.telescope.enable [
@@ -167,6 +203,28 @@ in {
         key = "<leader>sdw";
         action = "<cmd>Telescope diagnostics<CR>"; # <-- Notice bufnr=0 is gone!
         options.desc = "[S]earch [D]iagnostics [W]orkspace";
+      }
+    ]
+    ++ lib.optionals config.programs.nixvim.plugins.venv-selector.enable [
+      {
+        mode = "n";
+        key = "<leader>vs";
+        action = "<cmd>VenvSelect<CR>";
+        options.desc = "Select Virtual Environment";
+      }
+    ]
+    ++ lib.optionals config.programs.nixvim.plugins.dap.enable [
+      {
+        mode = "n";
+        key = "<F5>";
+        action = "<cmd>lua require('dap').continue()<CR>";
+        options.desc = "Debug: Start/Continue";
+      }
+      {
+        mode = "n";
+        key = "<F9>";
+        action = "<cmd>lua require('dap').toggle_breakpoint()<CR>";
+        options.desc = "Debug: Toggle Breakpoint";
       }
     ];
 }

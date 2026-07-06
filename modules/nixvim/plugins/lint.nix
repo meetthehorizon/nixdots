@@ -5,6 +5,7 @@
       lintersByFt = {
         nix = ["statix"];
         go = ["golangci-lint"];
+        python = ["ruff"];
       };
     };
 
