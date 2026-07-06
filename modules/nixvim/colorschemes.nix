@@ -23,6 +23,12 @@
       };
     };
 
+    highlight = {
+      NotifyBackground = {
+        bg = "#000000";
+      };
+    };
+
     extraConfigLua = ''
       ${
         if config.theme.neovim.transparent

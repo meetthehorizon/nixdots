@@ -3,6 +3,8 @@
     ./blink.nix
     ./conform.nix
     ./dap.nix
+    ./dressing.nix
+    ./notify.nix
     ./gitsigns.nix
     ./lint.nix
     ./lsp.nix

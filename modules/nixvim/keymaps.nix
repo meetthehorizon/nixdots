@@ -7,7 +7,7 @@
 in {
   programs.nixvim.keymaps =
     [
-      ## Diagnostics
+      # Diagnostics
       {
         mode = "n";
         key = "<leader>d";
@@ -17,44 +17,58 @@ in {
       {
         mode = "n";
         key = "[d";
-        action = "<cmd>lua vim.diagnostic.jump({ count = -1, float = true; })<CR>";
+        action = "<cmd>lua vim.diagnostic.jump({ count = -1, float = true })<CR>";
         options.desc = "Previous Diagnostic";
       }
       {
         mode = "n";
         key = "]d";
-        action = "<cmd>lua vim.diagnostic.jump({ count = 1, float = true; })<CR>";
+        action = "<cmd>lua vim.diagnostic.jump({ count = 1, float = true })<CR>";
         options.desc = "Next Diagnostic";
       }
       {
         mode = "n";
         key = "[D";
-        action = "<cmd>lua vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true; })<CR>";
+        action = "<cmd>lua vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })<CR>";
         options.desc = "Previous Error";
       }
       {
         mode = "n";
         key = "]D";
-        action = "<cmd>lua vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true; })<CR>";
+        action = "<cmd>lua vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })<CR>";
         options.desc = "Next Error";
       }
-
+    ]
+    # Debugger
+    ++ lib.optionals plugins.dap.enable [
       {
         mode = "n";
-        key = "<leader>dl";
-        action = "<cmd>lua vim.diagnostic.setloclist()<CR>";
-        options.desc = "Add Diagnostics to Location List";
+        key = "<F5>";
+        action = "<cmd>lua require('dap').continue()<CR>";
+        options.desc = "Debug: Start/Continue";
+      }
+      {
+        mode = "n";
+        key = "<F9>";
+        action = "<cmd>lua require('dap').toggle_breakpoint()<CR>";
+        options.desc = "Debug: Toggle Breakpoint";
       }
     ]
-    ++ lib.optional plugins.oil.enable
-    {
+    # File Explorer
+    ++ lib.optional plugins.oil.enable {
       mode = "n";
       key = "-";
       action = "<cmd>Oil<CR>";
-      options = {
-        desc = "Open File Explorer";
-      };
+      options.desc = "Open File Explorer";
     }
+    # Format Code
+    ++ lib.optional plugins.conform-nvim.enable {
+      mode = ["n" "v"];
+      key = "<leader>lf";
+      action = "<cmd>lua require('conform').format({ async = true, lsp_format = 'fallback' })<CR>";
+      options.desc = "Format Document (Conform)";
+    }
+    # Gitsigns
     ++ lib.optionals plugins.gitsigns.enable [
       {
         mode = "n";
@@ -99,30 +113,13 @@ in {
         options.desc = "Stage Entire Buffer";
       }
     ]
+    # LSP
     ++ lib.optionals plugins.lsp.enable [
-      {
-        mode = "n";
-        key = "gd";
-        action = "<cmd>lua vim.lsp.buf.definition()<CR>";
-        options.desc = "Go to Definition";
-      }
       {
         mode = "n";
         key = "gD";
         action = "<cmd>lua vim.lsp.buf.declaration()<CR>";
         options.desc = "Go to Declaration";
-      }
-      {
-        mode = "n";
-        key = "gr";
-        action = "<cmd>lua vim.lsp.buf.references()<CR>";
-        options.desc = "Go to References";
-      }
-      {
-        mode = "n";
-        key = "gi";
-        action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
-        options.desc = "Go to Implementation";
       }
       {
         mode = "n";
@@ -138,41 +135,26 @@ in {
       }
       {
         mode = "n";
-        key = "<leader>ca";
-        action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
-        options.desc = "LSP Code Action";
-      }
-      {
-        mode = "n";
         key = "<leader>rn";
         action = "<cmd>lua vim.lsp.buf.rename()<CR>";
         options.desc = "LSP Rename Symbol";
       }
       {
-        mode = "n";
-        key = "<leader>lf";
-        action = "<cmd>lua require('conform').format({ async = true, lsp_fallback = true })<CR>";
-        options.desc = "Format Document (Conform)";
-      }
-      {
-        mode = "n";
-        key = "gl";
-        action = "<cmd>lua vim.diagnostic.open_float()<CR>";
-        options.desc = "Show Line Diagnostics";
-      }
-      {
-        mode = "n";
-        key = "]d";
-        action = "<cmd>lua vim.diagnostic.goto_next()<CR>";
-        options.desc = "Next Diagnostic";
-      }
-      {
-        mode = "n";
-        key = "[d";
-        action = "<cmd>lua vim.diagnostic.goto_prev()<CR>";
-        options.desc = "Previous Diagnostic";
+        mode = ["n" "v"];
+        key = "<leader>ca";
+        action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+        options.desc = "LSP Code Action";
       }
     ]
+    # Notifications
+    ++ lib.optional plugins.notify.enable
+    {
+      mode = "n";
+      key = "<leader>nc";
+      action = "<cmd>lua require('notify').dismiss({ silent = true, pending = true })<CR>";
+      options.desc = "[N]otifications [C]lear";
+    }
+    # Telescope
     ++ lib.optionals plugins.telescope.enable [
       {
         mode = "n";
@@ -201,30 +183,69 @@ in {
       {
         mode = "n";
         key = "<leader>sdw";
-        action = "<cmd>Telescope diagnostics<CR>"; # <-- Notice bufnr=0 is gone!
+        action = "<cmd>Telescope diagnostics<CR>";
         options.desc = "[S]earch [D]iagnostics [W]orkspace";
       }
-    ]
-    ++ lib.optionals plugins.venv-selector.enable [
       {
         mode = "n";
-        key = "<leader>vs";
-        action = "<cmd>VenvSelect<CR>";
-        options.desc = "Select Virtual Environment";
+        key = "gd";
+        action = "<cmd>Telescope lsp_definitions<CR>";
+        options.desc = "Go to Definition";
+      }
+      {
+        mode = "n";
+        key = "gt";
+        action = "<cmd>Telescope lsp_type_definitions<CR>";
+        options.desc = "Go to Type Definition";
+      }
+      {
+        mode = "n";
+        key = "gr";
+        action = "<cmd>Telescope lsp_references<CR>";
+        options.desc = "Go to References";
+      }
+      {
+        mode = "n";
+        key = "gi";
+        action = "<cmd>Telescope lsp_implementations<CR>";
+        options.desc = "Go to Implementation";
+      }
+      {
+        mode = "n";
+        key = "<leader>sS";
+        action = "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>";
+        options.desc = "[S]earch Workspace [S]ymbols";
+      }
+      {
+        mode = "n";
+        key = "<leader>sc";
+        action = "<cmd>Telescope commands<CR>";
+        options.desc = "[S]earch [C]ommands";
+      }
+      {
+        mode = "n";
+        key = "<leader>sh";
+        action = "<cmd>Telescope help_tags<CR>";
+        options.desc = "[S]earch [H]elp";
+      }
+      {
+        mode = "n";
+        key = "<leader>sk";
+        action = "<cmd>Telescope keymaps<CR>";
+        options.desc = "[S]earch [K]eymaps";
+      }
+      {
+        mode = "n";
+        key = "<leader>ss";
+        action = "<cmd>Telescope lsp_document_symbols<CR>";
+        options.desc = "[S]earch [S]ymbols";
       }
     ]
-    ++ lib.optionals plugins.dap.enable [
-      {
-        mode = "n";
-        key = "<F5>";
-        action = "<cmd>lua require('dap').continue()<CR>";
-        options.desc = "Debug: Start/Continue";
-      }
-      {
-        mode = "n";
-        key = "<F9>";
-        action = "<cmd>lua require('dap').toggle_breakpoint()<CR>";
-        options.desc = "Debug: Toggle Breakpoint";
-      }
-    ];
+    # Python venv selector
+    ++ lib.optional plugins.venv-selector.enable {
+      mode = "n";
+      key = "<leader>vs";
+      action = "<cmd>VenvSelect<CR>";
+      options.desc = "Select Virtual Environment";
+    };
 }
