@@ -10,9 +10,9 @@ in {
       # Diagnostics
       {
         mode = "n";
-        key = "<leader>d";
+        key = "<leader>df";
         action = "<cmd>lua vim.diagnostic.open_float()<CR>";
-        options.desc = "Open Diagnostic Float";
+        options.desc = "Open [D]iagnostic [F]loat";
       }
       {
         mode = "n";
@@ -52,6 +52,38 @@ in {
         key = "<F9>";
         action = "<cmd>lua require('dap').toggle_breakpoint()<CR>";
         options.desc = "Debug: Toggle Breakpoint";
+      }
+      {
+        mode = "n";
+        key = "<F10>";
+        action = "<cmd>lua require('dap').step_over()<CR>";
+        options.desc = "DAP: Step Over";
+      }
+      {
+        mode = "n";
+        key = "<F11>";
+        action = "<cmd>lua require('dap').step_into()<CR>";
+        options.desc = "DAP: Step Into";
+      }
+      {
+        mode = "n";
+        key = "<F12>";
+        action = "<cmd>lua require('dap').step_out()<CR>";
+        options.desc = "DAP: Step Out";
+      }
+    ]
+    ++ lib.optionals plugins.dap-ui.enable [
+      {
+        mode = "n";
+        key = "<leader>du";
+        action = "<cmd>lua require('dapui').toggle()<CR>";
+        options.desc = "DAP UI: Toggle";
+      }
+      {
+        mode = ["n" "v"];
+        key = "<leader>de";
+        action = "<cmd>lua require('dapui').eval()<CR>";
+        options.desc = "DAP UI: Evaluate Expression";
       }
     ]
     # File Explorer

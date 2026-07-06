@@ -5,6 +5,10 @@
         enable = config.theme.colorscheme == "tokyonight";
         settings = {
           style = "night";
+          styles = {
+            sidebars = "transparent";
+            floats = "transparent";
+          };
           transparent = config.theme.neovim.transparent;
         };
       };
