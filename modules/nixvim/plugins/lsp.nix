@@ -17,6 +17,7 @@
           jsonls.enable = true;
           yamlls.enable = true;
           taplo.enable = true;
+          bashls.enable = true;
           nixd = {
             enable = true;
             settings = {
@@ -60,6 +61,7 @@
       taplo
       ruff
       basedpyright
+      bash-language-server
     ];
   };
 }

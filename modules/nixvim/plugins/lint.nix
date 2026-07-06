@@ -6,6 +6,8 @@
         nix = ["statix"];
         go = ["golangci-lint"];
         python = ["ruff"];
+        sh = ["shellcheck"];
+        bash = ["shellcheck"];
       };
     };
 
@@ -13,6 +15,7 @@
       statix
       golangci-lint
       ruff
+      shellcheck
     ];
   };
 }

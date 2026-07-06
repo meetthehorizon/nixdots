@@ -21,6 +21,16 @@
           yaml = ["prettier"];
           toml = ["taplo"];
           python = ["ruff_fix" "ruff_format" "ruff_organize_imports"];
+          sh = ["shfmt"];
+          bash = ["shfmt"];
+        };
+        formatters.shfmt = {
+          prepend_args = [
+            "-i"
+            "2"
+            "-ci"
+            "-sr"
+          ];
         };
       };
     };
@@ -33,6 +43,7 @@
       prettier
       taplo
       ruff
+      shfmt
     ];
   };
 }
