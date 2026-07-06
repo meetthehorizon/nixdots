@@ -99,7 +99,7 @@ in {
         options.desc = "Stage Entire Buffer";
       }
     ]
-    ++ lib.optionals config.programs.nixvim.plugins.lsp.enable [
+    ++ lib.optionals plugins.lsp.enable [
       {
         mode = "n";
         key = "gd";
@@ -173,7 +173,7 @@ in {
         options.desc = "Previous Diagnostic";
       }
     ]
-    ++ lib.optionals config.programs.nixvim.plugins.telescope.enable [
+    ++ lib.optionals plugins.telescope.enable [
       {
         mode = "n";
         key = "<leader>sf";
@@ -205,7 +205,7 @@ in {
         options.desc = "[S]earch [D]iagnostics [W]orkspace";
       }
     ]
-    ++ lib.optionals config.programs.nixvim.plugins.venv-selector.enable [
+    ++ lib.optionals plugins.venv-selector.enable [
       {
         mode = "n";
         key = "<leader>vs";
@@ -213,7 +213,7 @@ in {
         options.desc = "Select Virtual Environment";
       }
     ]
-    ++ lib.optionals config.programs.nixvim.plugins.dap.enable [
+    ++ lib.optionals plugins.dap.enable [
       {
         mode = "n";
         key = "<F5>";
