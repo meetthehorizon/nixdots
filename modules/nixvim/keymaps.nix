@@ -196,6 +196,19 @@ in {
       }
       {
         mode = "n";
+        key = "<leader>sc";
+        action.__raw = ''
+          function()
+            require('telescope.builtin').find_files({
+              cwd = vim.fn.expand('~/nixdots'),
+              follow = true
+            })
+          end
+        '';
+        options.desc = "[S]earch [C]onfiguration";
+      }
+      {
+        mode = "n";
         key = "<leader>sg";
         action = "<cmd>Telescope live_grep<CR>";
         options.desc = "[S]earch [G]rep";
@@ -250,12 +263,6 @@ in {
       }
       {
         mode = "n";
-        key = "<leader>sc";
-        action = "<cmd>Telescope commands<CR>";
-        options.desc = "[S]earch [C]ommands";
-      }
-      {
-        mode = "n";
         key = "<leader>sh";
         action = "<cmd>Telescope help_tags<CR>";
         options.desc = "[S]earch [H]elp";
@@ -279,5 +286,12 @@ in {
       key = "<leader>vs";
       action = "<cmd>VenvSelect<CR>";
       options.desc = "Select Virtual Environment";
+    }
+    # Lazygit
+    ++ lib.optional plugins.lazygit.enable {
+      mode = "n";
+      key = "<leader>gg";
+      action = "<cmd>LazyGit<CR>";
+      options.desc = "Lazygit GUI";
     };
 }
