@@ -20,7 +20,11 @@
           bashls.enable = true;
           qmlls = {
             enable = true;
-            cmd = ["-E"];
+            cmd = ["qmlls" "-E"];
+            filetypes = ["qml" "qmljs"];
+            rootMarkers = [
+              ".qmlls.ini"
+            ];
           };
           nixd = {
             enable = true;
