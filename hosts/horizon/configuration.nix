@@ -24,8 +24,7 @@
 
   # Locale and Time
   time.timeZone = "Asia/Kolkata";
-  time.hardwareClockInLocalTime = false;
-  services.ntp.enable = true;
+  services.chrony.enable = true;
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Users
@@ -85,7 +84,7 @@
     fish.enable = true;
     hyprland.enable = true;
   };
-  environment.systemPackages = with pkgs; [vim sbctl home-manager];
+  environment.systemPackages = with pkgs; [vim sbctl home-manager tzdata];
 
   # The state version when this system was installed. Do not change.
   system.stateVersion = "26.05";

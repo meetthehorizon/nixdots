@@ -57,6 +57,7 @@
             md.glyph = "";
             nix.glyph = "󱄅";
             py.glyph = "";
+            qml.glyph = "";
             sh.glyph = "";
             toml.glyph = "";
             ts.glyph = "";

@@ -17,6 +17,7 @@
       markdown
       nix
       python
+      qmljs
       rust
       svelte
       toml

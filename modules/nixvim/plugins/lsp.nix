@@ -18,6 +18,10 @@
           yamlls.enable = true;
           taplo.enable = true;
           bashls.enable = true;
+          qmlls = {
+            enable = true;
+            cmd = ["-E"];
+          };
           nixd = {
             enable = true;
             settings = {
@@ -54,14 +58,15 @@
     };
     extraPackages = with pkgs; [
       alejandra
-      clang-tools
-      gotools
-      stylua
-      prettier
-      taplo
-      ruff
       basedpyright
       bash-language-server
+      clang-tools
+      gotools
+      kdePackages.qtdeclarative
+      prettier
+      ruff
+      stylua
+      taplo
     ];
   };
 }

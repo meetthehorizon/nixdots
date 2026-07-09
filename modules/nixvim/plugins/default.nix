@@ -6,6 +6,7 @@
     ./dressing.nix
     ./notify.nix
     ./gitsigns.nix
+    ./lazygit.nix
     ./lint.nix
     ./lsp.nix
     ./lualine.nix
