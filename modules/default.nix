@@ -7,5 +7,6 @@
     ./services
     ./system
     ./tui
+    ./widgets
   ];
 }

@@ -33,7 +33,7 @@ in {
       mod._var = "SUPER";
       terminal._var = "kitty";
       launcher._var = "hyprlauncher";
-      browser._var = "firefox";
+      browser._var = "microsoft-edge";
 
       config = {
         general = {
@@ -106,7 +106,6 @@ in {
         hl.exec_cmd(browser, { workspace = "2 silent" })
         hl.exec_cmd(terminal, { workspace = "3 silent" })
         hl.exec_cmd("spotify", { workspace = "4 silent" })
-        hl.exec_cmd("obsidian", { workspace = "10 silent" })
         hl.dispatch(hl.dsp.focus({ workspace = "3" }))
       end)
     '';

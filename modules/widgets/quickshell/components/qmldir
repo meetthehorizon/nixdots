@@ -1,0 +1,6 @@
+TButton 1.0 TButton.qml
+TColumn 1.0 TColumn.qml
+TPanelWindow 1.0 TPanelWindow.qml
+TRectangle 1.0 TRectangle.qml
+TRow 1.0 TRow.qml
+TText 1.0 TText.qml
