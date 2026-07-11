@@ -37,9 +37,9 @@ in {
 
       config = {
         general = {
-          gaps_in = 4;
-          gaps_out = 8;
-          border_size = 2;
+          gaps_in = 5;
+          gaps_out = 10;
+          border_size = 0;
           allow_tearing = false;
           layout = "dwindle";
           "col.active_border" = config.theme.colors.accentRGBA;
@@ -59,7 +59,7 @@ in {
             noise = 0.02;
             contrast = 1.0;
             brightness = 0.7;
-            xray = true;
+            xray = false;
           };
         };
         input = {
@@ -70,9 +70,7 @@ in {
             natural_scroll = true;
           };
         };
-        render = {
-          cm_enabled = true;
-        };
+        render.cm_enabled = true;
       };
 
       monitor = makeLuaCode [
