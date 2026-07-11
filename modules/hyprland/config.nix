@@ -16,6 +16,7 @@
         args;
     })
     bindList;
+  toRGB = hex: "rgb(${lib.removePrefix "#" hex})";
 in {
   home.packages = with pkgs; [
     hyprlauncher
@@ -33,17 +34,17 @@ in {
       mod._var = "SUPER";
       terminal._var = "kitty";
       launcher._var = "hyprlauncher";
-      browser._var = "microsoft-edge";
+      browser._var = "firefox";
 
       config = {
-        general = {
-          gaps_in = 5;
-          gaps_out = 10;
+        general = with config.color; {
+          gaps_in = 4;
+          gaps_out = 8;
           border_size = 0;
           allow_tearing = false;
           layout = "dwindle";
-          "col.active_border" = config.theme.colors.accentRGBA;
-          "col.inactive_border" = config.theme.colors.grayRGB;
+          "col.active_border" = toRGB accent;
+          "col.inactive_border" = toRGB terminal.gray;
         };
         xwayland = {
           force_zero_scaling = true;
@@ -100,6 +101,7 @@ in {
     extraConfig = ''
       hl.on("hyprland.start", function()
         hl.exec_cmd("dbus-update-activation-environment --systemd --all")
+        hl.exec_cmd("hyprctl setcursor ${config.cursorTheme} 24")
         hl.exec_cmd(terminal .. " -e nvim", { workspace = "1 silent" })
         hl.exec_cmd(browser, { workspace = "2 silent" })
         hl.exec_cmd(terminal, { workspace = "3 silent" })

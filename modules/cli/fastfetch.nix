@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       logo = {
-        source = "${config.theme.assets.homeIcon}";
+        source = "${config.assets.homeIcon}";
         type = "auto";
         width = 15;
         padding = {

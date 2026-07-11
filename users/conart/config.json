@@ -1,0 +1,102 @@
+{
+  "color": {
+    "style": "tokyonight",
+    "surface": "#1e1e2e",
+    "surfaceVariant": "#313244",
+    "text": "#cdd6f4",
+    "textMuted": "#7f849c",
+    "border": "#45475a",
+    "outline": "#89b4fa",
+    "error": "#f38ba8",
+    "accent": "#89b4fa",
+    "terminal": {
+      "red": "#f7768e",
+      "green": "#9ece6a",
+      "yellow": "#e0af68",
+      "blue": "#7aa2f7",
+      "magenta": "#bb9af7",
+      "cyan": "#7dcfff",
+      "gray": "#565f89",
+      "black": "#1a1b26",
+      "white": "#c0caf5"
+    }
+  },
+  "font": {
+    "sans": "Inter",
+    "serif": "Lora",
+    "mono": "JetBrainsMono Nerd Font",
+    "size": {
+      "xs": 12,
+      "sm": 14,
+      "base": 16,
+      "lg": 18,
+      "xl": 20,
+      "2xl": 24,
+      "3xl": 30,
+      "4xl": 36,
+      "8xl": 72,
+      "16xl": 144
+    },
+    "weight": {
+      "thin": 100,
+      "light": 300,
+      "normal": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700,
+      "black": 900
+    }
+  },
+  "gtk": {
+    "iconTheme": "Papirus Dark",
+    "cursorTheme": "Bibata-Modern-Ice",
+    "theme": "Adwaita"
+  },
+  "user": {
+    "name": {
+      "first": "Kshitij",
+      "middle": "",
+      "last": "Sharma"
+    },
+    "email": "kshitij.dev@proton.me"
+  },
+  "ui": {
+    "effects": {
+      "surfaceAlpha": 0.55,
+      "surfaceVariantAlpha": 0.85,
+      "blur": 24,
+      "borderOpacity": 0.6
+    },
+    "shadow": {
+      "opacity": 0.15,
+      "blur": 20,
+      "offsetX": 0,
+      "offsetY": 6
+    },
+    "spacing": {
+      "s0": 0,
+      "s1": 4,
+      "s2": 8,
+      "s3": 12,
+      "s4": 16,
+      "s5": 20,
+      "s6": 24,
+      "s8": 32,
+      "s10": 40,
+      "s12": 48,
+      "s16": 64,
+      "s20": 80,
+      "s24": 96,
+      "s32": 128
+    },
+    "radius": {
+      "r0": 0,
+      "r1": 4,
+      "r2": 8,
+      "r3": 12,
+      "r4": 16,
+      "r5": 24,
+      "r6": 9999
+    }
+  }
+}

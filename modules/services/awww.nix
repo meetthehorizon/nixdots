@@ -13,7 +13,7 @@
 
     Service = {
       ExecStart = "${pkgs.awww}/bin/awww-daemon";
-      ExecStartPost = "${pkgs.awww}/bin/awww img ${config.theme.assets.homeScreen} --transition-fps 60 --transition-type wipe --transition-duration 1";
+      ExecStartPost = "${pkgs.awww}/bin/awww img ${config.assets.homeScreen} --transition-fps 60 --transition-type wipe --transition-duration 1";
       ExecStop = "${pkgs.awww}/bin/awww kill";
       Restart = "on-failure";
       RestartSec = "2";

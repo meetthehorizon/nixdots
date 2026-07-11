@@ -15,8 +15,8 @@
     "gruvbox" = "gruvbox-material-icons";
   };
 
-  activeColorTheme = vscodeThemeMap.${config.theme.colorscheme};
-  activeIconTheme = vscodeIconMap.${config.theme.colorscheme};
+  activeColorTheme = vscodeThemeMap.${config.color.style};
+  activeIconTheme = vscodeIconMap.${config.color.style};
 
   commonExtensions = with pkgs.vscode-marketplace; [
     enkia.tokyo-night
@@ -36,7 +36,7 @@
     "editor.formatOnSave" = true;
     "direnv.restart.automatic" = true;
 
-    "editor.fontFamily" = "'${config.theme.fonts.mono}', 'monospace'";
+    "editor.fontFamily" = "'${config.font.mono}', 'monospace'";
     "workbench.colorTheme" = activeColorTheme;
     "workbench.iconTheme" = activeIconTheme;
 

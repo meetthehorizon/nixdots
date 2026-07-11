@@ -2,27 +2,27 @@
   programs.nixvim = {
     colorschemes = {
       tokyonight = {
-        enable = config.theme.colorscheme == "tokyonight";
+        enable = config.color.style == "tokyonight";
         settings = {
           style = "night";
           styles = {
             sidebars = "transparent";
             floats = "transparent";
           };
-          transparent = config.theme.neovim.transparent;
+          transparent = config.ui.effects.surfaceAlpha != 1;
         };
       };
       catppuccin = {
-        enable = config.theme.colorscheme == "catppuccin";
+        enable = config.color.style == "catppuccin";
         settings = {
           flavour = "mocha";
-          transparent_background = config.theme.neovim.transparent;
+          transparent_background = config.ui.effects.surfaceAlpha != 1;
         };
       };
       gruvbox = {
-        enable = config.theme.colorscheme == "gruvbox";
+        enable = config.color.style == "gruvbox";
         settings = {
-          transparent_mode = config.theme.neovim.transparent;
+          transparent_mode = config.ui.effects.surfaceAlpha != 1;
         };
       };
     };
@@ -35,7 +35,7 @@
 
     extraConfigLua = ''
       ${
-        if config.theme.neovim.transparent
+        if config.ui.effects.surfaceAlpha != 1
         then ''
           -- Ensure all UI elements and sidebars are fully transparent
           local function apply_transparency()

@@ -1,11 +1,17 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: let
+  toRGB = hex: "rgb(${lib.removePrefix "#" hex})";
+in {
   programs.hyprlock = {
     enable = true;
     settings = {
       background = [
         {
           monitor = "";
-          path = toString config.theme.assets.lockScreen;
+          path = toString config.assets.lockScreen;
           blur_passes = 3;
           contrast = 0.8916;
           brightness = 0.8172;
@@ -17,9 +23,9 @@
       image = [
         {
           monitor = "";
-          path = "${config.theme.assets.userIcon}";
+          path = "${config.assets.userIcon}";
           border_size = 0;
-          border_color = config.theme.colors.accentRGBA;
+          border_color = toRGB config.color.accent;
           size = 180;
           rounding = -1;
           rotate = 0.0;
@@ -31,18 +37,18 @@
         }
       ];
 
-      input-field = [
+      input-field = with config.color; [
         {
           monitor = "";
           size = "300, 60";
           dots_size = 0.2;
           dots_spacing = 0.2;
           dots_center = true;
-          outer_color = config.theme.colors.accentRGB;
-          inner_color = config.theme.colors.backgroundRGBA;
-          font_color = config.theme.colors.foregroundRGB;
+          outer_color = toRGB accent;
+          inner_color = toRGB surface;
+          font_color = toRGB text;
           fade_on_empty = false;
-          font_family = config.theme.fonts.sans;
+          font_family = config.font.sans;
           placeholder_text = "<span foreground=\"##ffffff80\">you shall not pass!</span>";
           hide_input = false;
           position = "0, -210";
@@ -51,13 +57,13 @@
         }
       ];
 
-      label = [
+      label = with config.font; [
         {
           monitor = "";
           text = "cmd[update:1000] echo -e \"$(date +\"%A, %B %d\")\"";
-          color = config.theme.colors.foregroundRGB;
-          font_size = 25;
-          font_family = config.theme.fonts.sans;
+          color = toRGB config.color.text;
+          font_size = size."xl";
+          font_family = sans;
           position = "0, 350";
           halign = "center";
           valign = "center";
@@ -65,9 +71,9 @@
         {
           monitor = "";
           text = "cmd[update:1000] echo \"<b>$(date +%I:%M)</b>\"";
-          color = config.theme.colors.foregroundRGB;
-          font_size = 120;
-          font_family = config.theme.fonts.sans;
+          color = toRGB config.color.text;
+          font_size = size."8xl";
+          font_family = sans;
           position = "0, 250";
           halign = "center";
           valign = "center";
@@ -75,23 +81,23 @@
         {
           monitor = "";
           text = "  $USER";
-          color = config.theme.colors.foregroundRGB;
-          font_size = 18;
-          font_family = config.theme.fonts.sans;
+          color = toRGB config.color.text;
+          font_size = size.lg;
+          font_family = sans;
           position = "0, -130";
           halign = "center";
           valign = "center";
         }
       ];
 
-      shape = [
+      shape = with config.color; [
         {
           monitor = "";
           size = "300, 60";
-          color = config.theme.colors.backgroundRGBA;
+          color = toRGB surface;
           rounding = -1;
           border_size = 0;
-          border_color = config.theme.colors.yellowRGB;
+          border_color = toRGB terminal.yellow;
           rotate = 0.0;
           xray = false;
           position = "0, -130";
@@ -101,10 +107,10 @@
         {
           monitor = "";
           size = "500, 700";
-          color = config.theme.colors.backgroundRGBA;
+          color = toRGB surface;
           rounding = 1;
           border_size = 0;
-          border_color = config.theme.colors.accentRGB;
+          border_color = toRGB accent;
           rotate = 0.0;
           xray = false;
           position = "0, 70";
@@ -114,10 +120,10 @@
         {
           monitor = "";
           size = "498, 0";
-          color = config.theme.colors.backgroundRGBA;
+          color = toRGB surface;
           rounding = 0;
           border_size = 2;
-          border_color = config.theme.colors.accentRGB;
+          border_color = toRGB accent;
           rotate = 0.0;
           xray = false;
           position = "0, -280";

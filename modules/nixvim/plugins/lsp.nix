@@ -32,10 +32,10 @@
               formatting.command = ["alejandra"];
               options = {
                 nixos.expr = ''
-                  (builtins.getFlake "${config.settings.nixdotsPath}").nixosConfigurations.${hostName}.options
+                  (builtins.getFlake "${config.nixdotsPath}").nixosConfigurations.${hostName}.options
                 '';
                 home_manager.expr = ''
-                  (builtins.getFlake "${config.settings.nixdotsPath}").homeConfigurations."${config.home.username}@${hostName}".options
+                  (builtins.getFlake "${config.nixdotsPath}").homeConfigurations."${config.home.username}@${hostName}".options
                 '';
               };
             };

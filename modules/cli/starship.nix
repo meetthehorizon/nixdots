@@ -14,34 +14,34 @@
 
       username = {
         show_always = true;
-        style_user = "bold ${config.theme.colors.blue}";
-        style_root = "bold ${config.theme.colors.red}";
+        style_user = "bold ${config.color.terminal.blue}";
+        style_root = "bold ${config.color.terminal.red}";
         format = "[ $user]($style) ";
       };
 
       directory = {
-        style = "bold ${config.theme.colors.blue}";
+        style = "bold ${config.color.terminal.blue}";
         format = "[󰉋 $path]($style)[$read_only]($read_only_style) ";
         truncation_length = 3;
         truncate_to_repo = true;
       };
 
       character = {
-        success_symbol = "[❯](bold ${config.theme.colors.magenta})";
-        error_symbol = "[❯](bold ${config.theme.colors.red})";
-        vimcmd_symbol = "[❮](bold ${config.theme.colors.green})";
+        success_symbol = "[❯](bold ${config.color.terminal.magenta})";
+        error_symbol = "[❯](bold ${config.color.terminal.red})";
+        vimcmd_symbol = "[❮](bold ${config.color.terminal.green})";
       };
 
       git_branch = {
         disabled = !config.programs.git.enable;
         format = "[ $branch]($style) ";
-        style = "bold ${config.theme.colors.gray}";
+        style = "bold ${config.color.terminal.gray}";
       };
 
       git_status = {
         disabled = !config.programs.git.enable;
         format = "([$all_status$ahead_behind]($style) )";
-        style = "bold ${config.theme.colors.red}";
+        style = "bold ${config.color.terminal.red}";
 
         conflicted = "󰞇 ";
         ahead = "󰁝 ";
@@ -58,24 +58,24 @@
       git_state = {
         disabled = !config.programs.git.enable;
         format = ''\([$state( $progress_current/$progress_total)]($style)\)'';
-        style = "bold ${config.theme.colors.gray}";
+        style = "bold ${config.color.terminal.gray}";
       };
 
       cmd_duration = {
         format = "[ $duration]($style)";
-        style = "bold ${config.theme.colors.yellow}";
+        style = "bold ${config.color.terminal.yellow}";
       };
 
       python = {
         format = "via [ $virtualenv]($style) ";
-        style = "bold ${config.theme.colors.green}";
+        style = "bold ${config.color.terminal.green}";
         detect_extensions = [];
         detect_files = [];
       };
 
       nix_shell = {
         format = ''via [ $state( \($name\))]($style)'';
-        style = "bold ${config.theme.colors.cyan}";
+        style = "bold ${config.color.terminal.cyan}";
       };
     };
   };

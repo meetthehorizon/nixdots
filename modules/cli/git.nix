@@ -10,9 +10,9 @@
       gpgConfig = config.secret.gpg;
     in
       {
-        user = with config.settings;
+        user = with config.user;
           {
-            name = "${firstName} ${lastName}";
+            name = "${name.first} ${name.last}";
             email = "${email}";
           }
           // lib.optionalAttrs gpgConfig.enable {
