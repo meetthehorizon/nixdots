@@ -3,6 +3,7 @@
   config,
   ...
 }: {
+  home.packages = with pkgs; [awww];
   systemd.user.services.awww = {
     Unit = {
       Description = "Awww Wallpaper Daemon";
