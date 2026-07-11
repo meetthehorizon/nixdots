@@ -1,16 +1,14 @@
 {lib, ...}: let
-  makeLuaCode = bindList:
-    map (args: {
-      _args =
-        map (
-          arg:
-            if builtins.isAttrs arg
-            then arg
-            else lib.generators.mkLuaInline arg
-        )
-        args;
-    })
-    bindList;
+  makeLuaCode = map (args: {
+    _args =
+      map (
+        arg:
+          if builtins.isAttrs arg
+          then arg
+          else lib.generators.mkLuaInline arg
+      )
+      args;
+  });
 in {
   wayland.windowManager.hyprland.settings.bind = makeLuaCode (
     [
