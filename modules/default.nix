@@ -8,5 +8,6 @@
     ./services
     ./system
     ./tui
+    ./widgets
   ];
 }

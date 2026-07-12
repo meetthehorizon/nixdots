@@ -2,3 +2,6 @@ assets/*
 !assets/README.md
 .direnv/
 result
+*.svg
+modules/widgets/quickshell/icons
+

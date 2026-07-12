@@ -4,7 +4,7 @@
 
     font = {
       name = font.mono;
-      size = font.size.xs;
+      size = font.size.base;
     };
 
     settings = {

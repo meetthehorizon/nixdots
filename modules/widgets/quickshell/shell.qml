@@ -1,5 +1,13 @@
+import QtQuick
 import Quickshell
+import windows
 
-Scope {
-    Bar {}
+ShellRoot {
+    Variants {
+        model: Quickshell.screens
+        TopBar {
+            required property var modelData
+            screen: modelData
+        }
+    }
 }

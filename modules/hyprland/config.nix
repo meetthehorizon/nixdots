@@ -38,8 +38,8 @@ in {
 
       config = {
         general = with config.color; {
-          gaps_in = 4;
-          gaps_out = 8;
+          gaps_in = config.ui.spacing.s1;
+          gaps_out = config.ui.spacing.s2;
           border_size = 0;
           allow_tearing = false;
           layout = "dwindle";
@@ -50,7 +50,7 @@ in {
           force_zero_scaling = true;
         };
         decoration = {
-          rounding = 4;
+          rounding = config.ui.radius.r1;
           rounding_power = 1;
           blur = {
             enabled = true;

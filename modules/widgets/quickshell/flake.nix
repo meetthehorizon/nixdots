@@ -2,7 +2,7 @@
   description = "Quickshell Widgets";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,14 +26,10 @@
       ];
 
       shellHook = ''
-        # 1. Point the language server to BOTH Qt's standard modules and Quickshell's custom modules
-        export QMLLS_BUILD_DIRS="${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml/:${qsPkg}/lib/qt-6/qml/"
-
-        # 2. Set import paths for standard running/linting
-        export QML_IMPORT_PATH="${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml/:$PWD:${qsPkg}/lib/qt-6/qml/"
+        export QMLLS_BUILD_DIRS="${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml/:${qsPkg}/lib/qt-6/qml/:$PWD"
+        export QML_IMPORT_PATH="${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml/:$PWD:${qsPkg}/lib/qt-6/qml/:$PWD"
         export QML2_IMPORT_PATH=$QML_IMPORT_PATH
-
-        echo "🦊 Quickshell Dev Environment Ready!"
+        echo " Quickshell Dev Environment Ready!"
       '';
     };
   };

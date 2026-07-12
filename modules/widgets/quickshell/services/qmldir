@@ -1,2 +1,0 @@
-singleton BatteryService 1.0 BatteryService.qml
-singleton TimeService 1.0 TimeService.qml

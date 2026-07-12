@@ -1,24 +1,24 @@
 {
   "color": {
     "style": "tokyonight",
-    "surface": "#1e1e2e",
-    "surfaceVariant": "#313244",
-    "text": "#cdd6f4",
-    "textMuted": "#7f849c",
-    "border": "#45475a",
-    "outline": "#89b4fa",
-    "error": "#f38ba8",
-    "accent": "#89b4fa",
+    "surface": "#121212",
+    "surfaceVariant": "#121212",
+    "text": "#eeeeee",
+    "textMuted": "#888888",
+    "border": "#ffffff",
+    "outline": "#ffffff",
+    "error": "#ff6b6b",
+    "accent": "#00ffff",
     "terminal": {
-      "red": "#f7768e",
-      "green": "#9ece6a",
-      "yellow": "#e0af68",
-      "blue": "#7aa2f7",
-      "magenta": "#bb9af7",
-      "cyan": "#7dcfff",
-      "gray": "#565f89",
-      "black": "#1a1b26",
-      "white": "#c0caf5"
+      "red": "#ff8a8a",
+      "green": "#8ddb8c",
+      "yellow": "#d2b45f",
+      "blue": "#71b7ff",
+      "magenta": "#d2a8ff",
+      "cyan": "#79c0ff",
+      "gray": "#666666",
+      "black": "#000000",
+      "white": "#ffffff"
     }
   },
   "font": {
@@ -26,16 +26,16 @@
     "serif": "Lora",
     "mono": "JetBrainsMono Nerd Font",
     "size": {
-      "xs": 12,
-      "sm": 14,
-      "base": 16,
-      "lg": 18,
-      "xl": 20,
-      "2xl": 24,
-      "3xl": 30,
-      "4xl": 36,
-      "8xl": 72,
-      "16xl": 144
+      "xs": 8,
+      "sm": 10,
+      "base": 12,
+      "lg": 14,
+      "xl": 16,
+      "2xl": 18,
+      "3xl": 22,
+      "4xl": 28,
+      "8xl": 56,
+      "16xl": 112
     },
     "weight": {
       "thin": 100,
@@ -62,10 +62,10 @@
   },
   "ui": {
     "effects": {
-      "surfaceAlpha": 0.55,
-      "surfaceVariantAlpha": 0.85,
-      "blur": 24,
-      "borderOpacity": 0.6
+      "surfaceAlpha": 0.4,
+      "surfaceVariantAlpha": 0.4,
+      "blur": 32,
+      "borderOpacity": 0.3
     },
     "shadow": {
       "opacity": 0.15,
@@ -97,6 +97,20 @@
       "r4": 16,
       "r5": 24,
       "r6": 9999
+    },
+    "border": {
+      "none": 0,
+      "w1": 1,
+      "w2": 2,
+      "w3": 3,
+      "w4": 4
+    },
+    "animation": {
+      "vf": 100,
+      "f": 200,
+      "n": 300,
+      "s": 500,
+      "vs": 800
     }
   }
 }

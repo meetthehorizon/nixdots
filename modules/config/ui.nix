@@ -52,5 +52,21 @@ in {
       r5 = mkIntOption 24;
       r6 = mkIntOption 9999;
     };
+
+    border = {
+      none = mkIntOption 0;
+      w1 = mkIntOption 1;
+      w2 = mkIntOption 2;
+      w3 = mkIntOption 3;
+      w4 = mkIntOption 4;
+    };
+
+    animation = {
+      vf = mkIntOption 100;
+      f = mkIntOption 200;
+      n = mkIntOption 300;
+      s = mkIntOption 500;
+      vs = mkIntOption 800;
+    };
   };
 }

@@ -1,0 +1,5 @@
+module windows
+TopBar 1.0 TopBar.qml
+LeftModule 1.0 LeftModule.qml
+MiddleModule 1.0 MiddleModule.qml
+RightModule 1.0 RightModule.qml

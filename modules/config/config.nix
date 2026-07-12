@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  configPath = "${config.home.homeDirectory}/nixdots/users/${config.home.username}/config.json";
+  configPath = ../../users + "/${config.home.username}/config.json";
   parsedConfig =
     if builtins.pathExists configPath
     then builtins.fromJSON (builtins.readFile configPath)
@@ -20,8 +20,35 @@
   # Font Packages Resolution
   fontPackageMap = with pkgs; {
     "Inter" = inter;
+    "Geist" = geist-font;
     "Lora" = lora;
+
+    # --- Coding & Terminal (Nerd Fonts) ---
     "JetBrainsMono Nerd Font" = nerd-fonts.jetbrains-mono;
+    "FantasqueSansM Nerd Font" = nerd-fonts.fantasque-sans-mono;
+    "FiraCode Nerd Font" = nerd-fonts.fira-code;
+    "Iosevka Nerd Font" = nerd-fonts.iosevka;
+    "Hack Nerd Font" = nerd-fonts.hack;
+    "CaskaydiaCove Nerd Font" = nerd-fonts.caskaydia-cove;
+    "MesloLGS Nerd Font" = nerd-fonts.meslo-lg;
+    "BlexMono Nerd Font" = nerd-fonts.blex-mono;
+    "SauceCodePro Nerd Font" = nerd-fonts.sauce-code-pro;
+
+    # --- System UI & Sans-Serif ---
+    "Roboto" = roboto;
+    "Ubuntu" = ubuntu-classic;
+    "IBM Plex Sans" = ibm-plex;
+    "Noto Sans" = noto-fonts;
+    "Fira Sans" = fira-sans;
+
+    # --- Reading & Documentation (Serif) ---
+    "Merriweather" = merriweather;
+    "EB Garamond" = eb-garamond;
+    "PT Serif" = pt-serif;
+
+    # --- Modern & Variable Typefaces ---
+    "Monaspace" = monaspace;
+    "CommitMono" = commit-mono;
   };
   getFontPkg = name: fontPackageMap.${name} or null;
   resolvedFontPackages = lib.filter (p: p != null) [
@@ -107,9 +134,9 @@ in {
     fonts.fontconfig = {
       enable = true;
       defaultFonts = {
-        sansSerif = [ config.font.sans ];
-        serif = [ config.font.serif ];
-        monospace = [ config.font.mono ];
+        sansSerif = [config.font.sans];
+        serif = [config.font.serif];
+        monospace = [config.font.mono];
       };
     };
 
@@ -117,7 +144,7 @@ in {
       enable = true;
       font = {
         name = config.font.sans;
-        size = config.font.size.xs;
+        size = config.font.size.base;
       };
       iconTheme = lib.mkIf (resolvedIconPackage != null) {
         name = config.iconTheme;
@@ -141,7 +168,8 @@ in {
       x11.enable = true;
     };
 
-    home.packages = resolvedFontPackages
+    home.packages =
+      resolvedFontPackages
       ++ lib.optional (resolvedIconPackage != null) resolvedIconPackage
       ++ lib.optional (resolvedCursorPackage != null) resolvedCursorPackage
       ++ lib.optional (resolvedGtkThemePackage != null) resolvedGtkThemePackage;
