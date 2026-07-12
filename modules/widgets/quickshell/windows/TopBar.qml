@@ -30,6 +30,7 @@ TopPanel {
 
     RowLayout {
         Layout.alignment: Qt.AlignRight
+        Battery {}
         Bluetooth {}
         Brightness {}
         Network {}
