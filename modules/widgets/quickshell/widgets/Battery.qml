@@ -17,7 +17,7 @@ Card {
 
     Chip {
         icon: {
-            var pct = Math.round(UPower.displayDevice.percentage);
+            var pct = Math.round(UPower.displayDevice.percentage * 100);
             var state = UPower.displayDevice.state;
 
             if (state === UPowerDeviceState.Charging || state === UPowerDeviceState.PendingCharge) {
@@ -36,7 +36,7 @@ Card {
         }
         iconCollection: "lucide"
         text: {
-            var pct = Math.round(UPower.displayDevice.percentage);
+            var pct = Math.round(UPower.displayDevice.percentage * 100);
             var state = UPower.displayDevice.state;
             var timeToEmpty = UPower.displayDevice.timeToEmpty;
             var timeToFull = UPower.displayDevice.timeToFull;
