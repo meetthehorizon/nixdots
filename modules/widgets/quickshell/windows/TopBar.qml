@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Quickshell.Widgets
 
 import widgets
+import globals
 
 TopPanel {
     RowLayout {
@@ -18,6 +19,8 @@ TopPanel {
 
     RowLayout {
         Layout.alignment: Qt.AlignCenter
+        spacing: Theme.spacing.s2
+        Calendar {}
         Clock {}
     }
 

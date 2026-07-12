@@ -4,8 +4,8 @@ import services
 
 Card {
     Chip {
-        icon: TimeService.clockIcon
+        icon: "calendar"
         iconCollection: "lucide"
-        text: TimeService.time
+        text: TimeService.dateText
     }
 }
