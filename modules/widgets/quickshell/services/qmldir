@@ -1,2 +1,3 @@
 module services
 singleton TimeService 1.0 TimeService.qml
+singleton BrightnessService 1.0 BrightnessService.qml

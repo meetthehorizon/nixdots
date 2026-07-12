@@ -1,9 +1,11 @@
 import QtQuick
 import components
+import services
 
 Card {
     Chip {
         icon: "sun"
-        text: "60%"
+        iconCollection: "lucide"
+        text: BrightnessService.brightnessText
     }
 }
