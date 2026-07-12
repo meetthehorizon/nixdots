@@ -1,9 +1,11 @@
 import QtQuick
 import components
+import services
 
 Card {
     Chip {
         icon: "timer"
-        text: "up 2h 15m"
+        iconCollection: "lucide"
+        text: UptimeService.uptimeText
     }
 }
