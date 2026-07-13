@@ -43,7 +43,7 @@ in {
       ]
       [
         ''"XF86AudioRaiseVolume"''
-        ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.0")''
+        ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+ --limit 1.0")''
         {
           description = "Raise Volume";
           locked = "true";
@@ -52,7 +52,7 @@ in {
       ]
       [
         ''"XF86AudioLowerVolume"''
-        ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- --limit 1.0")''
+        ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%- --limit 1.0")''
         {
           description = "Lower Volume";
           locked = "true";
@@ -77,7 +77,7 @@ in {
       ]
       [
         ''"XF86MonBrightnessUp"''
-        ''hl.dsp.exec_cmd("brightnessctl -e4 -n40000 set 5%+ -d \"amdgpu_bl*\"")''
+        ''hl.dsp.exec_cmd("brightnessctl -e4 -n40000 set 2%+ -d \"amdgpu_bl*\"")''
         {
           description = "Raise Brightness";
           locked = "true";
@@ -86,7 +86,7 @@ in {
       ]
       [
         ''"XF86MonBrightnessDown"''
-        ''hl.dsp.exec_cmd("brightnessctl -e4 -n40000 set 5%- -d \"amdgpu_bl*\"")''
+        ''hl.dsp.exec_cmd("brightnessctl -e4 -n40000 set 2%- -d \"amdgpu_bl*\"")''
         {
           description = "Lower Brightness";
           locked = "true";
