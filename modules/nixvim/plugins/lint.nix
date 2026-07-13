@@ -4,7 +4,7 @@
       enable = true;
       lintersByFt = {
         nix = ["statix"];
-        go = ["golangci-lint"];
+        go = ["golangcilint"];
         python = ["ruff"];
         sh = ["shellcheck"];
         bash = ["shellcheck"];
