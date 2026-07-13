@@ -1,6 +1,7 @@
 {
   imports = [
     ./direnv.nix
+    ./docker.nix
     ./eza.nix
     ./fastfetch.nix
     ./fish.nix

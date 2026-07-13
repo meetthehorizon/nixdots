@@ -68,6 +68,9 @@
       fish_vi_key_bindings
 
       fastfetch
+
+      set -gx DOCKER_HOST "unix://$XDG_RUNTIME_DIR/docker.sock"
+
       ${lib.optionalString (config.secret.githubPat.enable or false) (let
         fishPath = builtins.replaceStrings ["\${XDG_RUNTIME_DIR}"] ["$XDG_RUNTIME_DIR"] config.age.secrets.github-pat.path;
       in ''

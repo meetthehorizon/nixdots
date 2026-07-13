@@ -25,21 +25,24 @@
         "type": "github"
       }
     },
-    "antigravity": {
+    "compose2nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "onchg": "onchg"
       },
       "locked": {
-        "lastModified": 1783707585,
-        "narHash": "sha256-cFf5hfCB6o6v1VgbvBrWGe1v/Fb3Qq0wNJaJJoC9qD0=",
-        "owner": "Hy4ri",
-        "repo": "antigravity-flake",
-        "rev": "604889f1876c87dd329c2673767f0e518bb00af1",
+        "lastModified": 1783890729,
+        "narHash": "sha256-0TkgiovxTZqFOBiz6QZyN7XxOGATj3P7ji9n4yACxVQ=",
+        "owner": "aksiksi",
+        "repo": "compose2nix",
+        "rev": "d1ca640306419bdcffca8a2e8490ccdf970706f6",
         "type": "github"
       },
       "original": {
-        "owner": "Hy4ri",
-        "repo": "antigravity-flake",
+        "owner": "aksiksi",
+        "repo": "compose2nix",
         "type": "github"
       }
     },
@@ -86,6 +89,21 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1652776076,
+        "narHash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "04c1b180862888302ddfb2e3ad9eaa63afc60cf8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -104,6 +122,29 @@
         "owner": "nix-community",
         "ref": "release-26.05",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nix-pre-commit": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "compose2nix",
+          "onchg",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1653259102,
+        "narHash": "sha256-XfCEu4zur/N2Dk4v8wFiQAgJ7bgNqPqwWp1vBXkeczM=",
+        "owner": "jmgilman",
+        "repo": "nix-pre-commit",
+        "rev": "6a99b2711c7eac9960939d8eb91e84322b22d50c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jmgilman",
+        "repo": "nix-pre-commit",
         "type": "github"
       }
     },
@@ -129,22 +170,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1783522502,
-        "narHash": "sha256-iffAls3iaNTyJC2faYcUXSI+Gp02cDjYl+MygxKl2GI=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "0bb7ec54c8483066ec9d7720e780a5caa71f8612",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
         "lastModified": 1783389287,
         "narHash": "sha256-0xIy4dVLqq47rA+mRy0hXDfjhQd4E5PoIns/RmB7nR4=",
         "owner": "nixos",
@@ -159,7 +184,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1781216227,
         "narHash": "sha256-9mUW6gNwoN2SWc/l0fW4svPNOulXLl8ijqKyeSOGgJE=",
@@ -178,7 +203,7 @@
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "systems": "systems_2"
       },
       "locked": {
@@ -193,6 +218,28 @@
         "owner": "nix-community",
         "ref": "nixos-26.05",
         "repo": "nixvim",
+        "type": "github"
+      }
+    },
+    "onchg": {
+      "inputs": {
+        "nix-pre-commit": "nix-pre-commit",
+        "nixpkgs": [
+          "compose2nix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720368454,
+        "narHash": "sha256-NUSw3G2gsQX8/G64/pDBb1oitM+x13m7nFRvpiI4a+s=",
+        "owner": "aksiksi",
+        "repo": "onchg-rs",
+        "rev": "c42b693d10920874b3644ef1502e33318409d69c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aksiksi",
+        "repo": "onchg-rs",
         "type": "github"
       }
     },
@@ -219,10 +266,10 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "antigravity": "antigravity",
+        "compose2nix": "compose2nix",
         "home-manager": "home-manager",
         "nix-vscode-extensions": "nix-vscode-extensions",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
         "quickshell": "quickshell"
       }

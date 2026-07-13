@@ -4,23 +4,43 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Boot Manager Defaults
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.limine = {
-    enable = true;
-    secureBoot.enable = true;
-    enrollConfig = true;
-    panicOnChecksumMismatch = true;
-    enableEditor = false;
-    extraEntries = ''
-      /Windows
-      protocol: efi
-      path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
-    '';
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    limine = {
+      enable = true;
+      secureBoot.enable = true;
+      enrollConfig = true;
+      panicOnChecksumMismatch = true;
+      enableEditor = false;
+      extraEntries = ''
+        /Windows
+        protocol: efi
+        path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+      '';
+    };
   };
 
   # Network Configuration
-  networking.hostName = "horizon";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "horizon";
+    networkmanager.enable = true;
+
+    # Firewall for Docker
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [80 8000 53 5300];
+      allowedUDPPorts = [53 5300];
+      extraCommands = ''
+        iptables -A PREROUTING -t nat -i eth0 -p TCP --dport 80 -j REDIRECT --to-port 8000
+        iptables -A PREROUTING -t nat -i eth0 -p TCP --dport 53 -j REDIRECT --to-port 5300
+        iptables -A PREROUTING -t nat -i eth0 -p UDP --dport 53 -j REDIRECT --to-port 5300
+      '';
+    };
+  };
+
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.wlps3s0.forwarding" = 1;
+  };
 
   # Locale and Time
   time.timeZone = "Asia/Kolkata";
@@ -30,7 +50,8 @@
   # Users
   users.users.conart = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "video"];
+    linger = true;
+    extraGroups = ["wheel" "networkmanager" "video" "docker"];
     shell = pkgs.fish;
     packages = [];
   };
@@ -71,6 +92,21 @@
       pulse.enable = true;
     };
     openssh.enable = true;
+  };
+
+  # Virtualization
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "btrfs";
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+      daemon.settings = {
+        data-root = "~/.local/docker";
+        dns = ["1.1.1.1" "8.8.8.8"];
+        registry-mirrors = ["https://mirror.gcr.io"];
+      };
+    };
   };
 
   # SUID Wrapper

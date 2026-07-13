@@ -1,6 +1,5 @@
 {
   imports = [
-    ./antigravity.nix
     ./firefox.nix
     ./kitty.nix
     ./mime.nix
