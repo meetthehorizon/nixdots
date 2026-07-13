@@ -42,6 +42,9 @@
 
     "files.autoSave" = "afterDelay";
     "files.autoSaveDelay" = 1000;
+
+    "chat.disableAIFeatures" = true;
+    "git.openRepositoryInParentFolders" = "always";
   };
 
   commonKeybindings = [
