@@ -32,6 +32,8 @@ PanelWindow {
     RowLayout {
         id: mainLayout
         anchors.fill: parent
+        anchors.leftMargin: Theme.spacing.s4
+        anchors.rightMargin: Theme.spacing.s4
         spacing: 10
     }
 }

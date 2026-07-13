@@ -4,8 +4,8 @@ import services
 
 Card {
     Chip {
-        icon: "timer"
-        iconCollection: "lucide"
+        icon: "nixos"
+        iconCollection: "simpleicons"
         text: UptimeService.uptimeText
     }
 }

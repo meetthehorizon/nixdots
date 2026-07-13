@@ -3,8 +3,11 @@ Workspaces 1.0 Workspaces.qml
 Clock 1.0 Clock.qml
 Uptime 1.0 Uptime.qml
 Battery 1.0 Battery.qml
+PowerProfiles 1.0 PowerProfiles.qml
 Brightness 1.0 Brightness.qml
+Volume 1.0 Volume.qml
 Network 1.0 Network.qml
+
 Bluetooth 1.0 Bluetooth.qml
 User 1.0 User.qml
 Calendar 1.0 Calendar.qml

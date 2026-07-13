@@ -1,38 +1,47 @@
 import QtQuick
 import QtQuick.Layouts
 
-import Quickshell.Widgets
-
 import widgets
 import globals
 
 TopPanel {
-    RowLayout {
-        Layout.alignment: Qt.AlignLeft
-        Uptime {}
-        Workspaces {}
+    id: root
+
+    Item {
+        id: leftContainer
+        Layout.fillWidth: true
+        Layout.preferredWidth: Math.max(leftContent.implicitWidth, rightContent.implicitWidth)
+        implicitHeight: leftContent.implicitHeight
+
+        RowLayout {
+            id: leftContent
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: Theme.spacing.s1
+            Uptime {}
+            Workspaces {}
+        }
     }
 
     Item {
+        id: rightContainer
         Layout.fillWidth: true
-    }
+        Layout.preferredWidth: Math.max(leftContent.implicitWidth, rightContent.implicitWidth)
+        implicitHeight: rightContent.implicitHeight
 
-    RowLayout {
-        Layout.alignment: Qt.AlignCenter
-        spacing: Theme.spacing.s2
-        Calendar {}
-        Clock {}
-    }
-
-    Item {
-        Layout.fillWidth: true
-    }
-
-    RowLayout {
-        Layout.alignment: Qt.AlignRight
-        Battery {}
-        Bluetooth {}
-        Brightness {}
-        Network {}
+        RowLayout {
+            id: rightContent
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: Theme.spacing.s1
+            Battery {}
+            PowerProfiles {}
+            Bluetooth {}
+            Brightness {}
+            Volume {}
+            Network {}
+            Clock {}
+            Calendar {}
+        }
     }
 }

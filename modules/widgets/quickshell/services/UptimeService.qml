@@ -6,7 +6,7 @@ import Quickshell.Io
 Singleton {
     id: root
 
-    property string uptimeText: "up 0m"
+    property string uptimeText: "0m"
 
     Timer {
         id: pollTimer
@@ -41,7 +41,7 @@ Singleton {
                         if (hours > 0) displayParts.push(hours + "h");
                         if (minutes > 0 || (days === 0 && hours === 0)) displayParts.push(minutes + "m");
 
-                        root.uptimeText = "up " + displayParts.join(" ");
+                        root.uptimeText = displayParts.join(" ");
                     }
                 }
             }

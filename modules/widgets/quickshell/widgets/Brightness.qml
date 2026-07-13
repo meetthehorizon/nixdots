@@ -6,6 +6,6 @@ Card {
     Chip {
         icon: "sun"
         iconCollection: "lucide"
-        text: BrightnessService.brightnessText
+        text: ""
     }
 }

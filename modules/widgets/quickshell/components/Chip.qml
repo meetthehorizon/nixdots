@@ -38,7 +38,7 @@ WrapperItem {
                 return Theme.spacing.s5;
             }
 
-            visible: root.icon !== ""
+            visible: root.icon && root.icon !== ""
         }
 
         Label {
@@ -46,7 +46,7 @@ WrapperItem {
             variant: root.variant
             size: root.size
             weight: root.weight
-            visible: root.text !== ""
+            visible: root.text && root.text !== ""
         }
     }
 }

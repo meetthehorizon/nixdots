@@ -6,12 +6,12 @@ import Quickshell.Io
 Singleton {
     id: root
 
-    property string brightnessText: "100%"
+    property string brightnessText: "100"
 
-    // 10-second fallback timer just to be absolutely sure
+    // Responsive 250ms polling timer for backlight changes
     Timer {
-        id: fallbackTimer
-        interval: 10000
+        id: pollTimer
+        interval: 250
         repeat: true
         running: true
         onTriggered: {
@@ -21,10 +21,10 @@ Singleton {
         }
     }
 
-    // Query current brightness
+    // Query current brightness from correct display device (amdgpu_bl1)
     Process {
         id: brightnessProcess
-        command: ["brightnessctl", "-m"]
+        command: ["brightnessctl", "-d", "amdgpu_bl1", "-m"]
         running: true
 
         stdout: StdioCollector {
@@ -32,22 +32,8 @@ Singleton {
                 var textVal = this.text.trim();
                 var parts = textVal.split(",");
                 if (parts.length >= 4) {
-                    root.brightnessText = parts[3].trim();
-                }
-            }
-        }
-    }
-
-    // Monitor backlight change events in real time
-    Process {
-        id: udevMonitor
-        command: ["udevadm", "monitor", "--subsystem=backlight"]
-        running: true
-
-        stdout: SplitParser {
-            onRead: data => {
-                if (!brightnessProcess.running) {
-                    brightnessProcess.running = true;
+                    var pct = parts[3].trim();
+                    root.brightnessText = pct.replace("%", "");
                 }
             }
         }

@@ -53,28 +53,6 @@ Card {
             }
         }
         iconCollection: "lucide"
-        text: {
-            switch (Networking.connectivity) {
-                case Networking.Full:
-                    var name = activeInfo.ssid;
-                    if (name !== "") {
-                        var maxLength = 10;
-                        if (name.length > maxLength) {
-                            return name.substring(0, maxLength - 1) + "…";
-                        }
-                        return name;
-                    }
-                    return "Online";
-                case Networking.Limited:
-                    return "Limited";
-                case Networking.Portal:
-                    return "Portal";
-                case Networking.None:
-                    return "Offline";
-                case Networking.Unknown:
-                default:
-                    return "Unknown";
-            }
-        }
+        text: ""
     }
 }
