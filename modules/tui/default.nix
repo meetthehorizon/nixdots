@@ -4,6 +4,7 @@
     ./btop.nix
     ./calcurse.nix
     ./cava.nix
+    ./gdu.nix
     ./codewhale.nix
     ./lazygit.nix
     ./wifitui.nix
