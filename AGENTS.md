@@ -37,6 +37,12 @@ that's the point.
    duplicate asset directories.
 6. **One concern per module file.** A module file configures one program,
    service, or cohesive subsystem. Split when a file crosses ~80 lines.
+7. **`git add` new files before any Nix build.** The flake sources itself
+   from the git index (`builtins.git`), so any new `.nix` file that hasn't
+   been staged with `git add` will cause `home-manager build` and
+   `nixos-rebuild` to fail with "is not tracked by Git." After creating a
+   new module file, always `git add` it before running `nix flake check`
+   or either build command.
 
 ## 2. Module Map
 
@@ -88,6 +94,7 @@ pattern (`inputs.X.follows = "nixpkgs"`).
 2. **Plan in small steps.** One logical change per commit. If the task is
    complex, break it into sub-tasks and commit after each.
 3. **Verify before declaring done.**
+   - `git add` any new `.nix` files first (see invariant #7)
    - `nix flake check` — syntax and evaluation
    - For home-manager changes: `home-manager build --flake .#conart@horizon`
    - For NixOS changes: `sudo nixos-rebuild dry-build --flake .#horizon`
