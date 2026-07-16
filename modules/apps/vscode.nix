@@ -49,6 +49,7 @@
     "explorer.autoRevealExclude" = {
       "**/.direnv" = true;
     };
+    "explorer.confirmDelete" = false;
 
     "editor.fontFamily" = "'${config.font.mono}', 'monospace'";
     "workbench.colorTheme" = activeColorTheme;
