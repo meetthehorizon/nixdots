@@ -69,4 +69,12 @@
       ];
     };
   };
+
+  xdg.desktopEntries.fastfetch = {
+    name = "System Info";
+    exec = "fastfetch";
+    terminal = true;
+    type = "Application";
+    categories = ["System"];
+  };
 }

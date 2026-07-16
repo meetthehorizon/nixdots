@@ -139,4 +139,12 @@ _: {
       };
     };
   };
+
+  xdg.desktopEntries.lazygit = {
+    name = "Git Interface";
+    exec = "lazygit";
+    terminal = true;
+    type = "Application";
+    categories = ["Development"];
+  };
 }

@@ -15,4 +15,13 @@
       highlight-active-color = terminal.magenta;
     };
   };
+
+  xdg.desktopEntries.zathura = {
+    name = "Document Viewer";
+    exec = "zathura";
+    terminal = false;
+    type = "Application";
+    categories = ["Office"];
+    mimeType = ["application/pdf"];
+  };
 }

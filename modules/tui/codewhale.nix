@@ -34,4 +34,12 @@ in {
       '';
     })
   ];
+
+  xdg.desktopEntries.codewhale-tui = {
+    name = "CodeWhale TUI";
+    exec = "codewhale-tui";
+    terminal = true;
+    type = "Application";
+    categories = ["Development"];
+  };
 }

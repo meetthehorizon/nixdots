@@ -70,4 +70,12 @@
       };
     };
   };
+
+  xdg.desktopEntries.yazi = {
+    name = "File Manager";
+    exec = "yazi";
+    terminal = true;
+    type = "Application";
+    categories = ["System"];
+  };
 }

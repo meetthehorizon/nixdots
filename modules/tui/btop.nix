@@ -1,11 +1,11 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    bluetui
+    btop
   ];
 
-  xdg.desktopEntries.bluetui = {
-    name = "Bluetooth Manager";
-    exec = "bluetui";
+  xdg.desktopEntries.btop = {
+    name = "Resource Monitor";
+    exec = "btop";
     terminal = true;
     type = "Application";
     categories = ["System"];
