@@ -69,6 +69,7 @@ in {
           follow_mouse = 1;
           touchpad = {
             natural_scroll = true;
+            middle_button_emulation = true;
           };
         };
         render.cm_enabled = true;
