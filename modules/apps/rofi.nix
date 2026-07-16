@@ -1,7 +1,9 @@
 {config, ...}: {
-  programs.rofi = with config; {
+  imports = [./rofi-theme.nix];
+
+  programs.rofi = {
     enable = true;
-    font = "${font.mono} ${toString font.size.base}";
+    font = "${config.font.mono} ${toString config.font.size.base}";
+    theme = "${config.xdg.configHome}/rofi/themes/custom.rasi";
   };
 }
-
