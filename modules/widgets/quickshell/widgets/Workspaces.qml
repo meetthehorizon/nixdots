@@ -20,7 +20,7 @@ RowLayout {
             if (title.indexOf("nvim") !== -1) return { icon: "neovim", collection: "simpleicons" };
             if (title.indexOf("yazi") !== -1) return { icon: "folder", collection: "lucide" };
             if (title.indexOf("gdu") !== -1) return { icon: "hard-drive", collection: "lucide" };
-            if (title.indexOf("nmtui") !== -1) return { icon: "wifi", collection: "lucide" };
+            if (title.indexOf("wifitui") !== -1) return { icon: "wifi", collection: "lucide" };
             return { icon: "terminal", collection: "lucide" };
         }
         

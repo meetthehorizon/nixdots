@@ -6,7 +6,7 @@
     ./cava.nix
     ./codewhale.nix
     ./lazygit.nix
-    ./nmtui.nix
+    ./wifitui.nix
     ./pulsemixer.nix
     ./tty-clock.nix
     ./yazi.nix

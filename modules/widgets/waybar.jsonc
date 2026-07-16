@@ -84,7 +84,7 @@
       "class<org.wezfurlong.wezterm>": "",
       "class<org.wezfurlong.wezterm> title<Yazi.*>": "󰉓",
       "class<org.wezfurlong.wezterm> title<gdu>": "",
-      "class<org.wezfurlong.wezterm> title<nmtui>": "󰛳",
+      "class<org.wezfurlong.wezterm> title<wifitui>": "󰛳",
       "class<org.wezfurlong.wezterm> title<nvim>": "󰅴",
       "class<proton.vpn.app.gtk>": "",
       "obsidian": "󰠮",
@@ -158,7 +158,7 @@
     "tooltip-format-wifi": "{ifname}  \n{bandwidthDownBits} ⬇\n{bandwidthUpBits} ⬆",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
-    "on-click-middle": "kitty --class nmtui -e nmtui",
+    "on-click-middle": "kitty --class wifitui -e wifitui",
     "on-click-right": "nmcli radio wifi $( [ \"$(nmcli radio wifi)\" = \"enabled\" ] && echo off || echo on )"
   },
   "network#wired": {
@@ -171,7 +171,7 @@
     "tooltip-format-ethernet": "{ifname}  \n{bandwidthDownBits} ⬇\n{bandwidthUpBits} ⬆",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
-    "on-click-middle": "kitty --class nmtui -e nmtui",
+    "on-click-middle": "kitty --class wifitui -e wifitui",
     "on-click-right": "nmcli -t -f DEVICE,STATE device | grep -q '^enp103s0f3u1u1:connected' && nmcli device disconnect enp103s0f3u1u1 || nmcli device connect enp103s0f3u1u1"
   },
   "backlight": {
