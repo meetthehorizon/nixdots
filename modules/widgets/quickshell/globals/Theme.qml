@@ -1,1 +1,0 @@
-/nix/store/wj5gbg9a9l9ik67162jgdv9frj2zqakz-home-manager-files/nixdots/modules/widgets/quickshell/globals/Theme.qml

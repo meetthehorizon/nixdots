@@ -170,6 +170,7 @@ in {
 
     home.packages =
       resolvedFontPackages
+      ++ [pkgs.nerd-fonts.symbols-only]
       ++ lib.optional (resolvedIconPackage != null) resolvedIconPackage
       ++ lib.optional (resolvedCursorPackage != null) resolvedCursorPackage
       ++ lib.optional (resolvedGtkThemePackage != null) resolvedGtkThemePackage;

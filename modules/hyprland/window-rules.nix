@@ -1,18 +1,7 @@
-{lib, ...}: let
-  makeLuaCode = map (args: {
-    _args =
-      map (
-        arg:
-          if builtins.isAttrs arg
-          then arg
-          else lib.generators.mkLuaInline arg
-      )
-      args;
-  });
-in {
+_: {
   wayland.windowManager.hyprland.settings.layer_rule = {
     match = {
-      namespace = "quickshell";
+      namespace = "waybar-top";
     };
     blur = true;
   };

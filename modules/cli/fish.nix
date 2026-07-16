@@ -41,6 +41,8 @@
         nrt = "sudo nixos-rebuild test --flake .";
         nd = "nix develop";
         hms = "home-manager switch --flake .";
+        ss = "systemctl status";
+        sr = "systemctl restart";
       }
     ];
 
@@ -77,6 +79,15 @@
         if test -f "${fishPath}"
           set -gx GITHUB_TOKEN (cat "${fishPath}")
           set -gx GH_TOKEN $GITHUB_TOKEN
+        end
+      '')}
+
+      ${lib.optionalString (config.secret.deepseek.enable or false) (let
+        fishPath = builtins.replaceStrings ["\${XDG_RUNTIME_DIR}"] ["$XDG_RUNTIME_DIR"] config.age.secrets.deepseek.path;
+      in ''
+        if test -f "${fishPath}"
+          set -gx DS_TOKEN (cat "${fishPath}")
+          set -gx DEEPSEEK_API_KEY $DS_TOKEN
         end
       '')}
     '';

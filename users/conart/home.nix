@@ -26,9 +26,11 @@ in {
       fingerprint = "3A95CB5B608EA1CA";
       file = ../../.secrets/conart.gpg.age;
     };
+    deepseek = {
+      enable = true;
+      file = ../../.secrets/conart.deepseek.age;
+    };
   };
-
-
 
   # Let Home Manager install and manage itself
   programs.home-manager.enable = true;

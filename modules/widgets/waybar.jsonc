@@ -1,0 +1,240 @@
+{
+  // bar configuration
+  "layer": "top",
+  "margin": "0 0 0 0",
+  "name": "waybar-top",
+  "reload_style_on_change": true,
+  // modules
+  "modules-left": [
+    "user",
+    "tray",
+    "mpris"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "battery",
+    "power-profiles-daemon",
+    "wireplumber",
+    "bluetooth",
+    "network#wifi",
+    // "network#wired",
+    "clock#time",
+    "clock#date"
+  ],
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+  "image#logo": {
+    "path": "/home/conart/.face",
+    "size": 25
+  },
+  "user": {
+    "format": " {work_H}:{work_M}",
+    "interval": 60,
+    "height": 30,
+    "width": 30,
+    "swap-icon-label": false
+  },
+  "mpris": {
+    "interval": 1,
+    "format": "{player_icon}  {dynamic}",
+    "title-len": 30,
+    "format-paused": "{status_icon} {dynamic}",
+    "dynamic-order": [
+      "title"
+    ],
+    "tooltip-format": "\t{title}\n\t{position} / {length}\n󰘉\t{artist}\n \t{album}",
+    "dynamic-separator": " ",
+    "player-icons": {
+      "default": "",
+      "mpv": "🎵",
+      "vlc": "󰕼",
+      "spotify": "",
+      "firefox": ""
+    },
+    "status-icons": {
+      "paused": "󰅶 "
+    },
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous"
+  },
+  "tray": {
+    "icon-size": 17,
+    "spacing": 4
+  },
+  "hyprland/workspaces": {
+    "format": "{icon} {windows}",
+    "window-rewrite-default": "",
+    "format-window-separator": " ",
+    "window-rewrite": {
+      "code": "󰨞",
+      "kitty": "",
+      "class<org.wezfurlong.wezterm>": "",
+      "class<org.wezfurlong.wezterm> title<Yazi.*>": "󰉓",
+      "class<org.wezfurlong.wezterm> title<gdu>": "",
+      "class<org.wezfurlong.wezterm> title<nmtui>": "󰛳",
+      "class<org.wezfurlong.wezterm> title<nvim>": "󰅴",
+      "class<proton.vpn.app.gtk>": "",
+      "obsidian": "󰠮",
+      "rofi": "",
+      "spotify": "󰓇",
+      "steam": "󰓓",
+      "class<firefox>": "",
+      "class<org.mozilla.Thunderbird>": "",
+      "class<TablePlus>": "",
+      "title<.*Bitwarden.*>": "",
+      "zathura": "󱔗",
+      "class<discord>": "",
+      "title<bluetuith>": "󰂱",
+      "class<.*Cryptomator.*>": "󰈡",
+      "class<org.gnome.seahorse.Application>": "",
+      "class<Godot.*>": "",
+      "class<anki>": "󰘸",
+      "class<com.obsproject.Studio>": "󰕧",
+      "class<hyprpolkitagent>": "󰌾",
+      "class<timeshift.*>": "󰁯",
+      "class<antigravity.*>": "󰅴",
+      "class<hyprland.*>": "",
+      "class<zen.*>": "󰖟",
+      "class<scrcpy.*>": "",
+      "class<variety>": "󰸉",
+      "class<superProductivity>": "",
+      "class<libreoffice.*>": "",
+      "class<org.kde.*>": "",
+      "class<Postman": "󱂛"
+    },
+    "swap-icon-label": true
+  },
+  "hyprland/window": {
+    "format": "{title}",
+    "rewrite": {
+      "(.*) - (.*) - Obsidian (.*)": "$1 ($2)",
+      "Spotify Premium": "Spotify",
+      "(.*)- Visual Studio Code": "VS Code",
+      "(.*) — Zen Browser": "Zen",
+      "(.*) - fish": "> [$1]",
+      "(.*).(.*).zathura": "Zathura"
+    },
+    "separate-outputs": true,
+    "swap-icon-label": false
+  },
+  "bluetooth": {
+    "format": "",
+    "format-off": "󰂲",
+    "format-disabled": "󰂲",
+    "format-on": "󰂯",
+    "format-connected": "󰂱",
+    "tooltip-format": "{controller_alias}",
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t󰁹 {device_battery_percentage}%"
+  },
+  "network#wifi": {
+    "interface": "wl*",
+    "interval": 1,
+    "format": "",
+    "format-wifi": "{icon}  {essid}",
+    "format-disconnected": "󰤭",
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{ifname}  \n{bandwidthDownBits} ⬇\n{bandwidthUpBits} ⬆",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50,
+    "on-click-right": "nmcli radio wifi $( [ \"$(nmcli radio wifi)\" = \"enabled\" ] && echo off || echo on )"
+  },
+  "network#wired": {
+    "interface": "enp103s0f3u1u1",
+    "interval": 1,
+    "format": "",
+    "format-ethernet": "{ipaddr}/{cidr} 󰈁",
+    "format-disconnected": "󰈂",
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-ethernet": "{ifname}  \n{bandwidthDownBits} ⬇\n{bandwidthUpBits} ⬆",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50,
+    "on-click-right": "nmcli -t -f DEVICE,STATE device | grep -q '^enp103s0f3u1u1:connected' && nmcli device disconnect enp103s0f3u1u1 || nmcli device connect enp103s0f3u1u1"
+  },
+  "backlight": {
+    "format": "{percent}% {icon}",
+    "format-icons": [
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " "
+    ]
+  },
+  "wireplumber": {
+    "format": "{volume}  {icon}",
+    "format-muted": "󰝟",
+    "format-icons": [
+      "󰕿",
+      "󰖀",
+      "󰕾"
+    ]
+  },
+  "battery": {
+    "interval": 1,
+    "states": {
+      "bat_100": 100,
+      "bat_90": 90,
+      "bat_80": 80,
+      "bat_70": 70,
+      "bat_60": 60,
+      "bat_50": 50,
+      "bat_40": 40,
+      "bat_30": 30,
+      "bat_20": 20,
+      "bat_10": 10,
+      "bat_0": 0
+    },
+    "format-charging": "{capacity}  󰂄",
+    "format-bat_100": "{capacity}  󰁹",
+    "format-bat_90": "{capacity}  󰂂",
+    "format-bat_80": "{capacity}  󰂁",
+    "format-bat_70": "{capacity}  󰂀",
+    "format-bat_60": "{capacity}  󰁿",
+    "format-bat_50": "{capacity}  󰁾",
+    "format-bat_40": "{capacity}  󰁽",
+    "format-bat_30": "{capacity}  󰁼",
+    "format-bat_20": "{capacity}  󰁻",
+    "format-bat_10": "{capacity}  󰁺",
+    "format-bat_0": "{capacity}  󰂃",
+    "tooltip": true,
+    "tooltip-format": "{power}W",
+    "max-length": 25
+  },
+  "clock#time": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "{:%Z}"
+  },
+  "clock#date": {
+    "format": "{:%a, %d %b}",
+    "tooltip-format": "{:%A, %d %B %Y}"
+  }
+}

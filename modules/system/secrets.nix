@@ -11,4 +11,8 @@ in {
     publicKeys = [conart conartProtonMaster];
     armor = true;
   };
+  "../../.secrets/conart.deepseek.age" = {
+    publicKeys = [conart conartProtonMaster];
+    armor = true;
+  };
 }
