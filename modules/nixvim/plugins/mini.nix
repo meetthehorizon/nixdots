@@ -32,6 +32,7 @@
             "node_modules".glyph = "󰎙";
             "pkg".glyph = "󰏖";
             "public".glyph = "";
+            "routes".glyph = "";
             "scripts".glyph = "󰯂";
             "secrets".glyph = "";
             "service".glyph = "";
@@ -59,6 +60,7 @@
             py.glyph = "";
             qml.glyph = "";
             sh.glyph = "";
+            svelte.glyph = "";
             toml.glyph = "";
             ts.glyph = "";
             tsx.glyph = "";

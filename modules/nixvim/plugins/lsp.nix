@@ -58,6 +58,11 @@
               client.server_capabilities.hoverProvider = false
             '';
           };
+          svelte = {
+            enable = true;
+            initOptions.svelte.plugin.typescript.enable = true;
+          };
+          cssls.enable = true;
         };
         keymaps = {
           extra =
@@ -126,6 +131,8 @@
       ruff
       stylua
       taplo
+      vscode-langservers-extracted
+      svelte-language-server
     ];
   };
 }

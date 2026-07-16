@@ -23,6 +23,8 @@
           python = ["ruff_fix" "ruff_format" "ruff_organize_imports"];
           sh = ["shfmt"];
           bash = ["shfmt"];
+          svelte = ["prettier"];
+          css = ["prettier"];
         };
         formatters.shfmt = {
           prepend_args = [

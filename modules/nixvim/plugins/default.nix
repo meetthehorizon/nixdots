@@ -4,6 +4,7 @@
     ./conform.nix
     ./dap.nix
     ./dressing.nix
+    ./emmet.nix
     ./notify.nix
     ./gitsigns.nix
     ./lazygit.nix
@@ -13,6 +14,7 @@
     ./luasnip.nix
     ./mini.nix
     ./nvim-autopairs.nix
+    ./nvim-ts-autotag.nix
     ./oil.nix
     ./telescope.nix
     ./treesitter.nix
