@@ -61,6 +61,8 @@
 
     "chat.disableAIFeatures" = true;
     "git.openRepositoryInParentFolders" = "always";
+    "git.autofetch" = true;
+    "git.confirmSync" = false;
   };
 
   commonKeybindings = [
@@ -145,6 +147,18 @@ in {
             "editor.tabSize" = 2;
             "files.autoSave" = "afterDelay";
             "files.autoSaveDelay" = 1000;
+
+            "json.schemaDownload.enable" = true;
+            "json.schemaDownload.trustedDomains" = {
+              "https=//developer.microsoft.com/json-schemas/" = true;
+              "https=//json-schema.org/" = true;
+              "https=//json.schemastore.org/" = true;
+              "https=//raw.githubusercontent.com/devcontainers/spec/" = true;
+              "https=//raw.githubusercontent.com/microsoft/vscode/" = true;
+              "https=//schemastore.azurewebsites.net/" = true;
+              "https=//shadcn-svelte.com" = true;
+              "https=//www.schemastore.org/" = true;
+            };
           };
       };
     };
