@@ -19,7 +19,7 @@
   toRGB = hex: "rgb(${lib.removePrefix "#" hex})";
 in {
   home.packages = with pkgs; [
-    hyprlauncher
+    rofi
     wl-clipboard
   ];
 
@@ -33,7 +33,7 @@ in {
     settings = {
       mod._var = "SUPER";
       terminal._var = "kitty";
-      launcher._var = "hyprlauncher";
+      launcher._var = "rofi -show drun";
       browser._var = "firefox";
 
       config = {
