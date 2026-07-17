@@ -124,6 +124,7 @@ in {
               "**/.git" = true;
               "**/.DS_Store" = true;
             };
+            "explorer.confirmDragAndDrop" = false;
 
             "[svelte]" = {
               "editor.defaultFormatter" = "svelte.svelte-vscode";
