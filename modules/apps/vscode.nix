@@ -161,6 +161,60 @@ in {
             };
           };
       };
+
+      go = {
+        extensions =
+          commonExtensions
+          ++ (with pkgs.vscode-marketplace; [
+            # Go Core Tools
+            golang.go
+
+            # Developer Quality of Life
+            usernamehw.errorlens
+          ]);
+
+        userSettings =
+          commonSettings
+          // {
+            # Go Formatting & Linting
+            "editor.formatOnSave" = true;
+            "editor.defaultFormatter" = "golang.go";
+
+            # Use gopls (Go Language Server)
+            "go.useLanguageServer" = true;
+            "go.lintOnSave" = "package";
+            "go.lintTool" = "golangci-lint";
+            "go.formatTool" = "gofmt";
+            "go.inlayHints.assignVariableTypes" = true;
+            "go.inlayHints.compositeLiteralFields" = true;
+            "go.inlayHints.compositeLiteralTypes" = true;
+            "go.inlayHints.constantValues" = true;
+            "go.inlayHints.functionTypeParameters" = true;
+            "go.inlayHints.parameterNames" = true;
+            "go.inlayHints.rangeVariableTypes" = true;
+
+            # Clean up explorer
+            "explorer.autoRevealExclude" = {
+              "**/.direnv" = true;
+              "**/.git" = true;
+            };
+
+            # Go specific editor settings
+            "[go]" = {
+              "editor.snippetSuggestions" = "none";
+              "editor.formatOnSave" = true;
+              "editor.codeActionsOnSave" = {
+                "source.organizeImports" = "explicit";
+              };
+            };
+            "[go.mod]" = {
+              "editor.formatOnSave" = true;
+              "editor.codeActionsOnSave" = {
+                "source.organizeImports" = "explicit";
+              };
+            };
+          };
+      };
     };
   };
 }
