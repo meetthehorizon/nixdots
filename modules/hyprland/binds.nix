@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  lib,
+  config,
+  ...
+}: let
   makeLuaCode = map (args: {
     _args =
       map (
@@ -12,13 +16,6 @@
 in {
   wayland.windowManager.hyprland.settings.bind = makeLuaCode (
     [
-      [
-        ''mod .. " + SPACE"''
-        ''hl.dsp.exec_cmd(launcher)''
-        {
-          description = "Open application launcher";
-        }
-      ]
       [
         ''mod .. " + Q"''
         ''hl.dsp.exec_cmd(terminal)''
@@ -220,6 +217,29 @@ in {
         ''hl.dsp.exec_cmd("hyprlock")''
         {
           description = "Lock Screen";
+        }
+      ]
+    ]
+    ++ lib.optionals config.programs.rofi.enable [
+      [
+        ''mod .. " + SPACE"''
+        ''hl.dsp.exec_cmd("rofi -show combi")''
+        {
+          description = "Open rofi combi mode";
+        }
+      ]
+      [
+        ''mod .. " + E"''
+        ''hl.dsp.exec_cmd("rofi -show recursivebrowser")''
+        {
+          description = "Open rofi recursivebrowser mode";
+        }
+      ]
+      [
+        ''"SUPER + SHIFT + SPACE"''
+        ''hl.dsp.exec_cmd("rofi -show drun")''
+        {
+          description = "Open rofi drun mode";
         }
       ]
     ]
