@@ -216,6 +216,270 @@ in {
             };
           };
       };
+
+      haskell = {
+        extensions =
+          commonExtensions
+          ++ (with pkgs.vscode-marketplace; [
+            # Haskell Core
+            haskell.haskell
+
+            # Developer Quality of Life
+            usernamehw.errorlens
+          ]);
+
+        userSettings =
+          commonSettings
+          // {
+            # Haskell Language Server
+            "haskell.manageHLS" = "GHCup";
+            "haskell.serverExecutablePath" = "haskell-language-server-wrapper";
+            "haskell.formattingProvider" = "fourmolu";
+            "haskell.metaMode" = true;
+
+            # Haskell Debugger
+            "haskell.debugAdapter.debugAdapterPath" = "haskell-debug-adapter";
+
+            # Editor
+            "[haskell]" = {
+              "editor.formatOnSave" = true;
+              "editor.defaultFormatter" = "haskell.haskell";
+            };
+            "[cabal]" = {
+              "editor.formatOnSave" = true;
+              "editor.defaultFormatter" = "haskell.haskell";
+            };
+
+            # Clean up explorer
+            "explorer.autoRevealExclude" = {
+              "**/.direnv" = true;
+              "**/.git" = true;
+              "**/dist-newstyle" = true;
+              "**/.stack-work" = true;
+            };
+          };
+      };
+
+      cpp = {
+        extensions =
+          commonExtensions
+          ++ (with pkgs.vscode-marketplace; [
+            # C/C++ Core
+            llvm-vs-code-extensions.vscode-clangd
+
+            # Build System & Debugging
+            ms-vscode.cmake-tools
+            twxs.cmake
+
+            # Developer Quality of Life
+            usernamehw.errorlens
+          ]);
+
+        userSettings =
+          commonSettings
+          // {
+            # Use clangd as primary language server
+            "clangd.arguments" = [
+              "--header-insertion=never"
+              "--compile-commands-dir=build"
+              "--background-index"
+              "--clang-tidy"
+            ];
+            "clangd.path" = "clangd";
+
+            # Disable Microsoft C++ tools (use clangd instead)
+            "C_Cpp.intelliSenseEngine" = "disabled";
+
+            # CMake
+            "cmake.configureOnOpen" = true;
+            "cmake.buildDirectory" = "\${workspaceFolder}/build";
+
+            # Editor
+            "[c]" = {
+              "editor.formatOnSave" = true;
+              "editor.defaultFormatter" = "llvm-vs-code-extensions.vscode-clangd";
+            };
+            "[cpp]" = {
+              "editor.formatOnSave" = true;
+              "editor.defaultFormatter" = "llvm-vs-code-extensions.vscode-clangd";
+            };
+            "[cmake]" = {
+              "editor.formatOnSave" = true;
+            };
+
+            # Clean up explorer
+            "explorer.autoRevealExclude" = {
+              "**/.direnv" = true;
+              "**/.git" = true;
+              "**/build" = true;
+              "**/cmake-build-*" = true;
+            };
+          };
+      };
+
+      java = {
+        extensions =
+          commonExtensions
+          ++ (with pkgs.vscode-marketplace; [
+            # Java Core
+            redhat.java
+
+            # Java Debugger & Testing
+            vscjava.vscode-java-debug
+            vscjava.vscode-java-test
+
+            # Build Systems
+            vscjava.vscode-maven
+            vscjava.vscode-gradle
+
+            # Developer Quality of Life
+            usernamehw.errorlens
+          ]);
+
+        userSettings =
+          commonSettings
+          // {
+            # Java Language Server
+            "java.configuration.updateBuildConfiguration" = "automatic";
+            "java.compile.nullAnalysis.mode" = "automatic";
+            "java.jdt.ls.java.home" = "";
+            "java.configuration.runtimes" = [];
+
+            # Maven
+            "java.configuration.maven.globalSettings" = "";
+            "maven.executable.path" = "mvn";
+            "maven.terminal.useJavaHome" = true;
+
+            # Formatting
+            "java.format.settings.url" = "";
+            "java.format.settings.profile" = "GoogleStyle";
+
+            # Inlay Hints
+            "java.inlayHints.parameterNames.enabled" = "literals";
+
+            # Editor
+            "[java]" = {
+              "editor.formatOnSave" = true;
+              "editor.defaultFormatter" = "redhat.java";
+              "editor.codeActionsOnSave" = {
+                "source.organizeImports" = "explicit";
+              };
+            };
+
+            # Clean up explorer
+            "explorer.autoRevealExclude" = {
+              "**/.direnv" = true;
+              "**/.git" = true;
+              "**/target" = true;
+              "**/bin" = true;
+              "**/build" = true;
+              "**/.classpath" = true;
+              "**/.project" = true;
+              "**/.settings" = true;
+            };
+          };
+      };
+
+      rust = {
+        extensions =
+          commonExtensions
+          ++ (with pkgs.vscode-marketplace; [
+            # Rust Core
+            rust-lang.rust-analyzer
+
+            # TOML Support (Cargo.toml)
+            tamasfe.even-better-toml
+
+            # Developer Quality of Life
+            usernamehw.errorlens
+          ]);
+
+        userSettings =
+          commonSettings
+          // {
+            # Rust Analyzer
+            "rust-analyzer.check.command" = "clippy";
+            "rust-analyzer.check.extraArgs" = [
+              "--"
+              "-W"
+              "clippy::pedantic"
+            ];
+            "rust-analyzer.inlayHints.typeHints.enable" = true;
+            "rust-analyzer.inlayHints.parameterHints.enable" = true;
+            "rust-analyzer.inlayHints.chainingHints.enable" = true;
+            "rust-analyzer.cargo.allFeatures" = true;
+
+            # Formatting with rustfmt
+            "rust-analyzer.rustfmt.extraArgs" = ["--edition" "2024"];
+
+            # Editor
+            "[rust]" = {
+              "editor.formatOnSave" = true;
+              "editor.defaultFormatter" = "rust-lang.rust-analyzer";
+            };
+
+            # Clean up explorer
+            "explorer.autoRevealExclude" = {
+              "**/.direnv" = true;
+              "**/.git" = true;
+              "**/target" = true;
+            };
+          };
+      };
+
+      python = {
+        extensions =
+          commonExtensions
+          ++ (with pkgs.vscode-marketplace; [
+            # Python Core
+            ms-python.python
+
+            # Debugger
+            ms-python.debugpy
+
+            # Developer Quality of Life
+            usernamehw.errorlens
+          ]);
+
+        userSettings =
+          commonSettings
+          // {
+            # Python Interpreter & Environment
+            "python.defaultInterpreterPath" = ".venv/bin/python";
+            "python.terminal.activateEnvironment" = true;
+            "python.terminal.activateEnvInCurrentTerminal" = true;
+
+            # Linting & Formatting
+            "python.analysis.typeCheckingMode" = "standard";
+            "python.analysis.autoImportCompletions" = true;
+
+            # Use ruff for linting and formatting
+            "[python]" = {
+              "editor.formatOnSave" = true;
+              "editor.defaultFormatter" = "ms-python.python";
+              "editor.codeActionsOnSave" = {
+                "source.organizeImports" = "explicit";
+                "source.fixAll" = "explicit";
+              };
+            };
+
+            # Testing
+            "python.testing.pytestEnabled" = true;
+            "python.testing.unittestEnabled" = false;
+            "python.testing.pytestArgs" = ["-v"];
+
+            # Clean up explorer
+            "explorer.autoRevealExclude" = {
+              "**/.direnv" = true;
+              "**/.git" = true;
+              "**/__pycache__" = true;
+              "**/.venv" = true;
+              "**/.pytest_cache" = true;
+              "**/.mypy_cache" = true;
+              "**/*.pyc" = true;
+            };
+          };
+      };
     };
   };
 }

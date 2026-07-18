@@ -25,6 +25,8 @@
           bash = ["shfmt"];
           svelte = ["prettier"];
           css = ["prettier"];
+          haskell = ["fourmolu"];
+          rust = ["rustfmt"];
         };
         formatters.shfmt = {
           prepend_args = [
@@ -41,6 +43,8 @@
       alejandra
       clang-tools
       gotools
+      haskellPackages.fourmolu
+      rustfmt
       stylua
       prettier
       taplo

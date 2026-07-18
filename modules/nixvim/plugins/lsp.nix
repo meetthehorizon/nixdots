@@ -41,6 +41,36 @@
               };
             };
           };
+          # Haskell
+          hls = {
+            enable = true;
+            installGhc = false;
+            settings.haskell.formattingProvider = "fourmolu";
+          };
+
+          # Java / JDTLS
+          jdtls.enable = true;
+
+          # Rust
+          rust_analyzer = {
+            enable = true;
+            installCargo = false;
+            installRustc = false;
+            settings = {
+              "rust-analyzer" = {
+                check.command = "clippy";
+                cargo.allFeatures = true;
+                inlayHints = {
+                  typeHints.enable = true;
+                  parameterHints.enable = true;
+                  chainingHints.enable = true;
+                };
+                rustfmt.extraArgs = ["--edition" "2024"];
+              };
+            };
+          };
+
+          # Python (existing)
           basedpyright = {
             enable = true;
             settings.basedpyright = {
@@ -58,6 +88,8 @@
               client.server_capabilities.hoverProvider = false
             '';
           };
+
+          # Svelte / Web
           svelte = {
             enable = true;
             initOptions.svelte.plugin.typescript.enable = true;
@@ -126,13 +158,16 @@
       bash-language-server
       clang-tools
       gotools
+      haskellPackages.haskell-language-server
+      jdt-language-server
       kdePackages.qtdeclarative
       prettier
       ruff
+      rust-analyzer
       stylua
+      svelte-language-server
       taplo
       vscode-langservers-extracted
-      svelte-language-server
     ];
   };
 }
