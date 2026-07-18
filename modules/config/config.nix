@@ -59,7 +59,7 @@
 
   # GTK Icon Package Resolution
   iconPackageMap = {
-    "Papirus Dark" = pkgs.papirus-icon-theme;
+    "Papirus-Dark" = pkgs.papirus-icon-theme;
     "Tela Circle" = pkgs.tela-circle-icon-theme;
   };
   getIconPkg = name: iconPackageMap.${name} or null;
@@ -76,7 +76,7 @@
 
   # GTK Theme mapping based on config.color.style
   gtkThemeMap = {
-    "tokyonight" = "Tokyonight";
+    "tokyonight" = "Tokyonight-Dark";
     "catppuccin" = "Catppuccin";
     "gruvbox" = "Gruvbox";
   };
@@ -85,7 +85,7 @@
   # GTK Theme Package Resolution
   gtkThemePackageMap = {
     "Adwaita" = pkgs.gnome-themes-extra;
-    "Tokyonight" = pkgs.tokyonight-gtk-theme;
+    "Tokyonight-Dark" = pkgs.tokyonight-gtk-theme;
     "Catppuccin" = pkgs.catppuccin-gtk;
     "Gruvbox" = pkgs.gruvbox-gtk-theme;
   };
@@ -115,9 +115,9 @@ in {
       weight = fontVals.weight or {};
     };
 
-    iconTheme = parsedConfig.gtk.iconTheme or "Papirus Dark";
+    iconTheme = parsedConfig.gtk.iconTheme or "Papirus-Dark";
     cursorTheme = parsedConfig.gtk.cursorTheme or "Bibata-Modern-Ice";
-    gtkTheme = activeGtkTheme;
+    gtkTheme = parsedConfig.gtk.theme or activeGtkTheme;
 
     user = {
       name = {
@@ -173,6 +173,7 @@ in {
       ++ [pkgs.nerd-fonts.symbols-only]
       ++ lib.optional (resolvedIconPackage != null) resolvedIconPackage
       ++ lib.optional (resolvedCursorPackage != null) resolvedCursorPackage
-      ++ lib.optional (resolvedGtkThemePackage != null) resolvedGtkThemePackage;
+      ++ lib.optional (resolvedGtkThemePackage != null) resolvedGtkThemePackage
+      ++ [pkgs.nwg-look];
   };
 }

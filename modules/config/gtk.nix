@@ -6,7 +6,7 @@
     };
 in {
   options = {
-    iconTheme = mkStrOption "Papirus Dark";
+    iconTheme = mkStrOption "Papirus-Dark";
     cursorTheme = mkStrOption "Bibata-Modern-Ice";
     gtkTheme = mkStrOption "Adwaita";
   };

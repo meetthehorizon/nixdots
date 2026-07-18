@@ -48,9 +48,9 @@
     }
   },
   "gtk": {
-    "iconTheme": "Papirus Dark",
+    "iconTheme": "Papirus-Dark",
     "cursorTheme": "Bibata-Modern-Ice",
-    "theme": "Adwaita"
+    "theme": "Tokyonight-Dark"
   },
   "user": {
     "name": {
