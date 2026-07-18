@@ -1,9 +1,14 @@
-{ config, ... }: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   sans = config.font.sans;
   mono = config.font.mono;
-  size = builtins.toString (config.font.size.base + 3);
-  weight = builtins.toString config.font.weight.normal;
+  size = toString (config.font.size.base + 3);
+  weight = toString config.font.weight.normal;
 in {
+  home.packages = with pkgs; [gtk3 flock];
   programs.waybar = {
     enable = true;
     systemd = {

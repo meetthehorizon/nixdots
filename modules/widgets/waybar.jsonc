@@ -45,7 +45,7 @@
     "height": 30,
     "width": 30,
     "swap-icon-label": false,
-    "on-click-middle": "kitty --class fastfetch -e fish -c \"fastfetch; exec fish\""
+    "on-click-middle": "gtk-launch fastfetch"
   },
   "mpris": {
     "interval": 1,
@@ -69,7 +69,7 @@
     },
     "on-click": "playerctl play-pause",
     "on-click-right": "playerctl next",
-    "on-click-middle": "kitty --class pulsemixer -e pulsemixer"
+    "on-click-middle": "gtk-launch pulsemixer"
   },
   "tray": {
     "icon-size": 17,
@@ -140,7 +140,7 @@
     "tooltip-format": "{controller_alias}",
     "tooltip-format-connected": "{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t󰁹 {device_battery_percentage}%",
-    "on-click-middle": "kitty --class bluetui -e bluetui"
+    "on-click-middle": "gtk-launch bluetui"
   },
   "network#wifi": {
     "interface": "wl*",
@@ -159,7 +159,7 @@
     "tooltip-format-wifi": "{ifname}  \n{bandwidthDownBits} ⬇\n{bandwidthUpBits} ⬆",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
-    "on-click-middle": "kitty --class wifitui -e wifitui",
+    "on-click-middle": "gtk-launch wifitui",
     "on-click-right": "nmcli radio wifi $( [ \"$(nmcli radio wifi)\" = \"enabled\" ] && echo off || echo on )"
   },
   "network#wired": {
@@ -172,7 +172,7 @@
     "tooltip-format-ethernet": "{ifname}  \n{bandwidthDownBits} ⬇\n{bandwidthUpBits} ⬆",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
-    "on-click-middle": "kitty --class wifitui -e wifitui",
+    "on-click-middle": "gtk-launch wifitui",
     "on-click-right": "nmcli -t -f DEVICE,STATE device | grep -q '^enp103s0f3u1u1:connected' && nmcli device disconnect enp103s0f3u1u1 || nmcli device connect enp103s0f3u1u1"
   },
   "backlight": {
@@ -202,7 +202,7 @@
       "󰖀",
       "󰕾"
     ],
-    "on-click-middle": "kitty --class pulsemixer -e pulsemixer"
+    "on-click-middle": "gtk-launch pulsemixer"
   },
   "cava": {
     "framerate": 120,
@@ -230,7 +230,7 @@
       "▇",
       "█"
     ],
-    "on-click-middle": "kitty --class cava -e cava"
+    "on-click-middle": "gtk-launch cava"
   },
   "battery": {
     "interval": 1,
@@ -266,11 +266,11 @@
   "clock#time": {
     "format": "{:%H:%M}",
     "tooltip-format": "{:%Z}",
-    "on-click-middle": "kitty --class tty-clock -e tty-clock -sc"
+    "on-click-middle": "gtk-launch tty-clock"
   },
   "clock#date": {
     "format": "{:%a, %d %b}",
     "tooltip-format": "{:%A, %d %B %Y}",
-    "on-click-middle": "kitty --class calcurse -e calcurse"
+    "on-click-middle": "gtk-launch calcurse"
   }
 }
