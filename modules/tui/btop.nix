@@ -5,8 +5,8 @@
 
   xdg.desktopEntries.btop = {
     name = "Resource Monitor";
-    exec = "btop";
-    terminal = true;
+    exec = "footclient btop";
+    icon = "btop";
     type = "Application";
     categories = ["System"];
   };

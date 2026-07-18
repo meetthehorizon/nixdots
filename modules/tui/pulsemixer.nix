@@ -5,8 +5,8 @@
 
   xdg.desktopEntries.pulsemixer = {
     name = "Audio Mixer";
-    exec = "pulsemixer";
-    terminal = true;
+    exec = "footclient pulsemixer";
+    icon = "alsamixergui";
     type = "Application";
     categories = ["Audio"];
   };

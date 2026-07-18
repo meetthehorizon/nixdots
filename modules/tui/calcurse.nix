@@ -5,8 +5,8 @@
 
   xdg.desktopEntries.calcurse = {
     name = "Calendar";
-    exec = "calcurse";
-    terminal = true;
+    exec = "footclient calcurse";
+    icon = "calendar";
     type = "Application";
     categories = ["Office"];
   };

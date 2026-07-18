@@ -5,8 +5,8 @@
 
   xdg.desktopEntries.gdu = {
     name = "Disk Usage Analyzer";
-    exec = "gdu";
-    terminal = true;
+    exec = "footclient gdu";
+    icon = "disk-usage-analyzer";
     type = "Application";
     categories = ["System"];
   };

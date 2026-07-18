@@ -5,9 +5,10 @@
 
   xdg.desktopEntries.tty-clock = {
     name = "Terminal Clock";
-    exec = "tty-clock -sc";
-    terminal = true;
+    exec = "footclient tty-clock -sc";
+    icon = "accessories-clock";
     type = "Application";
     categories = ["Utility"];
   };
 }
+

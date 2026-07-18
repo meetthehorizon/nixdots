@@ -72,8 +72,8 @@
 
   xdg.desktopEntries.fastfetch = {
     name = "System Info";
-    exec = "fastfetch";
-    terminal = true;
+    exec = ''footclient bash -c "fastfetch; read -n1 -s -r; echo"'';
+    icon = "utilities-system-monitor";
     type = "Application";
     categories = ["System"];
   };

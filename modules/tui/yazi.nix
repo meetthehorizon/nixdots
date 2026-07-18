@@ -73,8 +73,8 @@
 
   xdg.desktopEntries.yazi = {
     name = "File Manager";
-    exec = "yazi";
-    terminal = true;
+    exec = "footclient yazi";
+    icon = "system-file-manager";
     type = "Application";
     categories = ["System"];
   };

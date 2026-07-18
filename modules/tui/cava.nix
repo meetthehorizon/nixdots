@@ -5,9 +5,10 @@
 
   xdg.desktopEntries.cava = {
     name = "Audio Visualizer";
-    exec = "cava";
-    terminal = true;
+    exec = "footclient cava";
+    icon = "alsamixergui";
     type = "Application";
     categories = ["Audio"];
   };
 }
+

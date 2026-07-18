@@ -3,8 +3,8 @@
 
   xdg.desktopEntries.wifitui = {
     name = "WiFi TUI";
-    exec = "wifitui";
-    terminal = true;
+    exec = "footclient wifitui";
+    icon = "wifi-radar";
     type = "Application";
     categories = ["System"];
   };

@@ -142,8 +142,8 @@ _: {
 
   xdg.desktopEntries.lazygit = {
     name = "Git Interface";
-    exec = "lazygit";
-    terminal = true;
+    exec = "footclient lazygit";
+    icon = "git";
     type = "Application";
     categories = ["Development"];
   };

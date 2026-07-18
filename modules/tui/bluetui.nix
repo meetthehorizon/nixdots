@@ -5,8 +5,8 @@
 
   xdg.desktopEntries.bluetui = {
     name = "Bluetooth Manager";
-    exec = "bluetui";
-    terminal = true;
+    exec = "footclient bluetui";
+    icon = "bluetoothradio";
     type = "Application";
     categories = ["System"];
   };
