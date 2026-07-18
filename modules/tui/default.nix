@@ -11,6 +11,7 @@
     ./pulsemixer.nix
     ./tty-clock.nix
     ./yazi.nix
-    ./zathura.nix
   ];
+
+  programs.foot.enable = true;
 }
