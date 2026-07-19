@@ -100,7 +100,7 @@ in {
     extraConfig = ''
       hl.on("hyprland.start", function()
         hl.exec_cmd("dbus-update-activation-environment --systemd --all")
-        hl.exec_cmd("rog-control-center", { worksapce = "silent" })
+        hl.exec_cmd("rog-control-center", { workspace = "silent" })
         hl.exec_cmd("hyprctl setcursor ${config.cursorTheme} 24")
         hl.exec_cmd(terminal .. " -e nvim", { workspace = "1 silent" })
         hl.exec_cmd(browser, { workspace = "2 silent" })
