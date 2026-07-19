@@ -229,13 +229,6 @@ in {
         }
       ]
       [
-        ''mod .. " + E"''
-        ''hl.dsp.exec_cmd("rofi -show recursivebrowser")''
-        {
-          description = "Open rofi recursivebrowser mode";
-        }
-      ]
-      [
         ''"SUPER + SHIFT + SPACE"''
         ''hl.dsp.exec_cmd("rofi -show drun")''
         {
