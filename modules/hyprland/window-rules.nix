@@ -1,9 +1,10 @@
 {lib, ...}: {
   wayland.windowManager.hyprland.settings.layer_rule = {
     match = {
-      namespace = "waybar-top";
+      namespace = "waybar-top|rofi";
     };
     blur = true;
+    xray = true;
   };
 
   wayland.windowManager.hyprland.settings.window_rule = [

@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   ...
@@ -103,6 +104,233 @@ in {
       icon-theme = "${config.iconTheme}";
       show-icons = true;
       combi-hide-mode-prefix = true;
+    };
+    theme = let
+      inherit (config.lib.formats.rasi) mkLiteral;
+      c = config.color;
+      s = config.ui.spacing;
+      b = config.ui.border;
+      e = config.ui.effects;
+
+      hexDigit = d:
+        if d == "0" then 0 else if d == "1" then 1
+        else if d == "2" then 2 else if d == "3" then 3
+        else if d == "4" then 4 else if d == "5" then 5
+        else if d == "6" then 6 else if d == "7" then 7
+        else if d == "8" then 8 else if d == "9" then 9
+        else if d == "a" || d == "A" then 10
+        else if d == "b" || d == "B" then 11
+        else if d == "c" || d == "C" then 12
+        else if d == "d" || d == "D" then 13
+        else if d == "e" || d == "E" then 14
+        else 15;
+
+      hexToDec = s:
+        hexDigit (builtins.substring 0 1 s) * 16 + hexDigit (builtins.substring 1 1 s);
+
+      hexToRgba = hex: alpha: let
+        h = builtins.substring 1 6 hex;
+        r = toString (hexToDec (builtins.substring 0 2 h));
+        g = toString (hexToDec (builtins.substring 2 2 h));
+        b = toString (hexToDec (builtins.substring 4 2 h));
+      in "rgba(${r}, ${g}, ${b}, ${toString (alpha * 100)}%)";
+    in {
+      "*" = {
+        background = mkLiteral (hexToRgba c.surface e.surfaceAlpha);
+        foreground = mkLiteral c.text;
+        blue = mkLiteral c.accent;
+        red = mkLiteral c.error;
+        overlay = mkLiteral (hexToRgba c.text 0.05);
+        background-color = mkLiteral "transparent";
+        border-color = mkLiteral (hexToRgba c.border e.borderOpacity);
+        separatorcolor = mkLiteral "transparent";
+        spacing = s.s0;
+        normal-background = mkLiteral "transparent";
+        normal-foreground = mkLiteral "var(foreground)";
+        alternate-normal-background = mkLiteral "transparent";
+        alternate-normal-foreground = mkLiteral "var(foreground)";
+        selected-normal-background = mkLiteral "var(blue)";
+        selected-normal-foreground = mkLiteral c.text;
+        active-background = mkLiteral "var(overlay)";
+        active-foreground = mkLiteral "var(blue)";
+        alternate-active-background = mkLiteral "var(overlay)";
+        alternate-active-foreground = mkLiteral "var(blue)";
+        selected-active-background = mkLiteral "var(blue)";
+        selected-active-foreground = mkLiteral "var(foreground)";
+        urgent-background = mkLiteral "transparent";
+        urgent-foreground = mkLiteral "var(red)";
+        alternate-urgent-background = mkLiteral "transparent";
+        alternate-urgent-foreground = mkLiteral "var(red)";
+        selected-urgent-background = mkLiteral "var(red)";
+        selected-urgent-foreground = mkLiteral "var(foreground)";
+      };
+
+      window = {
+        width = mkLiteral "600px";
+        padding = s.s6;
+        background-color = mkLiteral "var(background)";
+        border = mkLiteral "${toString b.w1}px solid";
+        border-color = mkLiteral "var(border-color)";
+      };
+
+      mainbox = {
+        padding = s.s0;
+        border = b.none;
+        spacing = s.s4;
+      };
+
+      inputbar = {
+        padding = mkLiteral "${toString s.s3}px ${toString s.s4}px";
+        spacing = s.s2;
+        text-color = mkLiteral "var(normal-foreground)";
+        background-color = mkLiteral "var(overlay)";
+        border = mkLiteral "${toString b.w1}px solid";
+        border-color = mkLiteral "var(border-color)";
+        children = mkLiteral ''[ "prompt","textbox-prompt-colon","entry","overlay","num-filtered-rows","textbox-num-sep","num-rows","case-indicator" ]'';
+      };
+
+      prompt = {
+        spacing = s.s0;
+        padding = mkLiteral "0px ${toString s.s2}px 0px 0px";
+        text-color = mkLiteral "var(blue)";
+      };
+
+      "textbox-prompt-colon" = {
+        margin = mkLiteral "0px ${toString s.s1}px 0px 0px";
+        expand = false;
+        str = ":";
+        text-color = mkLiteral "inherit";
+      };
+
+      entry = {
+        text-color = mkLiteral "var(normal-foreground)";
+        cursor = mkLiteral "text";
+        spacing = s.s0;
+        padding = s.s0;
+        placeholder-color = mkLiteral "Gray";
+        placeholder = "Type to filter...";
+        vertical-align = mkLiteral "0.5";
+      };
+
+      "num-filtered-rows, num-rows, textbox-num-sep, case-indicator" = {
+        expand = false;
+        text-color = mkLiteral "Gray";
+        vertical-align = mkLiteral "0.5";
+      };
+
+      "textbox-num-sep" = {
+        str = "/";
+      };
+
+      overlay = {
+        padding = mkLiteral "${toString s.s1}px 0.4em";
+        background-color = mkLiteral "var(normal-foreground)";
+        text-color = mkLiteral "var(normal-background)";
+        margin = mkLiteral "0px 0.4em";
+      };
+
+      message = {
+        padding = s.s3;
+        background-color = mkLiteral "var(overlay)";
+        border = b.none;
+      };
+
+      textbox = {
+        text-color = mkLiteral "var(foreground)";
+      };
+
+      listview = {
+        padding = s.s0;
+        scrollbar = true;
+        border = b.none;
+        spacing = s.s1;
+        fixed-height = s.s0;
+        lines = mkLiteral "8";
+      };
+
+      element = {
+        padding = mkLiteral "${toString s.s2}px ${toString s.s4}px";
+        cursor = mkLiteral "pointer";
+        spacing = s.s3;
+        border = b.none;
+      };
+
+      "element normal.normal" = {
+        background-color = mkLiteral "var(normal-background)";
+        text-color = mkLiteral "var(normal-foreground)";
+      };
+      "element normal.urgent" = {
+        background-color = mkLiteral "var(urgent-background)";
+        text-color = mkLiteral "var(urgent-foreground)";
+      };
+      "element normal.active" = {
+        background-color = mkLiteral "var(active-background)";
+        text-color = mkLiteral "var(active-foreground)";
+      };
+      "element selected.normal" = {
+        background-color = mkLiteral "var(selected-normal-background)";
+        text-color = mkLiteral "var(selected-normal-foreground)";
+      };
+      "element selected.urgent" = {
+        background-color = mkLiteral "var(selected-urgent-background)";
+        text-color = mkLiteral "var(selected-urgent-foreground)";
+      };
+      "element selected.active" = {
+        background-color = mkLiteral "var(selected-active-background)";
+        text-color = mkLiteral "var(selected-active-foreground)";
+      };
+      "element alternate.normal" = {
+        background-color = mkLiteral "var(alternate-normal-background)";
+        text-color = mkLiteral "var(alternate-normal-foreground)";
+      };
+      "element alternate.urgent" = {
+        background-color = mkLiteral "var(alternate-urgent-background)";
+        text-color = mkLiteral "var(alternate-urgent-foreground)";
+      };
+      "element alternate.active" = {
+        background-color = mkLiteral "var(alternate-active-background)";
+        text-color = mkLiteral "var(alternate-active-foreground)";
+      };
+
+      "element-text" = {
+        background-color = mkLiteral "transparent";
+        cursor = mkLiteral "inherit";
+        highlight = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+        vertical-align = mkLiteral "0.5";
+      };
+
+      "element-icon" = {
+        background-color = mkLiteral "transparent";
+        size = mkLiteral "1.6em";
+        cursor = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+      };
+
+      scrollbar = {
+        width = s.s1;
+        padding = s.s0;
+        handle-width = s.s1;
+        border = b.none;
+        handle-color = mkLiteral "var(border-color)";
+        background-color = mkLiteral "transparent";
+      };
+
+      sidebar = {
+        border = b.none;
+      };
+
+      button = {
+        cursor = mkLiteral "pointer";
+        spacing = s.s0;
+        padding = s.s2;
+        text-color = mkLiteral "var(normal-foreground)";
+      };
+
+      "button selected" = {
+        background-color = mkLiteral "var(selected-normal-background)";
+        text-color = mkLiteral "var(selected-normal-foreground)";
+      };
     };
   };
 
