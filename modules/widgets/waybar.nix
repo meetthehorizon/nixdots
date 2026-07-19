@@ -127,8 +127,8 @@ in {
 
       /* --- Workspace Active (accent bg + surface fg, matching rofi selected) --- */
       #workspaces button.active {
-        background: ${config.color.accent};
-        color: ${config.color.surface};
+        color: ${config.color.accent};
+        background: ${config.color.surface};
         border-color: ${config.color.accent};
       }
 
