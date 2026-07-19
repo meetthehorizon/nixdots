@@ -120,10 +120,16 @@ in {
 
       /* --- Active / Focus State (Teal) --- */
       #window.active,
-      #workspaces button.active,
       #mpris {
         border-color: rgba(148, 226, 213, 0.3);
         color: rgba(148, 226, 213, 0.7);
+      }
+
+      /* --- Workspace Active (accent bg + surface fg, matching rofi selected) --- */
+      #workspaces button.active {
+        background: ${config.color.accent};
+        color: ${config.color.surface};
+        border-color: ${config.color.accent};
       }
 
       /* --- Warning / Progress State (Yellow) --- */
@@ -148,10 +154,16 @@ in {
       #bluetooth.no-controller,
       #bluetooth.off,
       #wireplumber.muted,
-      #workspaces button.urgent,
       #power-profiles-daemon.performance {
         border-color: rgba(243, 139, 168, 0.3);
         color: rgba(243, 139, 168, 0.7);
+      }
+
+      /* --- Workspace Urgent (error bg + surface fg, matching rofi urgent) --- */
+      #workspaces button.urgent {
+        background: ${config.color.error};
+        color: ${config.color.surface};
+        border-color: ${config.color.error};
       }
     '';
   };
