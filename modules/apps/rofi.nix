@@ -150,19 +150,19 @@ in {
         alternate-normal-background = mkLiteral "transparent";
         alternate-normal-foreground = mkLiteral "var(foreground)";
         selected-normal-background = mkLiteral "var(blue)";
-        selected-normal-foreground = mkLiteral c.text;
+        selected-normal-foreground = mkLiteral c.surface;
         active-background = mkLiteral "var(overlay)";
         active-foreground = mkLiteral "var(blue)";
         alternate-active-background = mkLiteral "var(overlay)";
         alternate-active-foreground = mkLiteral "var(blue)";
         selected-active-background = mkLiteral "var(blue)";
-        selected-active-foreground = mkLiteral "var(foreground)";
+        selected-active-foreground = mkLiteral c.surface;
         urgent-background = mkLiteral "transparent";
         urgent-foreground = mkLiteral "var(red)";
         alternate-urgent-background = mkLiteral "transparent";
         alternate-urgent-foreground = mkLiteral "var(red)";
         selected-urgent-background = mkLiteral "var(red)";
-        selected-urgent-foreground = mkLiteral "var(foreground)";
+        selected-urgent-foreground = mkLiteral c.surface;
       };
 
       window = {
