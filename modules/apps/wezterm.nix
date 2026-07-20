@@ -86,6 +86,11 @@
           mods = "CTRL";
           action = mkLuaInline ''wezterm.action.CloseCurrentPane { confirm = false }'';
         }
+        {
+          key = "l";
+          mods = "CTRL|SHIFT";
+          action = mkLuaInline ''wezterm.action.DisableDefaultAssignment'';
+        }
       ];
     };
   };
