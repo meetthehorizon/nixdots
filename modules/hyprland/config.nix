@@ -32,7 +32,7 @@ in {
     settings = {
       mod._var = "SUPER";
       terminal._var = "wezterm";
-      browser._var = "firefox";
+      browser._var = "zen";
 
       config = {
         general = with config.color; {
@@ -101,8 +101,8 @@ in {
       hl.on("hyprland.start", function()
         hl.exec_cmd("dbus-update-activation-environment --systemd --all")
         hl.exec_cmd("hyprctl setcursor ${config.cursorTheme} 24")
-        hl.exec_cmd(terminal .. " -e nvim", { workspace = "1 silent", maximize = true })
-        hl.exec_cmd(browser, { workspace = "2 silent", maximize = true })
+        hl.exec_cmd(terminal .. " -e nvim", { workspace = "1 silent" })
+        hl.exec_cmd(browser, { workspace = "2 silent" })
         hl.exec_cmd(terminal, { workspace = "3 silent" })
         hl.exec_cmd("footclient spotatui", { workspace = "4 silent" })
         hl.dispatch(hl.dsp.focus({ workspace = "3" }))
