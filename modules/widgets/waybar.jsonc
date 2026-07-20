@@ -82,6 +82,7 @@
     "window-rewrite": {
       "code": "󰨞",
       "kitty": "󰄛",
+      "class<foot>": "󰽒",
       "class<org.wezfurlong.wezterm>": "",
       "class<org.wezfurlong.wezterm> title<Yazi.*>": "󰉓",
       "class<org.wezfurlong.wezterm> title<gdu>": "",
