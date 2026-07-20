@@ -73,7 +73,7 @@
 
   xdg.desktopEntries.yazi = {
     name = "File Manager";
-    exec = "footclient yazi";
+    exec = ''sh -c "flock -n /tmp/yazi.lock footclient yazi"'';
     icon = "system-file-manager";
     type = "Application";
     categories = ["System"];

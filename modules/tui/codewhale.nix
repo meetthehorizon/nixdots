@@ -37,7 +37,7 @@ in {
 
   xdg.desktopEntries.codewhale-tui = {
     name = "CodeWhale TUI";
-    exec = "codewhale-tui";
+    exec = ''sh -c "flock -n /tmp/codewhale-tui.lock footclient codewhale-tui"'';
     icon = "terminal";
     terminal = true;
     type = "Application";

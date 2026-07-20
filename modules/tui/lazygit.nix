@@ -142,7 +142,7 @@ _: {
 
   xdg.desktopEntries.lazygit = {
     name = "Git Interface";
-    exec = "footclient lazygit";
+    exec = ''sh -c "flock -n /tmp/lazygit.lock footclient lazygit"'';
     icon = "git";
     type = "Application";
     categories = ["Development"];

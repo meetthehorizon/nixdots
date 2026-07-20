@@ -5,7 +5,7 @@
     name = "Spotify TUI";
     genericName = "Music Player";
     comment = "Play and control Spotify from the terminal";
-    exec = "footclient --app-id=spotatui -e spotatui";
+    exec = ''sh -c "flock -n /tmp/spotatui.lock footclient spotatui"'';
     icon = "spotify";
     type = "Application";
     categories = ["Audio" "Music" "Player" "AudioVideo"];

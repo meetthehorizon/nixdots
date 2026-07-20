@@ -3,7 +3,7 @@
 
   xdg.desktopEntries.wifitui = {
     name = "WiFi TUI";
-    exec = "footclient wifitui";
+    exec = ''sh -c "flock -n /tmp/wifitui.lock footclient wifitui"'';
     icon = "wifi-radar";
     type = "Application";
     categories = ["System"];

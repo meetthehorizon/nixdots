@@ -5,7 +5,7 @@
 
   xdg.desktopEntries.gdu = {
     name = "Disk Usage Analyzer";
-    exec = "footclient gdu";
+    exec = ''sh -c "flock -n /tmp/gdu.lock footclient gdu"'';
     icon = "disk-usage-analyzer";
     type = "Application";
     categories = ["System"];

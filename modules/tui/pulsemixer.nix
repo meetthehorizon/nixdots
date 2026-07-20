@@ -5,7 +5,7 @@
 
   xdg.desktopEntries.pulsemixer = {
     name = "Audio Mixer";
-    exec = "footclient pulsemixer";
+    exec = ''sh -c "flock -n /tmp/pulsemixer.lock footclient pulsemixer"'';
     icon = "alsamixergui";
     type = "Application";
     categories = ["Audio"];

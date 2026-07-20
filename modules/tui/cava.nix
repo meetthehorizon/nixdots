@@ -5,10 +5,9 @@
 
   xdg.desktopEntries.cava = {
     name = "Audio Visualizer";
-    exec = "footclient cava";
+    exec = ''sh -c "flock -n /tmp/cava.lock footclient cava"'';
     icon = "alsamixergui";
     type = "Application";
     categories = ["Audio"];
   };
 }
-

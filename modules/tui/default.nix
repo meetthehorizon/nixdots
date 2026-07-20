@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   imports = [
     ./bluetui.nix
     ./btop.nix
@@ -15,4 +15,5 @@
   ];
 
   programs.foot.enable = true;
+  home.packages = [pkgs.flock];
 }

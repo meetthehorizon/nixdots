@@ -5,7 +5,7 @@
 
   xdg.desktopEntries.bluetui = {
     name = "Bluetooth Manager";
-    exec = "footclient bluetui";
+    exec = ''sh -c "flock -n /tmp/bluetui.lock footclient bluetui"'';
     icon = "bluetoothradio";
     type = "Application";
     categories = ["System"];

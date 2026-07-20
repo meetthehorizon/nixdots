@@ -5,7 +5,7 @@
 
   xdg.desktopEntries.calcurse = {
     name = "Calendar";
-    exec = "footclient calcurse";
+    exec = ''sh -c "flock -n /tmp/calcurse.lock footclient calcurse"'';
     icon = "calendar";
     type = "Application";
     categories = ["Office"];
