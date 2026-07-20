@@ -1,22 +1,35 @@
-{config, ...}: {
-  programs.fastfetch = {
+{
+  pkgs,
+  config,
+  ...
+}: let
+  ascii = pkgs.writeText "logo.txt" ''
+     ▄       ▄
+    ▄ ▀▄   ▄▀ ▄
+    █▄█▀███▀█▄█
+    ▀█████████▀
+     ▄▀     ▀▄
+  '';
+in {
+  programs.fastfetch = with config.color.terminal; {
     enable = true;
     settings = {
       logo = {
-        source = "${config.assets.homeIcon}";
-        type = "auto";
-        width = 15;
+        source = "${ascii}";
+        type = "file";
+        color = {
+          "1" = white;
+        };
         padding = {
           top = 2;
           left = 2;
-          right = 2;
         };
       };
 
       display = {
         separator = "  ";
         color = {
-          keys = "cyan";
+          keys = white;
         };
         key = {
           width = 14;
@@ -24,47 +37,48 @@
       };
 
       modules = [
-        "break"
         {
           type = "title";
           color = {
-            user = "cyan";
-            at = "white";
-            host = "cyan";
+            user = red;
+            at = gray;
+            host = red;
           };
         }
         "break"
         {
           type = "os";
           key = "  OS";
-          keyColor = "blue";
+          keyColor = blue;
           format = "{pretty-name}";
         }
         {
           type = "kernel";
           key = " 󰌽 Kernel";
-          keyColor = "magenta";
+          keyColor = magenta;
         }
         {
           type = "wm";
           key = "  WM";
-          keyColor = "red";
+          keyColor = red;
+          format = "{pretty-name}";
         }
         {
           type = "shell";
           key = "  Shell";
-          keyColor = "green";
+          keyColor = green;
+          format = "{pretty-name}";
         }
         {
           type = "uptime";
           key = " 󰔚 Uptime";
-          keyColor = "yellow";
+          keyColor = yellow;
         }
-
         {
           type = "colors";
           key = " 󰸱 Color";
           symbol = "circle";
+          format = "{pretty-name}";
         }
       ];
     };

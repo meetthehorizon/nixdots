@@ -22,5 +22,5 @@ sudo nixos-rebuild switch --flake .#horizon
 | Compositor | Hyprland |
 | Bar | Waybar |
 | Editor | nixvim |
-| Shell | fish · kitty |
+| Shell | fish · wezterm |
 | Secrets | agenix |

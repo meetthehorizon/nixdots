@@ -17,7 +17,7 @@ in {
         sha256 = "8fe16c456477d51c05fd907d852802b2cef2c659bfd6fd1911059178cdb4a11b";
       });
 
-      homeIcon = mkImagePathOption (pkgs.fetchurl {
+      nixosIcon = mkImagePathOption (pkgs.fetchurl {
         url = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/nixos.png";
         name = "homeIcon.png";
         sha256 = "20cf953237a3c2fd0227930c8b10165cf1cbf5a34cc31f8ae0d7f2d68a573876";

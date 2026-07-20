@@ -31,7 +31,7 @@ in {
     systemd.variables = ["--all"];
     settings = {
       mod._var = "SUPER";
-      terminal._var = "kitty";
+      terminal._var = "wezterm";
       browser._var = "firefox";
 
       config = {

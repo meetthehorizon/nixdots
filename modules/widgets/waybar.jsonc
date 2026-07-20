@@ -81,7 +81,7 @@
     "format-window-separator": " ",
     "window-rewrite": {
       "code": "󰨞",
-      "kitty": "",
+      "kitty": "󰄛",
       "class<org.wezfurlong.wezterm>": "",
       "class<org.wezfurlong.wezterm> title<Yazi.*>": "󰉓",
       "class<org.wezfurlong.wezterm> title<gdu>": "",
