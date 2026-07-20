@@ -9,6 +9,7 @@
     ./lazygit.nix
     ./wifitui.nix
     ./pulsemixer.nix
+    ./spotatui.nix
     ./tty-clock.nix
     ./yazi.nix
   ];
