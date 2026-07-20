@@ -16,6 +16,7 @@
     ./nvim-autopairs.nix
     ./nvim-ts-autotag.nix
     ./oil.nix
+    ./toggleterm.nix
     ./telescope.nix
     ./treesitter.nix
     ./venv-selector.nix
