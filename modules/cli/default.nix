@@ -1,5 +1,6 @@
 {
   imports = [
+    ./cliphist.nix
     ./direnv.nix
     ./docker.nix
     ./eza.nix
