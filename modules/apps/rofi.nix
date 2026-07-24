@@ -119,27 +119,46 @@ with pkgs; let
         printf '%s\0icon\x1f%s\n' "$filepath" "$filepath"
       done
     else
-      ${pkgs.awww}/bin/awww img "$1" --transition-type fade --transition-fps 60 --transition-step 100
+      ${pkgs.awww}/bin/awww img "$1" --transition-type center --transition-fps 120 --transition-step 30
+      case "$1" in
+        *.gif) ;;
+        *) ${coreutils}/bin/ln -sf "$1" "$HOME/.cache/hyprlock-bg" ;;
+      esac
     fi
   '';
 
   # --- Theme helpers ---
   hexDigit = d:
-    if d == "0" then 0
-    else if d == "1" then 1
-    else if d == "2" then 2
-    else if d == "3" then 3
-    else if d == "4" then 4
-    else if d == "5" then 5
-    else if d == "6" then 6
-    else if d == "7" then 7
-    else if d == "8" then 8
-    else if d == "9" then 9
-    else if d == "a" || d == "A" then 10
-    else if d == "b" || d == "B" then 11
-    else if d == "c" || d == "C" then 12
-    else if d == "d" || d == "D" then 13
-    else if d == "e" || d == "E" then 14
+    if d == "0"
+    then 0
+    else if d == "1"
+    then 1
+    else if d == "2"
+    then 2
+    else if d == "3"
+    then 3
+    else if d == "4"
+    then 4
+    else if d == "5"
+    then 5
+    else if d == "6"
+    then 6
+    else if d == "7"
+    then 7
+    else if d == "8"
+    then 8
+    else if d == "9"
+    then 9
+    else if d == "a" || d == "A"
+    then 10
+    else if d == "b" || d == "B"
+    then 11
+    else if d == "c" || d == "C"
+    then 12
+    else if d == "d" || d == "D"
+    then 13
+    else if d == "e" || d == "E"
+    then 14
     else 15;
 
   hexToDec = s:
@@ -388,7 +407,6 @@ with pkgs; let
         enabled: false;
     }
   '';
-
 in {
   programs.rofi = {
     enable = true;

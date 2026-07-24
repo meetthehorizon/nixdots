@@ -11,7 +11,7 @@ in {
       background = [
         {
           monitor = "";
-          path = toString config.assets.lockScreen;
+          path = "${config.home.homeDirectory}/.cache/hyprlock-bg";
           blur_passes = 3;
           contrast = 0.8916;
           brightness = 0.8172;
@@ -133,4 +133,10 @@ in {
       ];
     };
   };
+
+  home.activation.setupHyprlockBg = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [ ! -L "$HOME/.cache/hyprlock-bg" ]; then
+      $DRY_RUN_CMD ln -sf ${toString config.assets.lockScreen} "$HOME/.cache/hyprlock-bg"
+    fi
+  '';
 }
