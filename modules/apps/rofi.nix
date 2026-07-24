@@ -5,6 +5,22 @@
   ...
 }:
 with pkgs; let
+  rofi-power-menu = writeShellScriptBin "rofi-power-menu" ''
+    if [ -z "$1" ]; then
+      printf "Power Off\0icon\x1fsystem-shutdown\n"
+      printf "Reboot\0icon\x1fsystem-reboot\n"
+      printf "Sleep\0icon\x1fsystem-suspend\n"
+      printf "Logout\0icon\x1fsystem-log-out\n"
+    else
+      case "$1" in
+        Shutdown) systemctl poweroff ;;
+        Restart)  systemctl reboot ;;
+        Sleep)    systemctl suspend ;;
+        Logout)   hyprctl dispatch exit ;;
+      esac
+    fi
+  '';
+
   rofi-clean-files = writeShellScriptBin "rofi-clean-files" ''
     cd /home/${config.home.username}
     if [ -z "$1" ]; then
@@ -83,6 +99,16 @@ with pkgs; let
       ${pkgs.xdg-utils}/bin/xdg-open "$1" > /dev/null 2>&1 &
     fi
   '';
+  rofi-cliphist = writeShellScriptBin "rofi-cliphist" ''
+    if [ -z "$1" ]; then
+      cliphist list | while IFS= read -r line; do
+        printf "%s\0icon\x1fedit-paste\n" "$line"
+      done
+    else
+      echo "$1" | cut -f1 | cliphist decode | wl-copy
+    fi
+  '';
+
 in {
   programs.rofi = {
     enable = true;
@@ -96,11 +122,19 @@ in {
         name = "files";
         path = "${rofi-clean-files}/bin/rofi-clean-files";
       }
+      {
+        name = "power";
+        path = "${rofi-power-menu}/bin/rofi-power-menu";
+      }
+      {
+        name = "cliphist";
+        path = "${rofi-cliphist}/bin/rofi-cliphist";
+      }
     ];
     plugins = [pkgs.rofi-calc pkgs.rofi-emoji];
     terminal = "${pkgs.kitty}/bin/kitty";
     extraConfig = {
-      combi-modes = "drun,files";
+      combi-modes = "drun,files,power,cliphist";
       icon-theme = "${config.iconTheme}";
       show-icons = true;
       combi-hide-mode-prefix = true;
