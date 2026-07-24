@@ -363,7 +363,7 @@ with pkgs; let
     @import "custom"
 
     window {
-        width: 900px;
+        width: 1050px;
     }
 
     listview {
@@ -380,7 +380,7 @@ with pkgs; let
     }
 
     element-icon {
-        size: 170px;
+        size: 210px;
         border-radius: ${toString r.r2}px;
     }
 
