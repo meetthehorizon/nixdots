@@ -116,11 +116,277 @@ with pkgs; let
     if [ -z "$1" ]; then
       ${fd}/bin/fd -t f -e jpg -e jpeg -e png -e gif -e webp -e avif -e bmp . \
         "$wallpaper_dir" "$gif_dir" | while IFS= read -r filepath; do
-        printf '%s\0icon\x1fimage-x-generic\n' "$filepath"
+        printf '%s\0icon\x1f%s\n' "$filepath" "$filepath"
       done
     else
       ${pkgs.awww}/bin/awww img "$1" --transition-type fade --transition-fps 60 --transition-step 100
     fi
+  '';
+
+  # --- Theme helpers ---
+  hexDigit = d:
+    if d == "0" then 0
+    else if d == "1" then 1
+    else if d == "2" then 2
+    else if d == "3" then 3
+    else if d == "4" then 4
+    else if d == "5" then 5
+    else if d == "6" then 6
+    else if d == "7" then 7
+    else if d == "8" then 8
+    else if d == "9" then 9
+    else if d == "a" || d == "A" then 10
+    else if d == "b" || d == "B" then 11
+    else if d == "c" || d == "C" then 12
+    else if d == "d" || d == "D" then 13
+    else if d == "e" || d == "E" then 14
+    else 15;
+
+  hexToDec = s:
+    hexDigit (builtins.substring 0 1 s) * 16 + hexDigit (builtins.substring 1 1 s);
+
+  hexToRgba = hex: alpha: let
+    h = builtins.substring 1 6 hex;
+    r = toString (hexToDec (builtins.substring 0 2 h));
+    g = toString (hexToDec (builtins.substring 2 2 h));
+    b = toString (hexToDec (builtins.substring 4 2 h));
+  in "rgba(${r}, ${g}, ${b}, ${toString (alpha * 100)}%)";
+
+  # Design token aliases
+  c = config.color;
+  s = config.ui.spacing;
+  b = config.ui.border;
+  e = config.ui.effects;
+  r = config.ui.radius;
+
+  # --- Rasi theme strings ---
+  customRasi = ''
+    * {
+        background: ${hexToRgba c.surface e.surfaceAlpha};
+        foreground: ${c.text};
+        blue: ${c.accent};
+        red: ${c.error};
+        overlay: ${hexToRgba c.text 0.05};
+        background-color: transparent;
+        border-color: ${hexToRgba c.border e.borderOpacity};
+        separatorcolor: transparent;
+        spacing: ${toString s.s0};
+        normal-background: transparent;
+        normal-foreground: var(foreground);
+        alternate-normal-background: transparent;
+        alternate-normal-foreground: var(foreground);
+        selected-normal-background: var(blue);
+        selected-normal-foreground: ${c.surface};
+        active-background: var(overlay);
+        active-foreground: var(blue);
+        alternate-active-background: var(overlay);
+        alternate-active-foreground: var(blue);
+        selected-active-background: var(blue);
+        selected-active-foreground: ${c.surface};
+        urgent-background: transparent;
+        urgent-foreground: var(red);
+        alternate-urgent-background: transparent;
+        alternate-urgent-foreground: var(red);
+        selected-urgent-background: var(red);
+        selected-urgent-foreground: ${c.surface};
+    }
+
+    window {
+        width: 600px;
+        padding: ${toString s.s6};
+        background-color: var(background);
+        border: ${toString b.w1}px solid;
+        border-color: var(border-color);
+    }
+
+    mainbox {
+        padding: ${toString s.s0};
+        border: ${toString b.none};
+        spacing: ${toString s.s4};
+    }
+
+    inputbar {
+        padding: ${toString s.s3}px ${toString s.s4}px;
+        spacing: ${toString s.s2};
+        text-color: var(normal-foreground);
+        background-color: var(overlay);
+        border: ${toString b.w1}px solid;
+        border-color: var(border-color);
+        children: [ "prompt","textbox-prompt-colon","entry","overlay","num-filtered-rows","textbox-num-sep","num-rows","case-indicator" ];
+    }
+
+    prompt {
+        spacing: ${toString s.s0};
+        padding: 0px ${toString s.s2}px 0px 0px;
+        text-color: var(blue);
+    }
+
+    textbox-prompt-colon {
+        margin: 0px ${toString s.s1}px 0px 0px;
+        expand: false;
+        str: ":";
+        text-color: inherit;
+    }
+
+    entry {
+        text-color: var(normal-foreground);
+        cursor: text;
+        spacing: ${toString s.s0};
+        padding: ${toString s.s0};
+        placeholder-color: Gray;
+        placeholder: "Type to filter...";
+        vertical-align: 0.5;
+    }
+
+    num-filtered-rows, num-rows, textbox-num-sep, case-indicator {
+        expand: false;
+        text-color: Gray;
+        vertical-align: 0.5;
+    }
+
+    textbox-num-sep {
+        str: "/";
+    }
+
+    overlay {
+        padding: ${toString s.s1}px 0.4em;
+        background-color: var(normal-foreground);
+        text-color: var(normal-background);
+        margin: 0px 0.4em;
+    }
+
+    message {
+        padding: ${toString s.s3};
+        background-color: var(overlay);
+        border: ${toString b.none};
+    }
+
+    textbox {
+        text-color: var(foreground);
+    }
+
+    listview {
+        padding: ${toString s.s0};
+        scrollbar: true;
+        border: ${toString b.none};
+        spacing: ${toString s.s1};
+        fixed-height: ${toString s.s0};
+        lines: 8;
+    }
+
+    element {
+        padding: ${toString s.s2}px ${toString s.s4}px;
+        cursor: pointer;
+        spacing: ${toString s.s3};
+        border: ${toString b.none};
+    }
+
+    element normal.normal {
+        background-color: var(normal-background);
+        text-color: var(normal-foreground);
+    }
+    element normal.urgent {
+        background-color: var(urgent-background);
+        text-color: var(urgent-foreground);
+    }
+    element normal.active {
+        background-color: var(active-background);
+        text-color: var(active-foreground);
+    }
+    element selected.normal {
+        background-color: var(selected-normal-background);
+        text-color: var(selected-normal-foreground);
+    }
+    element selected.urgent {
+        background-color: var(selected-urgent-background);
+        text-color: var(selected-urgent-foreground);
+    }
+    element selected.active {
+        background-color: var(selected-active-background);
+        text-color: var(selected-active-foreground);
+    }
+    element alternate.normal {
+        background-color: var(alternate-normal-background);
+        text-color: var(alternate-normal-foreground);
+    }
+    element alternate.urgent {
+        background-color: var(alternate-urgent-background);
+        text-color: var(alternate-urgent-foreground);
+    }
+    element alternate.active {
+        background-color: var(alternate-active-background);
+        text-color: var(alternate-active-foreground);
+    }
+
+    element-text {
+        background-color: transparent;
+        cursor: inherit;
+        highlight: inherit;
+        text-color: inherit;
+        vertical-align: 0.5;
+    }
+
+    element-icon {
+        background-color: transparent;
+        size: 1.6em;
+        cursor: inherit;
+        text-color: inherit;
+    }
+
+    scrollbar {
+        width: ${toString s.s1};
+        padding: ${toString s.s0};
+        handle-width: ${toString s.s1};
+        border: ${toString b.none};
+        handle-color: var(border-color);
+        background-color: transparent;
+    }
+
+    sidebar {
+        border: ${toString b.none};
+    }
+
+    button {
+        cursor: pointer;
+        spacing: ${toString s.s0};
+        padding: ${toString s.s2};
+        text-color: var(normal-foreground);
+    }
+
+    button selected {
+        background-color: var(selected-normal-background);
+        text-color: var(selected-normal-foreground);
+    }
+  '';
+
+  wallpaperRasi = ''
+    @import "custom"
+
+    window {
+        width: 900px;
+    }
+
+    listview {
+        columns: 4;
+        lines: 4;
+        spacing: ${toString s.s2};
+    }
+
+    element {
+        padding: ${toString s.s2}px;
+        spacing: ${toString s.s1};
+        orientation: vertical;
+        border-radius: ${toString r.r2}px;
+    }
+
+    element-icon {
+        size: 170px;
+        border-radius: ${toString r.r2}px;
+    }
+
+    element-text {
+        enabled: false;
+    }
   '';
 
 in {
@@ -157,253 +423,12 @@ in {
       show-icons = true;
       combi-hide-mode-prefix = true;
     };
-    theme = let
-      inherit (config.lib.formats.rasi) mkLiteral;
-      c = config.color;
-      s = config.ui.spacing;
-      b = config.ui.border;
-      e = config.ui.effects;
+    theme = "custom";
+  };
 
-      hexDigit = d:
-        if d == "0"
-        then 0
-        else if d == "1"
-        then 1
-        else if d == "2"
-        then 2
-        else if d == "3"
-        then 3
-        else if d == "4"
-        then 4
-        else if d == "5"
-        then 5
-        else if d == "6"
-        then 6
-        else if d == "7"
-        then 7
-        else if d == "8"
-        then 8
-        else if d == "9"
-        then 9
-        else if d == "a" || d == "A"
-        then 10
-        else if d == "b" || d == "B"
-        then 11
-        else if d == "c" || d == "C"
-        then 12
-        else if d == "d" || d == "D"
-        then 13
-        else if d == "e" || d == "E"
-        then 14
-        else 15;
-
-      hexToDec = s:
-        hexDigit (builtins.substring 0 1 s) * 16 + hexDigit (builtins.substring 1 1 s);
-
-      hexToRgba = hex: alpha: let
-        h = builtins.substring 1 6 hex;
-        r = toString (hexToDec (builtins.substring 0 2 h));
-        g = toString (hexToDec (builtins.substring 2 2 h));
-        b = toString (hexToDec (builtins.substring 4 2 h));
-      in "rgba(${r}, ${g}, ${b}, ${toString (alpha * 100)}%)";
-    in {
-      "*" = {
-        background = mkLiteral (hexToRgba c.surface e.surfaceAlpha);
-        foreground = mkLiteral c.text;
-        blue = mkLiteral c.accent;
-        red = mkLiteral c.error;
-        overlay = mkLiteral (hexToRgba c.text 0.05);
-        background-color = mkLiteral "transparent";
-        border-color = mkLiteral (hexToRgba c.border e.borderOpacity);
-        separatorcolor = mkLiteral "transparent";
-        spacing = s.s0;
-        normal-background = mkLiteral "transparent";
-        normal-foreground = mkLiteral "var(foreground)";
-        alternate-normal-background = mkLiteral "transparent";
-        alternate-normal-foreground = mkLiteral "var(foreground)";
-        selected-normal-background = mkLiteral "var(blue)";
-        selected-normal-foreground = mkLiteral c.surface;
-        active-background = mkLiteral "var(overlay)";
-        active-foreground = mkLiteral "var(blue)";
-        alternate-active-background = mkLiteral "var(overlay)";
-        alternate-active-foreground = mkLiteral "var(blue)";
-        selected-active-background = mkLiteral "var(blue)";
-        selected-active-foreground = mkLiteral c.surface;
-        urgent-background = mkLiteral "transparent";
-        urgent-foreground = mkLiteral "var(red)";
-        alternate-urgent-background = mkLiteral "transparent";
-        alternate-urgent-foreground = mkLiteral "var(red)";
-        selected-urgent-background = mkLiteral "var(red)";
-        selected-urgent-foreground = mkLiteral c.surface;
-      };
-
-      window = {
-        width = mkLiteral "600px";
-        padding = s.s6;
-        background-color = mkLiteral "var(background)";
-        border = mkLiteral "${toString b.w1}px solid";
-        border-color = mkLiteral "var(border-color)";
-      };
-
-      mainbox = {
-        padding = s.s0;
-        border = b.none;
-        spacing = s.s4;
-      };
-
-      inputbar = {
-        padding = mkLiteral "${toString s.s3}px ${toString s.s4}px";
-        spacing = s.s2;
-        text-color = mkLiteral "var(normal-foreground)";
-        background-color = mkLiteral "var(overlay)";
-        border = mkLiteral "${toString b.w1}px solid";
-        border-color = mkLiteral "var(border-color)";
-        children = mkLiteral ''[ "prompt","textbox-prompt-colon","entry","overlay","num-filtered-rows","textbox-num-sep","num-rows","case-indicator" ]'';
-      };
-
-      prompt = {
-        spacing = s.s0;
-        padding = mkLiteral "0px ${toString s.s2}px 0px 0px";
-        text-color = mkLiteral "var(blue)";
-      };
-
-      "textbox-prompt-colon" = {
-        margin = mkLiteral "0px ${toString s.s1}px 0px 0px";
-        expand = false;
-        str = ":";
-        text-color = mkLiteral "inherit";
-      };
-
-      entry = {
-        text-color = mkLiteral "var(normal-foreground)";
-        cursor = mkLiteral "text";
-        spacing = s.s0;
-        padding = s.s0;
-        placeholder-color = mkLiteral "Gray";
-        placeholder = "Type to filter...";
-        vertical-align = mkLiteral "0.5";
-      };
-
-      "num-filtered-rows, num-rows, textbox-num-sep, case-indicator" = {
-        expand = false;
-        text-color = mkLiteral "Gray";
-        vertical-align = mkLiteral "0.5";
-      };
-
-      "textbox-num-sep" = {
-        str = "/";
-      };
-
-      overlay = {
-        padding = mkLiteral "${toString s.s1}px 0.4em";
-        background-color = mkLiteral "var(normal-foreground)";
-        text-color = mkLiteral "var(normal-background)";
-        margin = mkLiteral "0px 0.4em";
-      };
-
-      message = {
-        padding = s.s3;
-        background-color = mkLiteral "var(overlay)";
-        border = b.none;
-      };
-
-      textbox = {
-        text-color = mkLiteral "var(foreground)";
-      };
-
-      listview = {
-        padding = s.s0;
-        scrollbar = true;
-        border = b.none;
-        spacing = s.s1;
-        fixed-height = s.s0;
-        lines = mkLiteral "8";
-      };
-
-      element = {
-        padding = mkLiteral "${toString s.s2}px ${toString s.s4}px";
-        cursor = mkLiteral "pointer";
-        spacing = s.s3;
-        border = b.none;
-      };
-
-      "element normal.normal" = {
-        background-color = mkLiteral "var(normal-background)";
-        text-color = mkLiteral "var(normal-foreground)";
-      };
-      "element normal.urgent" = {
-        background-color = mkLiteral "var(urgent-background)";
-        text-color = mkLiteral "var(urgent-foreground)";
-      };
-      "element normal.active" = {
-        background-color = mkLiteral "var(active-background)";
-        text-color = mkLiteral "var(active-foreground)";
-      };
-      "element selected.normal" = {
-        background-color = mkLiteral "var(selected-normal-background)";
-        text-color = mkLiteral "var(selected-normal-foreground)";
-      };
-      "element selected.urgent" = {
-        background-color = mkLiteral "var(selected-urgent-background)";
-        text-color = mkLiteral "var(selected-urgent-foreground)";
-      };
-      "element selected.active" = {
-        background-color = mkLiteral "var(selected-active-background)";
-        text-color = mkLiteral "var(selected-active-foreground)";
-      };
-      "element alternate.normal" = {
-        background-color = mkLiteral "var(alternate-normal-background)";
-        text-color = mkLiteral "var(alternate-normal-foreground)";
-      };
-      "element alternate.urgent" = {
-        background-color = mkLiteral "var(alternate-urgent-background)";
-        text-color = mkLiteral "var(alternate-urgent-foreground)";
-      };
-      "element alternate.active" = {
-        background-color = mkLiteral "var(alternate-active-background)";
-        text-color = mkLiteral "var(alternate-active-foreground)";
-      };
-
-      "element-text" = {
-        background-color = mkLiteral "transparent";
-        cursor = mkLiteral "inherit";
-        highlight = mkLiteral "inherit";
-        text-color = mkLiteral "inherit";
-        vertical-align = mkLiteral "0.5";
-      };
-
-      "element-icon" = {
-        background-color = mkLiteral "transparent";
-        size = mkLiteral "1.6em";
-        cursor = mkLiteral "inherit";
-        text-color = mkLiteral "inherit";
-      };
-
-      scrollbar = {
-        width = s.s1;
-        padding = s.s0;
-        handle-width = s.s1;
-        border = b.none;
-        handle-color = mkLiteral "var(border-color)";
-        background-color = mkLiteral "transparent";
-      };
-
-      sidebar = {
-        border = b.none;
-      };
-
-      button = {
-        cursor = mkLiteral "pointer";
-        spacing = s.s0;
-        padding = s.s2;
-        text-color = mkLiteral "var(normal-foreground)";
-      };
-
-      "button selected" = {
-        background-color = mkLiteral "var(selected-normal-background)";
-        text-color = mkLiteral "var(selected-normal-foreground)";
-      };
-    };
+  xdg.configFile = {
+    "rofi/custom.rasi".text = customRasi;
+    "rofi/wallpapers.rasi".text = wallpaperRasi;
   };
 
   home.packages = with pkgs; [fd];

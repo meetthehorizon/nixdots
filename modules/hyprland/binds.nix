@@ -237,7 +237,7 @@ in {
       ]
       [
         ''mod .. " + W"''
-        ''hl.dsp.exec_cmd("rofi -show wallpapers")''
+        ''hl.dsp.exec_cmd("rofi -show wallpapers -theme wallpapers")''
         {
           description = "Open wallpaper selector";
         }
