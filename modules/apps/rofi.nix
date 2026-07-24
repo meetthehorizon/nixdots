@@ -112,34 +112,15 @@ with pkgs; let
   rofi-wallpapers = writeShellScriptBin "rofi-wallpapers" ''
     wallpaper_dir="$HOME/Pictures/wallpapers-pc"
     gif_dir="$HOME/Pictures/wallpapers-pc-gif"
-    thumb_dir="$HOME/.cache/rofi-wallpapers/thumbnails"
 
     if [ -z "$1" ]; then
-      mkdir -p "$thumb_dir"
-
       ${fd}/bin/fd -t f -e jpg -e jpeg -e png -e gif -e webp -e avif -e bmp . \
         "$wallpaper_dir" "$gif_dir" | while IFS= read -r filepath; do
-        filename=$(basename "$filepath")
-        thumb="$thumb_dir/''${filename}.thumb.png"
-
-        if [ ! -f "$thumb" ]; then
-          ${pkgs.imagemagick}/bin/magick "$filepath" -resize 300x200^ -gravity center -extent 300x200 "$thumb" 2>/dev/null
-        fi
-
-        printf '%s\0info\x1f%s\0icon\x1f%s\n' "$filename" "$filepath" "$thumb"
+        printf '%s\0icon\x1fimage-x-generic\n' "$filepath"
       done
     else
-      ${pkgs.awww}/bin/awww img "''${ROFI_INFO:-$1}" --transition-type fade --transition-fps 60 --transition-step 100
+      ${pkgs.awww}/bin/awww img "$1" --transition-type fade --transition-fps 60 --transition-step 100
     fi
-  '';
-
-  rofi-wallpapers-launcher = writeShellScriptBin "rofi-wallpapers-launcher" ''
-    exec ${pkgs.rofi}/bin/rofi -show wallpapers \
-      -theme-str 'window { width: 80%; }' \
-      -theme-str 'listview { columns: 3; }' \
-      -theme-str 'element { orientation: vertical; padding: 6px; }' \
-      -theme-str 'element-icon { size: 15em; border-radius: 6px; }' \
-      -theme-str 'element-text { horizontal-align: 0.5; }'
   '';
 
 in {
@@ -425,5 +406,5 @@ in {
     };
   };
 
-  home.packages = with pkgs; [fd rofi-wallpapers-launcher];
+  home.packages = with pkgs; [fd];
 }
