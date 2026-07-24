@@ -16,5 +16,11 @@
       min_size = lib.generators.mkLuaInline "{1000, 800}";
       max_size = lib.generators.mkLuaInline "{1000, 800}";
     }
+    {
+      match = {
+        class = "feh";
+      };
+      float = true;
+    }
   ];
 }

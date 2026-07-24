@@ -119,7 +119,7 @@ with pkgs; let
         printf '%s\0icon\x1f%s\n' "$filepath" "$filepath"
       done
     else
-      ${pkgs.awww}/bin/awww img "$1" --transition-type center --transition-fps 120 --transition-step 30
+      ${pkgs.awww}/bin/awww img "$1" --transition-type center --transition-fps 120 --transition-step 60
       case "$1" in
         *.gif) ;;
         *) ${coreutils}/bin/ln -sf "$1" "$HOME/.cache/hyprlock-bg" ;;
