@@ -237,7 +237,7 @@ in {
       ]
       [
         ''mod .. " + W"''
-        ''hl.dsp.exec_cmd("rofi -show wallpapers -theme-str 'window { width: 80%; }' -theme-str 'listview { columns: 3; }' -theme-str 'element { orientation: vertical; padding: 6px; }' -theme-str 'element-icon { size: 15em; border-radius: 6px; }' -theme-str 'element-text { horizontal-align: 0.5; }'")''
+        ''hl.dsp.exec_cmd("rofi-wallpapers-launcher")''
         {
           description = "Open wallpaper selector";
         }

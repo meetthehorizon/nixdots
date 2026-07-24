@@ -133,6 +133,15 @@ with pkgs; let
     fi
   '';
 
+  rofi-wallpapers-launcher = writeShellScriptBin "rofi-wallpapers-launcher" ''
+    exec ${pkgs.rofi}/bin/rofi -show wallpapers \
+      -theme-str 'window { width: 80%; }' \
+      -theme-str 'listview { columns: 3; }' \
+      -theme-str 'element { orientation: vertical; padding: 6px; }' \
+      -theme-str 'element-icon { size: 15em; border-radius: 6px; }' \
+      -theme-str 'element-text { horizontal-align: 0.5; }'
+  '';
+
 in {
   programs.rofi = {
     enable = true;
@@ -416,5 +425,5 @@ in {
     };
   };
 
-  home.packages = with pkgs; [fd];
+  home.packages = with pkgs; [fd rofi-wallpapers-launcher];
 }
