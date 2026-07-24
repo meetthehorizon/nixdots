@@ -115,7 +115,7 @@ with pkgs; let
 
     if [ -z "$1" ]; then
       ${fd}/bin/fd -t f -e jpg -e jpeg -e png -e gif -e webp -e avif -e bmp . \
-        "$wallpaper_dir" "$gif_dir" | ${coreutils}/bin/sort | while IFS= read -r filepath; do
+        "$wallpaper_dir" "$gif_dir" | ${coreutils}/bin/shuf | while IFS= read -r filepath; do
         printf '%s\0icon\x1f%s\n' "$filepath" "$filepath"
       done
     else
