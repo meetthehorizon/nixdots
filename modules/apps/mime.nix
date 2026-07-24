@@ -1,7 +1,8 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     file-roller
-    loupe
+    feh
+    imagemagick
     mpv
   ];
 
@@ -36,11 +37,11 @@
       "application/x-tar" = "org.gnome.FileRoller.desktop";
 
       # --- Images ---
-      "image/jpeg" = "org.gnome.Loupe.desktop";
-      "image/png" = "org.gnome.Loupe.desktop";
-      "image/gif" = "org.gnome.Loupe.desktop";
-      "image/webp" = "org.gnome.Loupe.desktop";
-      "image/svg+xml" = "org.gnome.Loupe.desktop";
+      "image/jpeg" = "feh.desktop";
+      "image/png" = "feh.desktop";
+      "image/gif" = "mpv.desktop";
+      "image/webp" = "feh.desktop";
+      "image/svg+xml" = "feh.desktop";
     };
   };
 }
