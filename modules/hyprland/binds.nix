@@ -235,6 +235,13 @@ in {
           description = "Open rofi drun mode";
         }
       ]
+      [
+        ''mod .. " + W"''
+        ''hl.dsp.exec_cmd("rofi -show wallpapers")''
+        {
+          description = "Open wallpaper selector";
+        }
+      ]
     ]
     ++ lib.optionals (config.programs.rofi.enable && config.services.cliphist.enable) [
       [

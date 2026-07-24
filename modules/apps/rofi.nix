@@ -109,6 +109,20 @@ with pkgs; let
     fi
   '';
 
+  rofi-wallpapers = writeShellScriptBin "rofi-wallpapers" ''
+    wallpaper_dir="$HOME/Pictures/wallpapers-pc"
+    gif_dir="$HOME/Pictures/wallpapers-pc-gif"
+
+    if [ -z "$1" ]; then
+      ${fd}/bin/fd -t f -e jpg -e jpeg -e png -e gif -e webp -e avif -e bmp . \
+        "$wallpaper_dir" "$gif_dir" | while IFS= read -r filepath; do
+        printf '%s\0icon\x1fimage-x-generic\n' "$filepath"
+      done
+    else
+      ${pkgs.awww}/bin/awww img "$1" --transition-type fade --transition-fps 60 --transition-step 100
+    fi
+  '';
+
 in {
   programs.rofi = {
     enable = true;
@@ -129,6 +143,10 @@ in {
       {
         name = "cliphist";
         path = "${rofi-cliphist}/bin/rofi-cliphist";
+      }
+      {
+        name = "wallpapers";
+        path = "${rofi-wallpapers}/bin/rofi-wallpapers";
       }
     ];
     plugins = [pkgs.rofi-calc pkgs.rofi-emoji];
