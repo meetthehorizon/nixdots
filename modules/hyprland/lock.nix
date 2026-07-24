@@ -4,6 +4,9 @@
   ...
 }: let
   toRGB = hex: "rgb(${lib.removePrefix "#" hex})";
+  c = config.color;
+  f = config.font;
+  b = config.ui.border;
 in {
   programs.hyprlock = {
     enable = true;
@@ -24,8 +27,8 @@ in {
         {
           monitor = "";
           path = "${config.assets.userIcon}";
-          border_size = 0;
-          border_color = toRGB config.color.accent;
+          border_size = b.none;
+          border_color = toRGB c.accent;
           size = 180;
           rounding = -1;
           rotate = 0.0;
@@ -37,7 +40,7 @@ in {
         }
       ];
 
-      input-field = with config.color; [
+      input-field = with c; [
         {
           monitor = "";
           size = "300, 60";
@@ -48,7 +51,7 @@ in {
           inner_color = toRGB surface;
           font_color = toRGB text;
           fade_on_empty = false;
-          font_family = config.font.sans;
+          font_family = f.sans;
           placeholder_text = "<span foreground=\"##ffffff80\">you shall not pass!</span>";
           hide_input = false;
           position = "0, -210";
@@ -57,11 +60,11 @@ in {
         }
       ];
 
-      label = with config.font; [
+      label = with f; [
         {
           monitor = "";
           text = "cmd[update:1000] echo -e \"$(date +\"%A, %B %d\")\"";
-          color = toRGB config.color.text;
+          color = toRGB c.text;
           font_size = size."xl";
           font_family = sans;
           position = "0, 350";
@@ -71,7 +74,7 @@ in {
         {
           monitor = "";
           text = "cmd[update:1000] echo \"<b>$(date +%I:%M)</b>\"";
-          color = toRGB config.color.text;
+          color = toRGB c.text;
           font_size = size."8xl";
           font_family = sans;
           position = "0, 250";
@@ -81,7 +84,7 @@ in {
         {
           monitor = "";
           text = "  $USER";
-          color = toRGB config.color.text;
+          color = toRGB c.text;
           font_size = size.lg;
           font_family = sans;
           position = "0, -130";
@@ -90,13 +93,13 @@ in {
         }
       ];
 
-      shape = with config.color; [
+      shape = with c; [
         {
           monitor = "";
           size = "300, 60";
           color = toRGB surface;
           rounding = -1;
-          border_size = 0;
+          border_size = b.none;
           border_color = toRGB terminal.yellow;
           rotate = 0.0;
           xray = false;
@@ -109,7 +112,7 @@ in {
           size = "500, 700";
           color = toRGB surface;
           rounding = 1;
-          border_size = 0;
+          border_size = b.none;
           border_color = toRGB accent;
           rotate = 0.0;
           xray = false;
@@ -122,7 +125,7 @@ in {
           size = "498, 0";
           color = toRGB surface;
           rounding = 0;
-          border_size = 2;
+          border_size = b.w2;
           border_color = toRGB accent;
           rotate = 0.0;
           xray = false;
