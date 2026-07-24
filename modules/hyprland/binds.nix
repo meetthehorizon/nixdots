@@ -236,6 +236,15 @@ in {
         }
       ]
     ]
+    ++ lib.optionals (config.programs.rofi.enable && config.services.cliphist.enable) [
+      [
+        ''mod .. " + SHIFT + V"''
+        ''hl.dsp.exec_cmd("rofi -show cliphist")''
+        {
+          description = "Clipboard history (cliphist)";
+        }
+      ]
+    ]
     ++ builtins.genList
     (i: let
       ws = i + 1;
