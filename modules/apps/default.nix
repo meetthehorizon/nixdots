@@ -1,5 +1,7 @@
 {
   imports = [
+    ./anki.nix
+    ./firefox.nix
     ./foot.nix
     ./mime.nix
     ./obsidian.nix
