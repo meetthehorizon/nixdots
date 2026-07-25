@@ -227,8 +227,8 @@ in {
         }
       ]
       [
-        ''mod .. " + SHIFT + M"''
-        ''hl.dsp.exec_cmd("hyprctl dispatch moveworkspacetomonitor current +1")''
+        ''"ALT + M"''
+        ''hl.dsp.exec_cmd("hyprctl dispatch movecurrentworkspacetomonitor +1")''
         {
           description = "Move current workspace to next monitor";
         }
