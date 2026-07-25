@@ -10,5 +10,6 @@
     ./wezterm.nix
     ./zathura.nix
     ./zen.nix
+    ./zotero.nix
   ];
 }

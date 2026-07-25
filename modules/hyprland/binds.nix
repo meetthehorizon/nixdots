@@ -219,6 +219,13 @@ in {
           description = "Lock Screen";
         }
       ]
+      [
+        ''"SUPER + SHIFT + W"''
+        ''hl.dsp.exec_cmd("pkill -SIGUSR2 waybar")''
+        {
+          description = "Toggle Waybar visibility";
+        }
+      ]
     ]
     ++ lib.optionals config.programs.rofi.enable [
       [
