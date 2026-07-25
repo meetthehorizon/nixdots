@@ -226,6 +226,13 @@ in {
           description = "Toggle Waybar visibility";
         }
       ]
+      [
+        ''mod .. " + SHIFT + M"''
+        ''hl.dsp.exec_cmd("hyprctl dispatch moveworkspacetomonitor current +1")''
+        {
+          description = "Move current workspace to next monitor";
+        }
+      ]
     ]
     ++ lib.optionals config.programs.rofi.enable [
       [
