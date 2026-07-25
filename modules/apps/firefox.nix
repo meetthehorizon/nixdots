@@ -15,8 +15,6 @@
         };
       };
       Preferences = {
-        "browser.tabs.allow_transparent_browser" = true;
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "widget.disable-workspace-management" = true;
       };
     };
