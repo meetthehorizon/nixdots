@@ -221,7 +221,7 @@ in {
       ]
       [
         ''"SUPER + SHIFT + W"''
-        ''hl.dsp.exec_cmd("pkill -SIGUSR2 waybar")''
+        ''hl.dsp.exec_cmd("pkill -SIGUSR1 waybar")''
         {
           description = "Toggle Waybar visibility";
         }
