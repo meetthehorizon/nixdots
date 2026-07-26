@@ -70,28 +70,24 @@ in {
             middle_button_emulation = true;
           };
         };
-        render.cm_enabled = true;
+        render.cm_auto_hdr = 1;
       };
 
       monitor = makeLuaCode [
         [
           {
-            output = "eDP-2";
+            output = "eDP-1";
             mode = "2880x1800@120";
-            position = "0x0";
-            scale = "1.25";
+            position = "auto";
+            scale = 1.25;
             bitdepth = 10;
             cm = "hdr";
           }
-        ]
-        [
           {
-            output = "eDP-1";
-            mode = "2880x1800@120";
-            position = "0x0";
-            scale = "1.25";
-            bitdepth = 10;
-            cm = "hdr";
+            output = "DP-5";
+            position = "auto-center-right";
+            scale = 1;
+            mode = "2560x1440@60";
           }
         ]
       ];
