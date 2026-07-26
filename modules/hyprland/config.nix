@@ -32,7 +32,7 @@ in {
     settings = {
       mod._var = "SUPER";
       terminal._var = "wezterm";
-      browser._var = "zen";
+      browser._var = "firefox";
 
       config = {
         general = with config.color; {
