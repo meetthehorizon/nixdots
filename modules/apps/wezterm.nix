@@ -52,12 +52,12 @@
 
       keys = with lib.generators; [
         {
-          key = "s";
+          key = "v";
           mods = "CTRL";
           action = mkLuaInline ''wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' }'';
         }
         {
-          key = "v";
+          key = "s";
           mods = "CTRL";
           action = mkLuaInline ''wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' }'';
         }
