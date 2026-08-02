@@ -1,3 +1,8 @@
-{
-  programs.anki.enable = true;
+{pkgs, ...}: {
+  programs.anki = {
+    enable = true;
+    addons = [
+      pkgs.ankiAddons.anki-connect
+    ];
+  };
 }
