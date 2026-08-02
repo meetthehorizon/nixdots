@@ -84,10 +84,12 @@ in {
             cm = "hdr";
           }
           {
-            output = "DP-5";
+            output = "DP-2";
             position = "auto-center-right";
             scale = 1;
-            mode = "2560x1440@60";
+            mode = "2560x1440@120";
+            bitdepth = 10;
+            cm = "hdr";
           }
         ]
       ];
