@@ -9,6 +9,14 @@
         sh = ["shellcheck"];
         bash = ["shellcheck"];
       };
+
+      linters = {
+        shellcheck = {
+          args = [
+            "-x"
+          ];
+        };
+      };
     };
 
     extraPackages = with pkgs; [
