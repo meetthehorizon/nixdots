@@ -97,14 +97,13 @@ in {
 
     extraConfig = ''
       hl.on("hyprland.start", function()
-        hl.exec_cmd("dbus-update-activation-environment --systemd --all")
         hl.exec_cmd("hyprctl setcursor ${config.cursorTheme} 24")
 
         hl.exec_cmd(terminal, { workspace = "1 silent" })
         hl.exec_cmd(browser, { workspace = "2 silent" })
         hl.exec_cmd(terminal, { workspace = "3 silent" })
-        hl.exec_cmd(anki, { workspace = "9 silent" })
-        hl.exec_cmd(obsidian, { workspace = "10 silent" })
+        hl.exec_cmd("anki", { workspace = "9 silent" })
+        hl.exec_cmd("obsidian", { workspace = "10 silent" })
         hl.dispatch(hl.dsp.focus({ workspace = "3" }))
       end)
     '';
