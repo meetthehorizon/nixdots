@@ -95,16 +95,27 @@
   };
 
   # Virtualization
-  virtualisation.docker = {
-    enable = true;
-    storageDriver = "btrfs";
-    rootless = {
+  virtualisation = {
+    containerd = {
       enable = true;
-      setSocketVariable = true;
-      daemon.settings = {
-        data-root = "~/.local/docker";
-        dns = ["1.1.1.1" "8.8.8.8"];
-        registry-mirrors = ["https://mirror.gcr.io"];
+    };
+
+    docker = {
+      enable = true;
+      storageDriver = "btrfs";
+
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+
+        daemon.settings = {
+          data-root = "/home/conart/.local/docker";
+          dns = ["1.1.1.1" "8.8.8.8"];
+          registry-mirrors = ["https://mirror.gcr.io"];
+          features = {
+            containerd-snapshotter = true;
+          };
+        };
       };
     };
   };
