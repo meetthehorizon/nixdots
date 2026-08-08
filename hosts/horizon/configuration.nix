@@ -96,10 +96,6 @@
 
   # Virtualization
   virtualisation = {
-    containerd = {
-      enable = true;
-    };
-
     docker = {
       enable = true;
       storageDriver = "btrfs";
@@ -109,12 +105,9 @@
         setSocketVariable = true;
 
         daemon.settings = {
-          data-root = "/home/conart/.local/docker";
+          data-root = ".local/docker";
           dns = ["1.1.1.1" "8.8.8.8"];
           registry-mirrors = ["https://mirror.gcr.io"];
-          features = {
-            containerd-snapshotter = true;
-          };
         };
       };
     };
