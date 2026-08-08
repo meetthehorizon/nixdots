@@ -11,7 +11,7 @@
     window_rule = [
       {
         match = {
-          class = "xdg-desktop-portal-gtk|footclient|rog-control-center|.*seahorse.*";
+          class = "xdg-desktop-portal-gtk|footclient|rog-control-center|.*seahorse.*|Anki";
         };
         float = true;
         min_size = lib.generators.mkLuaInline "{1000, 800}";
