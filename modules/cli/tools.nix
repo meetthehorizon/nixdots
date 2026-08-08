@@ -14,7 +14,6 @@
     ripgrep
     fd
     jq
-    bat
     tealdeer
   ];
 }

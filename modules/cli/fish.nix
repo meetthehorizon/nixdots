@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   ...
@@ -72,6 +73,12 @@
       fastfetch
 
       set -gx DOCKER_HOST "unix://$XDG_RUNTIME_DIR/docker.sock"
+
+      # Batpipe
+      set -x LESSOPEN "|${pkgs.bat-extras.batpipe}/bin/batpipe %s"
+      set -e LESSCLOSE
+      set -x LESS "$LESS -R"
+      set -x BATPIPE "color"
 
       ${lib.optionalString (config.secret.githubPat.enable or false) (let
         fishPath = builtins.replaceStrings ["\${XDG_RUNTIME_DIR}"] ["$XDG_RUNTIME_DIR"] config.age.secrets.github-pat.path;
