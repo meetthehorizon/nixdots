@@ -87,7 +87,7 @@ in {
             output = "DP-2";
             position = "auto-center-right";
             scale = 1;
-            mode = "2560x1440@120";
+            mode = "1920x1080@120";
             bitdepth = 10;
             cm = "hdr";
           }
