@@ -45,6 +45,7 @@
             "users".glyph = "";
           };
           extension = {
+            bash.glyph = "";
             c.glyph = "";
             cpp.glyph = "";
             csv.glyph = "";
@@ -59,7 +60,7 @@
             nix.glyph = "󱄅";
             py.glyph = "";
             qml.glyph = "";
-            sh.glyph = "";
+            sh.glyph = "";
             svelte.glyph = "";
             toml.glyph = "";
             ts.glyph = "";
