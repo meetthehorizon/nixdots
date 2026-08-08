@@ -3,6 +3,7 @@
     ./anki.nix
     ./firefox.nix
     ./foot.nix
+    ./libreoffice.nix
     ./mime.nix
     ./obsidian.nix
     ./rofi.nix
