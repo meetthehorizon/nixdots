@@ -4,4 +4,4 @@ assets/*
 result
 *.svg
 modules/widgets/quickshell/icons
-
+.codewhale
