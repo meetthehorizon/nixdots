@@ -84,10 +84,10 @@ in {
             cm = "hdr";
           }
           {
-            output = "DP-2";
+            output = "HDMI-A-1";
             position = "auto-center-right";
             scale = 1;
-            mode = "1920x1080@120";
+            mode = "2560x1440@60.00";
             bitdepth = 10;
             cm = "hdr";
           }
