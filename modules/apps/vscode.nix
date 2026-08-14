@@ -63,6 +63,9 @@
     "git.openRepositoryInParentFolders" = "always";
     "git.autofetch" = true;
     "git.confirmSync" = false;
+
+    "terminal.integrated.initialHint" = false;
+    "workbench.editor.empty.hint" = "hidden";
   };
 
   commonKeybindings = [
