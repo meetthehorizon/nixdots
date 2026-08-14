@@ -31,40 +31,51 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-      overlays = [inputs.nix-vscode-extensions.overlays.default];
-    };
-  in {
-    nixosConfigurations = {
-      horizon = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/horizon/default.nix
-        ];
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [ inputs.nix-vscode-extensions.overlays.default ];
       };
-    };
-    homeConfigurations = {
-      "conart@horizon" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = {
-          inherit inputs;
-          hostName = "horizon";
+    in
+    {
+      nixosConfigurations = {
+        horizon = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/horizon/default.nix
+          ];
         };
-        modules = [
-          inputs.nixvim.homeModules.nixvim
-          inputs.agenix.homeManagerModules.default
+      };
+      homeConfigurations = {
+        "conart@horizon" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {
+            inherit inputs;
+            hostName = "horizon";
+          };
+          modules = [
+            inputs.nixvim.homeModules.nixvim
+            inputs.agenix.homeManagerModules.default
 
-          ./users/conart/home.nix
+            ./users/conart/home.nix
+          ];
+        };
+      };
+      devShells.${system}.default = pkgs.mkShell {
+        packages = with pkgs; [
+          nixfmt
+          nil
+          statix
+          git
         ];
       };
     };
-  };
 }
