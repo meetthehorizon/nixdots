@@ -1,9 +1,9 @@
 {pkgs, ...}: let
-  version = "0.9.4";
+  version = "0.9.6";
 
   codewBin = pkgs.fetchurl {
     url = "https://github.com/Hmbown/CodeWhale/releases/download/v${version}/codew-linux-x64";
-    hash = "sha256-mLsMUEqs/jkfHb9FsoyhU5hBPulKtEZB9G3A1TC4ogQ=";
+    hash = "sha256-P4YQ+NTCg//904qaS9BBtRKn48rfhZ2bJa0Je1Dqt+Y=";
   };
 
   codewhaleBin = pkgs.fetchurl {
